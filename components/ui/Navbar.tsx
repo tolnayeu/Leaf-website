@@ -78,6 +78,7 @@ export function Navbar({ config }: { config: NavConfig }) {
             <Link
               key={link.href}
               href={`/${locale}${link.href}`}
+              prefetch={link.href.startsWith('/docs') ? false : undefined}
               style={{ textDecoration: 'none' }}
             >
               <LetterSwap

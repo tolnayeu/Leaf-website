@@ -109,6 +109,7 @@ export function Hero({ content }: { content: HomeConfig['hero'] }) {
           </Link>
           <Link
             href={hero.cta.secondary.href}
+            prefetch={false}
             style={{
               display: 'inline-flex',
               alignItems: 'center',

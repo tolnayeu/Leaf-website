@@ -2,7 +2,6 @@
   "defaultVersion": "1.21.4",
 
   "versions": {
-    "26.1": "stable",
     "1.21.11": "experimental",
     "1.21.8":  "experimental",
     "1.21.7":  "discontinued",

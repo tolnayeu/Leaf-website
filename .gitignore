@@ -1,0 +1,20 @@
+# dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# build artifacts
+tsconfig.tsbuildinfo
+
+# fumadocs / source
+.source/
+
+# env files
+.env
+.env*.local
+
+# OS
+.DS_Store
+Thumbs.db

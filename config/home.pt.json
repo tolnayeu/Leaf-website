@@ -1,0 +1,43 @@
+{
+  "hero": {
+    "announcement": { "text": "Suporte experimental para 1.21.11" },
+    "badge": "Fork do Paper · Código Aberto",
+    "headline": "O servidor Minecraft mais rápido que você pode executar.",
+    "subheadline": "Criado para máxima performance. Estável. Configurável. Impulsionado pela comunidade.",
+    "cta": {
+      "primary":   { "label": "Baixar" },
+      "secondary": { "label": "Ler a documentação" }
+    },
+    "stats": [
+      { "value": "~40%",   "label": "Redução de MSPT" },
+      { "value": "2.000+", "label": "Estrelas no GitHub" }
+    ]
+  },
+  "features": [
+    { "icon": "Zap",      "title": "Performance",     "description": "Rastreamento assíncrono de entidades, geração de chunks otimizada e MSPT consistentemente baixo sob carga." },
+    { "icon": "Plug",     "title": "Compatibilidade", "description": "Executa todos os plugins Paper, Spigot e Bukkit imediatamente. Substituição direta." },
+    { "icon": "Settings", "title": "Configurável",    "description": "Controle refinado via leaf-global.yml e configuração Gale. Ajuste tudo." }
+  ],
+  "comparison": {
+    "title":    "Por que Leaf?",
+    "subtitle": "Veja como o Leaf se compara a outros softwares de servidor populares.",
+    "rows": [
+      { "label": "Performance",            "paper": 1, "purpur": 2, "leaf": 3 },
+      { "label": "Compatibilidade de plugins","paper": 3, "purpur": 3, "leaf": 3 },
+      { "label": "Paridade com vanilla",   "paper": 3, "purpur": 2, "leaf": 3 },
+      { "label": "Profundidade de config", "paper": 1, "purpur": 2, "leaf": 3 },
+      { "label": "Atualizações ativas",    "paper": 2, "purpur": 2, "leaf": 3 }
+    ]
+  },
+  "sponsors": {
+    "title":        "Impulsionando o desenvolvimento do Leaf",
+    "emptyMessage": "Seja o primeiro a apoiar o desenvolvimento do Leaf.",
+    "cta": { "label": "Torne-se um patrocinador" }
+  },
+  "contributors": { "title": "Contribuidores" },
+  "community": {
+    "headline":    "Junte-se a 1.000+ administradores no Discord",
+    "subheadline": "Obtenha ajuda, compartilhe configurações e molde o futuro do Leaf.",
+    "cta": { "label": "Entrar no Discord" }
+  }
+}

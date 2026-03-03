@@ -1,0 +1,43 @@
+{
+  "hero": {
+    "announcement": { "text": "Deneysel 1.21.11 desteği" },
+    "badge": "Paper çatallı · Açık Kaynak",
+    "headline": "Çalıştırabileceğiniz en hızlı Minecraft sunucusu.",
+    "subheadline": "Performans için tasarlandı. Kararlı. Yapılandırılabilir. Topluluk odaklı.",
+    "cta": {
+      "primary":   { "label": "İndir" },
+      "secondary": { "label": "Belgeleri oku" }
+    },
+    "stats": [
+      { "value": "~%40",   "label": "MSPT azalması" },
+      { "value": "2.000+", "label": "GitHub yıldızı" }
+    ]
+  },
+  "features": [
+    { "icon": "Zap",      "title": "Performans",        "description": "Asenkron varlık takibi, optimize edilmiş chunk oluşturma ve yük altında sürekli düşük MSPT." },
+    { "icon": "Plug",     "title": "Uyumluluk",         "description": "Tüm Paper, Spigot ve Bukkit eklentilerini kutudan çıkar çıkmaz çalıştırır. Doğrudan değişim." },
+    { "icon": "Settings", "title": "Yapılandırılabilir", "description": "leaf-global.yml ve Gale yapılandırması ile hassas kontrol. Her şeyi ayarlayın." }
+  ],
+  "comparison": {
+    "title":    "Neden Leaf?",
+    "subtitle": "Leaf'in diğer popüler sunucu yazılımlarıyla nasıl karşılaştırıldığını görün.",
+    "rows": [
+      { "label": "Performans",         "paper": 1, "purpur": 2, "leaf": 3 },
+      { "label": "Eklenti uyumluluğu", "paper": 3, "purpur": 3, "leaf": 3 },
+      { "label": "Vanilla uyumu",      "paper": 3, "purpur": 2, "leaf": 3 },
+      { "label": "Yapılandırma derinliği","paper": 1, "purpur": 2, "leaf": 3 },
+      { "label": "Aktif güncellemeler", "paper": 2, "purpur": 2, "leaf": 3 }
+    ]
+  },
+  "sponsors": {
+    "title":        "Leaf'in gelişimini destekleyin",
+    "emptyMessage": "Leaf'i destekleyen ilk kişi olun.",
+    "cta": { "label": "Sponsor olun" }
+  },
+  "contributors": { "title": "Katkıda Bulunanlar" },
+  "community": {
+    "headline":    "Discord'da 1.000+ sunucu yöneticisine katılın",
+    "subheadline": "Yardım alın, yapılandırmaları paylaşın ve Leaf'in geleceğini şekillendirin.",
+    "cta": { "label": "Discord'a katıl" }
+  }
+}

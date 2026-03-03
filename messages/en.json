@@ -1,0 +1,11 @@
+{
+  "nav": {
+    "docs": "Docs",
+    "download": "Download",
+    "github": "GitHub",
+    "discord": "Discord"
+  },
+  "footer": {
+    "license": "MIT License · Winds Studio"
+  }
+}

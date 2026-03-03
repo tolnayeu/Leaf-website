@@ -6,9 +6,11 @@ import { CommunityCTA } from '@/components/marketing/CommunityCTA'
 import { Contributors } from '@/components/marketing/Contributors'
 import { Footer } from '@/components/ui/Footer'
 import { getHomeConfig } from '@/lib/config'
+import { setRequestLocale } from 'next-intl/server'
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
+  setRequestLocale(locale)
   const home = getHomeConfig(locale)
 
   return (

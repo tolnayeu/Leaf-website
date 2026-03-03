@@ -1,6 +1,6 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
-import { AnimatePresence, motion, MotionConfig } from 'framer-motion'
+import { AnimatePresence, motion, MotionConfig } from 'motion/react'
 import { ChevronDown } from 'lucide-react'
 import { downloadContent, type VersionStatus } from '@/content/download'
 

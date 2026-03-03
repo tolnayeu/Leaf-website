@@ -3,7 +3,8 @@ import { RootProvider } from 'fumadocs-ui/provider/next'
 import { source } from '@/lib/source'
 import Image from 'next/image'
 import type { ReactNode } from 'react'
-import type { PageTree } from 'fumadocs-core/server'
+import type { Root as PageTreeRoot, Folder as PageTreeFolder } from 'fumadocs-core/page-tree'
+import { setRequestLocale } from 'next-intl/server'
 import 'fumadocs-ui/style.css'
 
 export default async function Layout({
@@ -14,15 +15,16 @@ export default async function Layout({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
+  setRequestLocale(locale)
 
   const fullTree = source.pageTree
   const localeFolder = fullTree.children.find(
-    (node): node is PageTree.Folder =>
+    (node): node is PageTreeFolder =>
       node.type === 'folder' &&
       (node.index?.url === `/docs/${locale}` ||
-        node.index?.url?.startsWith(`/docs/${locale}/`))
+          node.index?.url?.startsWith(`/docs/${locale}/`) === true)
   )
-  const tree: PageTree.Root = localeFolder
+  const tree: PageTreeRoot = localeFolder
     ? { ...fullTree, children: localeFolder.children }
     : fullTree
 

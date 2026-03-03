@@ -10,6 +10,7 @@ import defaultMdxComponents from 'fumadocs-ui/mdx'
 import { ConfigViewer } from '@/components/docs/ConfigViewer'
 import { BenchmarkGraph } from '@/components/docs/BenchmarkGraph'
 import { VersionBadge } from '@/components/docs/VersionBadge'
+import { setRequestLocale } from 'next-intl/server'
 
 export default async function Page({
   params,
@@ -17,6 +18,7 @@ export default async function Page({
   params: Promise<{ slug?: string[]; locale: string }>
 }) {
   const { slug, locale } = await params
+  setRequestLocale(locale)
   // docs files live at docs/{locale}/... so prepend locale to slug
   const page = source.getPage([locale, ...(slug ?? [])])
   if (!page) notFound()

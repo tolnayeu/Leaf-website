@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { motion, useAnimation, type Easing } from 'framer-motion'
+import { motion, useAnimation, type Easing } from 'motion/react'
 import { RefreshCw, ChevronRight } from 'lucide-react'
 
 interface Props {

@@ -1,12 +1,12 @@
 'use client'
 
 import { useRef } from 'react'
-import { type DynamicAnimationOptions, motion, stagger, useAnimate } from 'framer-motion'
+import { type AnimationOptions, motion, stagger, useAnimate } from 'motion/react'
 
 interface LetterSwapProps {
   label: string
   reverse?: boolean
-  transition?: DynamicAnimationOptions
+  transition?: AnimationOptions
   staggerDuration?: number
   staggerFrom?: 'first' | 'last' | 'center' | number
   className?: string
@@ -25,7 +25,7 @@ export function LetterSwap({
   const [scope, animate] = useAnimate()
   const hoveredRef = useRef(false)
 
-  const withStagger = (base: DynamicAnimationOptions) => ({
+  const withStagger = (base: AnimationOptions) => ({
     ...base,
     delay: stagger(staggerDuration, { from: staggerFrom }),
   })

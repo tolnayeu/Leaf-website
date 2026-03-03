@@ -42,7 +42,26 @@ export function getConfig<T = unknown>(name: string, locale = 'en'): T {
 import type homeBase from '@/config/home.json'
 import type navBase  from '@/config/nav.json'
 
-export type HomeConfig = typeof homeBase
+interface Sponsor {
+  name: string
+  href: string
+  logo: string
+}
+
+interface CommunitySponsor {
+  name: string
+  href: string
+}
+
+type HomeConfigBase = typeof homeBase
+
+export type HomeConfig = Omit<HomeConfigBase, 'sponsors'> & {
+  sponsors: Omit<HomeConfigBase['sponsors'], 'gold' | 'silver' | 'community'> & {
+    gold: Sponsor[]
+    silver: Sponsor[]
+    community: CommunitySponsor[]
+  }
+}
 export type NavConfig  = typeof navBase
 
 export const getHomeConfig = (locale: string) => getConfig<HomeConfig>('home', locale)

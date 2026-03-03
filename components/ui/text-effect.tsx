@@ -1,6 +1,6 @@
 'use client'
 
-import { AnimatePresence, motion, type Variants } from 'framer-motion'
+import { AnimatePresence, motion, type Variants } from 'motion/react'
 import React from 'react'
 
 type Preset = 'blur' | 'fade-in-blur' | 'scale' | 'fade' | 'slide'

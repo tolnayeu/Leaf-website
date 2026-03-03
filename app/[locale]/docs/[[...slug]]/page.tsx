@@ -19,8 +19,7 @@ export default async function Page({
 }) {
   const { slug, locale } = await params
   setRequestLocale(locale)
-  // docs files live at docs/{locale}/... so prepend locale to slug
-  const page = source.getPage([locale, ...(slug ?? [])])
+  const page = source.getPage(slug ?? [], locale)
   if (!page) notFound()
 
   const MDX = page.data.body
@@ -42,7 +41,17 @@ export default async function Page({
 }
 
 export async function generateStaticParams() {
-  return source.generateParams()
+  // With i18n (parser: 'dir'), page slugs have no locale prefix.
+  // Return unique slugs only; the parent [locale] segment handles locale combinations.
+  const seen = new Set<string>()
+  return source.getLanguages().flatMap(({ pages }) =>
+    pages
+      .filter(page => {
+        const key = page.slugs.join('/')
+        return seen.has(key) ? false : (seen.add(key), true)
+      })
+      .map(page => ({ slug: page.slugs }))
+  )
 }
 
 export async function generateMetadata({
@@ -51,7 +60,7 @@ export async function generateMetadata({
   params: Promise<{ slug?: string[]; locale: string }>
 }) {
   const { slug, locale } = await params
-  const page = source.getPage([locale, ...(slug ?? [])])
+  const page = source.getPage(slug ?? [], locale)
   if (!page) notFound()
   return { title: page.data.title, description: page.data.description }
 }

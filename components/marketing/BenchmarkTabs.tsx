@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef, useEffect } from 'react'
+import { useState } from 'react'
 import { BenchmarkGraph } from '@/components/docs/BenchmarkGraph'
 
 const TABS = ['Entity Performance', 'Chunk Generation'] as const
@@ -7,18 +7,6 @@ type Tab = (typeof TABS)[number]
 
 export function BenchmarkTabs() {
   const [active, setActive] = useState<Tab>('Entity Performance')
-  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 })
-  const listRef = useRef<HTMLDivElement>(null)
-
-  // Move sliding indicator to the active tab button
-  useEffect(() => {
-    if (!listRef.current) return
-    const btn = listRef.current.querySelector<HTMLButtonElement>('[data-active="true"]')
-    if (!btn) return
-    const listRect = listRef.current.getBoundingClientRect()
-    const btnRect = btn.getBoundingClientRect()
-    setIndicatorStyle({ left: btnRect.left - listRect.left, width: btnRect.width })
-  }, [active])
 
   return (
     <div
@@ -29,18 +17,23 @@ export function BenchmarkTabs() {
         overflow: 'hidden',
       }}
     >
-      {/* Tab list */}
+      {/* Tab list — OriginUI default segment control style */}
       <div
         style={{
+          padding: '12px 16px',
           borderBottom: '1px solid var(--border-default)',
-          padding: '0 24px',
-          position: 'relative',
         }}
       >
         <div
-          ref={listRef}
-          style={{ display: 'flex', gap: '0', position: 'relative' }}
           role="tablist"
+          style={{
+            display: 'inline-flex',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-default)',
+            borderRadius: '8px',
+            padding: '3px',
+            gap: '2px',
+          }}
         >
           {TABS.map((tab) => {
             const isActive = tab === active
@@ -49,41 +42,26 @@ export function BenchmarkTabs() {
                 key={tab}
                 role="tab"
                 aria-selected={isActive}
-                data-active={isActive}
                 onClick={() => setActive(tab)}
                 style={{
-                  padding: '14px 20px',
-                  background: 'none',
+                  padding: '6px 16px',
+                  background: isActive ? 'var(--bg-elevated)' : 'transparent',
                   border: 'none',
+                  borderRadius: '6px',
                   cursor: 'pointer',
-                  fontSize: '14px',
+                  fontSize: '13px',
                   fontWeight: isActive ? 600 : 400,
                   color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)',
                   fontFamily: 'var(--font-sans)',
-                  transition: 'color 200ms ease, font-weight 200ms ease',
+                  transition: 'background 150ms ease, color 150ms ease',
                   whiteSpace: 'nowrap',
-                  position: 'relative',
-                  zIndex: 1,
+                  boxShadow: isActive ? '0 1px 3px rgba(0,0,0,0.35)' : 'none',
                 }}
               >
                 {tab}
               </button>
             )
           })}
-
-          {/* Sliding underline indicator */}
-          <div
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              left: indicatorStyle.left,
-              width: indicatorStyle.width,
-              height: '2px',
-              background: 'var(--brand)',
-              borderRadius: '2px 2px 0 0',
-              transition: 'left 250ms cubic-bezier(0.4,0,0.2,1), width 250ms cubic-bezier(0.4,0,0.2,1)',
-            }}
-          />
         </div>
       </div>
 

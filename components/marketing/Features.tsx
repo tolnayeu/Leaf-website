@@ -14,7 +14,7 @@ export function Features({ content }: { content: HomeConfig['features'] }) {
   const features = content
 
   return (
-    <section style={{ maxWidth: '1200px', margin: '-100px auto 0', padding: '0 24px 80px', position: 'relative', zIndex: 1 }}>
+    <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '140px 24px 80px' }}>
       <ul
         style={{
           display: 'grid',

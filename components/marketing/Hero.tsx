@@ -12,8 +12,9 @@ const fadeDown = (delay: number) => ({
   transition: { duration: 0.55, ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number], delay },
 })
 
-const GRADIENT_COLORS = ['#080808', '#0d2211', '#1a4a22', '#2d6b35', '#5a922c', '#78c287', '#4c7894']
-const GRADIENT_STOPS = [35, 50, 60, 68, 76, 88, 100]
+// More vibrant — colors need to be visible at viewport edges
+const GRADIENT_COLORS = ['#000000', '#0a1a0d', '#0d3318', '#1a6030', '#2e9448', '#78c287', '#1e6a7a']
+const GRADIENT_STOPS = [20, 36, 50, 62, 76, 88, 100]
 
 export function Hero({ content }: { content: HomeConfig['hero'] }) {
   const hero = content
@@ -23,36 +24,39 @@ export function Hero({ content }: { content: HomeConfig['hero'] }) {
       style={{
         position: 'relative',
         textAlign: 'center',
-        padding: '148px 24px 80px',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '80px 24px 48px',
         overflow: 'hidden',
       }}
     >
-      {/* Gradient — locked inside hero bounds */}
+      {/* Full-coverage gradient — visible at all edges */}
       <AnimatedGradientBackground
-        startingGap={110}
+        startingGap={145}
         breathing
         gradientColors={GRADIENT_COLORS}
         gradientStops={GRADIENT_STOPS}
-        animationSpeed={0.015}
-        breathingRange={6}
+        animationSpeed={0.012}
+        breathingRange={8}
         bleedBottom={0}
       />
 
-      {/* Radial vignette — circular shading from edges toward center */}
+      {/* Dark oval vignette in the center — gradient bleeds through at edges & bottom */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          background: [
-            'radial-gradient(ellipse 72% 80% at 50% 42%, transparent 18%, rgba(0,0,0,0.45) 46%, rgba(0,0,0,0.82) 66%, #000 86%)',
-            'linear-gradient(to right, rgba(0,0,0,0.55) 0%, transparent 22%, transparent 78%, rgba(0,0,0,0.55) 100%)',
-          ].join(', '),
+          background:
+            'radial-gradient(ellipse 72% 54% at 50% 38%, rgba(0,0,0,0.97) 14%, rgba(0,0,0,0.93) 32%, rgba(0,0,0,0.74) 50%, rgba(0,0,0,0.28) 66%, transparent 82%)',
           pointerEvents: 'none',
           zIndex: 0,
         }}
       />
 
-      <div style={{ position: 'relative', zIndex: 1, maxWidth: '720px', margin: '0 auto' }}>
+      <div style={{ position: 'relative', zIndex: 1, maxWidth: '720px', width: '100%' }}>
         {/* Announcement badge */}
         {hero.announcement.visible && (
           <div style={{ marginBottom: '20px' }}>

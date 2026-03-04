@@ -12,7 +12,7 @@ export function Navbar({ config }: { config: NavConfig }) {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 40)
+    const handler = () => setScrolled(window.scrollY > 60)
     handler()
     window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
@@ -26,31 +26,30 @@ export function Navbar({ config }: { config: NavConfig }) {
         left: 0,
         right: 0,
         zIndex: 50,
-        padding: scrolled ? '8px 16px' : '0',
-        transition: 'padding 300ms ease',
+        padding: '10px 16px',
       }}
     >
       <nav
         style={{
-          maxWidth: scrolled ? '900px' : '1200px',
+          maxWidth: scrolled ? '860px' : '920px',
           margin: '0 auto',
-          padding: scrolled ? '0 20px' : '0 24px',
-          height: '52px',
+          padding: '0 18px',
+          height: '48px',
           display: 'flex',
           alignItems: 'center',
-          gap: '28px',
-          backdropFilter: scrolled ? 'blur(16px)' : 'none',
-          WebkitBackdropFilter: scrolled ? 'blur(16px)' : 'none',
-          background: scrolled ? 'rgba(0,0,0,0.72)' : 'transparent',
-          border: scrolled ? '1px solid var(--border-default)' : '1px solid transparent',
-          borderRadius: scrolled ? '16px' : '0',
+          gap: '24px',
+          backdropFilter: scrolled ? 'blur(20px)' : 'blur(8px)',
+          WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'blur(8px)',
+          background: scrolled ? 'rgba(0,0,0,0.78)' : 'rgba(0,0,0,0.32)',
+          border: scrolled
+            ? '1px solid var(--border-default)'
+            : '1px solid rgba(255,255,255,0.10)',
+          borderRadius: '14px',
           transition: [
-            'max-width 300ms ease',
-            'padding 300ms ease',
-            'background 300ms ease',
-            'border-color 300ms ease',
-            'border-radius 300ms ease',
-            'backdrop-filter 300ms ease',
+            'max-width 350ms ease',
+            'background 350ms ease',
+            'border-color 350ms ease',
+            'backdrop-filter 350ms ease',
           ].join(', '),
         }}
       >
@@ -74,15 +73,15 @@ export function Navbar({ config }: { config: NavConfig }) {
             <Image
               src="/logo.svg"
               alt={config.logo.text}
-              width={26}
-              height={26}
+              width={24}
+              height={24}
               priority
             />
           </div>
         </Link>
 
         {/* Nav links */}
-        <div style={{ display: 'flex', gap: '20px', flex: 1 }}>
+        <div style={{ display: 'flex', gap: '18px', flex: 1 }}>
           {config.links.map((link) => (
             <Link
               key={link.href}
@@ -99,7 +98,7 @@ export function Navbar({ config }: { config: NavConfig }) {
         </div>
 
         {/* Right side */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <LanguageSwitcher />
           <a
             href={config.social.github}
@@ -118,9 +117,10 @@ export function Navbar({ config }: { config: NavConfig }) {
             rel="noopener noreferrer"
             style={{
               textDecoration: 'none',
-              border: '1px solid var(--border-default)',
-              borderRadius: 'var(--radius)',
+              border: '1px solid rgba(255,255,255,0.18)',
+              borderRadius: '7px',
               padding: '5px 12px',
+              background: 'rgba(255,255,255,0.06)',
             }}
           >
             <LetterSwap

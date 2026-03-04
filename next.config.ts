@@ -29,11 +29,6 @@ const config: NextConfig = {
         destination: '/:locale/docs',
         permanent: false,
       },
-      {
-        source: '/:locale/docs',
-        destination: '/:locale/docs/getting-started',
-        permanent: false,
-      },
     ]
   },
 }

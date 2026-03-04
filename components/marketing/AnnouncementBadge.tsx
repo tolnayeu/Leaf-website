@@ -21,7 +21,7 @@ export function AnnouncementBadge({ text, href }: Props) {
 
   const badge = (
     <motion.div
-      className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-medium shadow-sm cursor-pointer"
+      className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium shadow-sm cursor-pointer"
       style={{
         borderColor: 'rgba(120, 194, 135, 0.35)',
         background: 'rgba(120, 194, 135, 0.06)',
@@ -39,11 +39,11 @@ export function AnnouncementBadge({ text, href }: Props) {
         animate={controls}
         transition={{ type: 'spring', stiffness: 300, damping: 10 }}
       >
-        <RefreshCw size={13} strokeWidth={2} />
+        <RefreshCw size={11} strokeWidth={2} />
       </motion.div>
       <span>{text}</span>
       <motion.div style={{ color: 'rgba(120,194,135,0.6)', display: 'flex' }}>
-        <ChevronRight size={14} />
+        <ChevronRight size={12} />
       </motion.div>
     </motion.div>
   )

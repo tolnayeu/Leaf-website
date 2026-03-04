@@ -36,7 +36,7 @@ export function Hero({ content }: { content: HomeConfig['hero'] }) {
         gradientStops={GRADIENT_STOPS}
         animationSpeed={0.015}
         breathingRange={6}
-        bleedBottom={80}
+        bleedBottom={400}
       />
 
       <div style={{ position: 'relative', zIndex: 1, maxWidth: '800px', margin: '0 auto' }}>

@@ -13,6 +13,8 @@ const config: NextConfig = {
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'avatars.githubusercontent.com' },
+      { protocol: 'https', hostname: 'images.opencollective.com' },
+      { protocol: 'https', hostname: 'opencollective-production.s3.us-west-1.amazonaws.com' },
     ],
   },
   async redirects() {

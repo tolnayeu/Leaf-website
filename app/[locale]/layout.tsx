@@ -9,6 +9,15 @@ import '../globals.css'
 export const metadata: Metadata = {
   title: 'Leaf',
   description: 'A Paper fork focused on performance, vanilla behavior, and stability.',
+  openGraph: {
+    title: 'Leaf',
+    description: 'A Paper fork focused on performance, vanilla behavior, and stability.',
+    images: [{ url: '/logo.png', width: 512, height: 512, alt: 'Leaf logo' }],
+  },
+  twitter: {
+    card: 'summary',
+    images: ['/logo.png'],
+  },
 }
 
 export function generateStaticParams() {

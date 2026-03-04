@@ -31,10 +31,10 @@ export function Navbar({ config }: { config: NavConfig }) {
     >
       <nav
         style={{
-          maxWidth: scrolled ? '700px' : '760px',
+          maxWidth: scrolled ? '540px' : '580px',
           margin: '0 auto',
-          padding: '0 14px',
-          height: '42px',
+          padding: '0 12px',
+          height: '38px',
           display: 'flex',
           alignItems: 'center',
           gap: '24px',

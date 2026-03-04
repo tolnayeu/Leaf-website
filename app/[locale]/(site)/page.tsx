@@ -1,4 +1,5 @@
 import { Hero } from '@/components/marketing/Hero'
+import { BenchmarkSection } from '@/components/marketing/BenchmarkSection'
 import { Features } from '@/components/marketing/Features'
 import { Comparison } from '@/components/marketing/Comparison'
 import { Sponsors } from '@/components/marketing/Sponsors'
@@ -16,6 +17,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   return (
     <main>
       <Hero content={home.hero} />
+      <BenchmarkSection />
       <Features content={home.features} />
       <Comparison content={home.comparison} />
       <Sponsors content={home.sponsors} />

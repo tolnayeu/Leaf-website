@@ -26,7 +26,7 @@ export function Hero({ content }: { content: HomeConfig['hero'] }) {
       style={{
         position: 'relative',
         textAlign: 'center',
-        padding: '120px 24px 100px',
+        padding: '120px 24px 80px',
       }}
     >
       <AnimatedGradientBackground
@@ -97,7 +97,7 @@ export function Hero({ content }: { content: HomeConfig['hero'] }) {
             display: 'flex',
             gap: '12px',
             justifyContent: 'center',
-            marginBottom: '64px',
+            marginBottom: '0',
           }}
         >
           <Link
@@ -128,39 +128,6 @@ export function Hero({ content }: { content: HomeConfig['hero'] }) {
           </Link>
         </motion.div>
 
-        {/* Stats */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '32px',
-            flexWrap: 'wrap',
-          }}
-        >
-          {hero.stats.map((stat) => (
-            <div key={stat.label} style={{ textAlign: 'center' }}>
-              <div
-                style={{
-                  fontSize: '24px',
-                  fontWeight: 600,
-                  color: 'var(--text-primary)',
-                  fontFamily: 'var(--font-mono)',
-                }}
-              >
-                {stat.value}
-              </div>
-              <div
-                style={{
-                  fontSize: '13px',
-                  color: 'var(--text-muted)',
-                  marginTop: '2px',
-                }}
-              >
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   )

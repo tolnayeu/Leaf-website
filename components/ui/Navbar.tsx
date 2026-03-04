@@ -12,38 +12,46 @@ export function Navbar({ config }: { config: NavConfig }) {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 8)
-    handler() // sync initial state
-    window.addEventListener('scroll', handler)
+    const handler = () => setScrolled(window.scrollY > 40)
+    handler()
+    window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
   return (
     <header
       style={{
-        position: 'sticky',
+        position: 'fixed',
         top: 0,
+        left: 0,
+        right: 0,
         zIndex: 50,
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
-        background: 'rgba(0,0,0,0.55)',
-        borderBottom: scrolled
-          ? '1px solid var(--border-default)'
-          : '1px solid transparent',
-        transition: `border-color var(--duration) var(--ease)`,
+        padding: scrolled ? '8px 16px' : '0',
+        transition: 'padding 300ms ease',
       }}
     >
       <nav
         style={{
-          position: 'relative',
-          zIndex: 1,
-          maxWidth: '1200px',
+          maxWidth: scrolled ? '900px' : '1200px',
           margin: '0 auto',
-          padding: '0 24px',
+          padding: scrolled ? '0 20px' : '0 24px',
           height: '60px',
           display: 'flex',
           alignItems: 'center',
           gap: '32px',
+          backdropFilter: scrolled ? 'blur(16px)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(16px)' : 'none',
+          background: scrolled ? 'rgba(0,0,0,0.72)' : 'transparent',
+          border: scrolled ? '1px solid var(--border-default)' : '1px solid transparent',
+          borderRadius: scrolled ? '16px' : '0',
+          transition: [
+            'max-width 300ms ease',
+            'padding 300ms ease',
+            'background 300ms ease',
+            'border-color 300ms ease',
+            'border-radius 300ms ease',
+            'backdrop-filter 300ms ease',
+          ].join(', '),
         }}
       >
         {/* Logo */}
@@ -53,6 +61,7 @@ export function Navbar({ config }: { config: NavConfig }) {
             textDecoration: 'none',
             display: 'flex',
             alignItems: 'center',
+            flexShrink: 0,
           }}
         >
           <div

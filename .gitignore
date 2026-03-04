@@ -1,18 +1,20 @@
-# Mac filesystem dust
-.DS_Store/
+# dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# build artifacts
+tsconfig.tsbuildinfo
+
+# fumadocs / source
+.source/
+
+# env files
+.env
+.env*.local
+
+# OS
 .DS_Store
-
-# Linux temp files
-*~
-
-# IntelliJ
-*.iml
-.idea
-
-# Node.JS
-node_modules
-
-# Vitepress
-.vitepress/cache
-.vitepress/dist
-docs/.vitepress
+Thumbs.db

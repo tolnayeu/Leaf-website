@@ -1,0 +1,14 @@
+{
+  "defaultVersion": "1.21.4",
+
+  "versions": {
+    "1.21.11": "experimental",
+    "1.21.8":  "experimental",
+    "1.21.7":  "discontinued",
+    "1.21.6":  "discontinued",
+    "1.21.5":  "discontinued",
+    "1.21.4":  "stable",
+    "1.21.1":  "discontinued",
+    "1.20.4":  "discontinued"
+  }
+}

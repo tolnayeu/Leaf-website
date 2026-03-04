@@ -1,0 +1,14 @@
+{
+  "logo": {
+    "text": "Leaf",
+    "href": "/"
+  },
+  "links": [
+    { "label": "Docs",     "href": "/docs" },
+    { "label": "Download", "href": "/download" }
+  ],
+  "social": {
+    "github":  "https://github.com/Winds-Studio/Leaf",
+    "discord": "https://discord.gg/gfgAwdSEuM"
+  }
+}

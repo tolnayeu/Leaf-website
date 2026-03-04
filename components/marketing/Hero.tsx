@@ -12,9 +12,6 @@ const fadeDown = (delay: number) => ({
   transition: { duration: 0.55, ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number], delay },
 })
 
-// Defined outside the component so array references are stable across re-renders.
-// Inline literals would create new references on every render, causing the
-// AnimatedGradientBackground useEffect to restart and reset the animation.
 const GRADIENT_COLORS = ['#080808', '#0d2211', '#1a4a22', '#2d6b35', '#5a922c', '#78c287', '#4c7894']
 const GRADIENT_STOPS = [35, 50, 60, 68, 76, 88, 100]
 
@@ -26,9 +23,11 @@ export function Hero({ content }: { content: HomeConfig['hero'] }) {
       style={{
         position: 'relative',
         textAlign: 'center',
-        padding: '120px 24px 80px',
+        padding: '148px 24px 80px',
+        overflow: 'hidden',
       }}
     >
+      {/* Gradient — locked inside hero bounds */}
       <AnimatedGradientBackground
         startingGap={110}
         breathing
@@ -36,13 +35,27 @@ export function Hero({ content }: { content: HomeConfig['hero'] }) {
         gradientStops={GRADIENT_STOPS}
         animationSpeed={0.015}
         breathingRange={6}
-        bleedBottom={80}
+        bleedBottom={0}
       />
 
-      <div style={{ position: 'relative', zIndex: 1, maxWidth: '800px', margin: '0 auto' }}>
+      {/* Radial vignette — circular shading from edges toward center */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: [
+            'radial-gradient(ellipse 72% 80% at 50% 42%, transparent 18%, rgba(0,0,0,0.45) 46%, rgba(0,0,0,0.82) 66%, #000 86%)',
+            'linear-gradient(to right, rgba(0,0,0,0.55) 0%, transparent 22%, transparent 78%, rgba(0,0,0,0.55) 100%)',
+          ].join(', '),
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      />
+
+      <div style={{ position: 'relative', zIndex: 1, maxWidth: '720px', margin: '0 auto' }}>
         {/* Announcement badge */}
         {hero.announcement.visible && (
-          <div style={{ marginBottom: '24px' }}>
+          <div style={{ marginBottom: '20px' }}>
             <AnnouncementBadge
               text={hero.announcement.text}
               href={hero.announcement.href}
@@ -60,11 +73,11 @@ export function Hero({ content }: { content: HomeConfig['hero'] }) {
           delay={0.1}
           className="text-effect-headline"
           style={{
-            fontSize: 'clamp(40px, 8vw, 72px)',
+            fontSize: 'clamp(32px, 5.5vw, 56px)',
             fontWeight: 700,
-            lineHeight: 1.05,
+            lineHeight: 1.08,
             color: 'var(--text-primary)',
-            margin: '0 0 24px',
+            margin: '0 0 16px',
             letterSpacing: '-0.03em',
           }}
         >
@@ -80,11 +93,11 @@ export function Hero({ content }: { content: HomeConfig['hero'] }) {
           speedSegment={1.4}
           delay={0.45}
           style={{
-            fontSize: '18px',
+            fontSize: '15px',
             color: 'var(--text-secondary)',
-            lineHeight: 1.6,
-            margin: '0 auto 40px',
-            maxWidth: '560px',
+            lineHeight: 1.65,
+            margin: '0 auto 32px',
+            maxWidth: '480px',
           }}
         >
           {hero.subheadline}
@@ -95,15 +108,14 @@ export function Hero({ content }: { content: HomeConfig['hero'] }) {
           {...fadeDown(0.75)}
           style={{
             display: 'flex',
-            gap: '12px',
+            gap: '10px',
             justifyContent: 'center',
-            marginBottom: '0',
           }}
         >
           <Link
             href={hero.cta.primary.href}
             className="gradient-btn"
-            style={{ padding: '10px 24px', fontSize: '14px' }}
+            style={{ padding: '9px 20px', fontSize: '13px' }}
           >
             ▶ {hero.cta.primary.label}
           </Link>
@@ -114,20 +126,19 @@ export function Hero({ content }: { content: HomeConfig['hero'] }) {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
-              padding: '10px 20px',
+              padding: '9px 18px',
               background: 'transparent',
               border: '1px solid var(--border-default)',
-              color: 'var(--text-primary)',
+              color: 'var(--text-secondary)',
               borderRadius: 'var(--radius)',
               fontWeight: 500,
-              fontSize: '14px',
+              fontSize: '13px',
               textDecoration: 'none',
             }}
           >
             {hero.cta.secondary.label} →
           </Link>
         </motion.div>
-
       </div>
     </section>
   )

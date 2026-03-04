@@ -35,10 +35,10 @@ export function Navbar({ config }: { config: NavConfig }) {
           maxWidth: scrolled ? '900px' : '1200px',
           margin: '0 auto',
           padding: scrolled ? '0 20px' : '0 24px',
-          height: '60px',
+          height: '52px',
           display: 'flex',
           alignItems: 'center',
-          gap: '32px',
+          gap: '28px',
           backdropFilter: scrolled ? 'blur(16px)' : 'none',
           WebkitBackdropFilter: scrolled ? 'blur(16px)' : 'none',
           background: scrolled ? 'rgba(0,0,0,0.72)' : 'transparent',
@@ -74,15 +74,15 @@ export function Navbar({ config }: { config: NavConfig }) {
             <Image
               src="/logo.svg"
               alt={config.logo.text}
-              width={32}
-              height={32}
+              width={26}
+              height={26}
               priority
             />
           </div>
         </Link>
 
         {/* Nav links */}
-        <div style={{ display: 'flex', gap: '24px', flex: 1 }}>
+        <div style={{ display: 'flex', gap: '20px', flex: 1 }}>
           {config.links.map((link) => (
             <Link
               key={link.href}
@@ -92,14 +92,14 @@ export function Navbar({ config }: { config: NavConfig }) {
             >
               <LetterSwap
                 label={link.label}
-                style={{ fontSize: '14px', color: 'var(--text-secondary)' }}
+                style={{ fontSize: '13px', color: 'var(--text-secondary)' }}
               />
             </Link>
           ))}
         </div>
 
         {/* Right side */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
           <LanguageSwitcher />
           <a
             href={config.social.github}
@@ -109,7 +109,7 @@ export function Navbar({ config }: { config: NavConfig }) {
           >
             <LetterSwap
               label="GitHub"
-              style={{ fontSize: '14px', color: 'var(--text-secondary)' }}
+              style={{ fontSize: '13px', color: 'var(--text-secondary)' }}
             />
           </a>
           <a
@@ -120,12 +120,12 @@ export function Navbar({ config }: { config: NavConfig }) {
               textDecoration: 'none',
               border: '1px solid var(--border-default)',
               borderRadius: 'var(--radius)',
-              padding: '6px 14px',
+              padding: '5px 12px',
             }}
           >
             <LetterSwap
               label="Discord"
-              style={{ fontSize: '14px', color: 'var(--text-primary)' }}
+              style={{ fontSize: '13px', color: 'var(--text-primary)' }}
             />
           </a>
         </div>

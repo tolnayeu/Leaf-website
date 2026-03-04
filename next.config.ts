@@ -15,6 +15,20 @@ const config: NextConfig = {
       { protocol: 'https', hostname: 'avatars.githubusercontent.com' },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/docs/:locale/:path*',
+        destination: '/:locale/docs/:path*',
+        permanent: false,
+      },
+      {
+        source: '/docs/:locale',
+        destination: '/:locale/docs',
+        permanent: false,
+      },
+    ]
+  },
 }
 
 export default withNextIntl(withMDX(config))

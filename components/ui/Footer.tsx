@@ -1,6 +1,6 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { getNavConfig } from '@/lib/config'
+import { TextHoverEffect } from './text-hover-effect'
 
 function GitHubIcon() {
   return (
@@ -21,20 +21,14 @@ function DiscordIcon() {
 export function Footer() {
   const nav = getNavConfig()
   return (
-    <footer style={{ borderTop: '1px solid var(--border-default)', padding: '48px 24px 32px' }}>
-      <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
-        {/* Logo */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '24px' }}>
-          <Image
-            src="/logo.svg"
-            alt="Leaf"
-            width={36}
-            height={36}
-            style={{ filter: 'drop-shadow(0 0 8px rgba(120,194,135,0.45))' }}
-          />
-        </div>
+    <footer style={{ borderTop: '1px solid var(--border-default)' }}>
+      {/* Large LEAFMC text with hover gradient effect */}
+      <div style={{ width: '100%' }}>
+        <TextHoverEffect text="LEAFMC" />
+      </div>
 
-        {/* Nav links */}
+      {/* Links + copyright */}
+      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 24px 32px', textAlign: 'center' }}>
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '8px 24px', marginBottom: '24px' }}>
           {nav.links.map((link) => (
             <Link
@@ -47,24 +41,11 @@ export function Footer() {
           ))}
         </div>
 
-        {/* Social icons */}
         <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginBottom: '28px' }}>
-          <a
-            href={nav.social.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            style={{ color: 'var(--text-secondary)', display: 'flex' }}
-          >
+          <a href={nav.social.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" style={{ color: 'var(--text-secondary)', display: 'flex' }}>
             <GitHubIcon />
           </a>
-          <a
-            href={nav.social.discord}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Discord"
-            style={{ color: 'var(--text-secondary)', display: 'flex' }}
-          >
+          <a href={nav.social.discord} target="_blank" rel="noopener noreferrer" aria-label="Discord" style={{ color: 'var(--text-secondary)', display: 'flex' }}>
             <DiscordIcon />
           </a>
         </div>

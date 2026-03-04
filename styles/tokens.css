@@ -1,0 +1,36 @@
+:root {
+  /* Backgrounds */
+  --bg-page: #000000;
+  --bg-card: #0a0a0a;
+  --bg-elevated: #111111;
+
+  /* Borders */
+  --border-default: #1a1a1a;
+  --border-hover: #333333;
+
+  /* Text */
+  --text-primary: #ededed;
+  --text-secondary: #888888;
+  --text-muted: #666666;
+
+  /* Brand */
+  --brand: #78c287;
+  --brand-subtle: rgba(120, 194, 135, 0.1);
+
+  /* Semantic */
+  --color-success: #78c287;
+  --color-error: #e5484d;
+  --color-warning: #f76b15;
+  --color-info: #3b9edd;
+
+  /* Typography */
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+
+  /* Radius */
+  --radius: 6px;
+
+  /* Motion */
+  --duration: 150ms;
+  --ease: ease;
+}

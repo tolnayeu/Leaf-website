@@ -1,0 +1,11 @@
+{
+  "nav": {
+    "docs": "Dokümantasyon",
+    "download": "İndir",
+    "github": "GitHub",
+    "discord": "Discord"
+  },
+  "footer": {
+    "license": "MIT Lisansı · Winds Studio"
+  }
+}

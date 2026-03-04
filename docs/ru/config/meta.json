@@ -1,0 +1,4 @@
+{
+  "title": "Configuration",
+  "pages": ["leaf-global", "gale-global", "gale-world-defaults", "system-properties", "guides"]
+}

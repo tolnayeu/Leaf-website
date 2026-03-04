@@ -1,21 +1,36 @@
 {
-    "devDependencies": {
-        "@vueuse/core": "^14.2.1",
-        "prettier": "3.8.1",
-        "sass": "^1.97.3",
-        "semver": "^7.7.4",
-        "vitepress": "1.6.4",
-        "vue": "^3.5.29"
-    },
-    "scripts": {
-        "dev": "vitepress dev",
-        "build": "vitepress build",
-        "preview": "vitepress preview"
-    },
-    "dependencies": {
-        "@iconify/vue": "^5.0.0",
-        "markdown-it": "^14.1.1",
-        "typescript": "^5.9.3"
-    },
-    "packageManager": "pnpm@10.30.2+sha512.36cdc707e7b7940a988c9c1ecf88d084f8514b5c3f085f53a2e244c2921d3b2545bc20dd4ebe1fc245feec463bb298aecea7a63ed1f7680b877dc6379d8d0cb4"
+  "name": "leaf-website-next",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "fumadocs-core": "^16.6.7",
+    "fumadocs-mdx": "^14.2.8",
+    "fumadocs-ui": "^16.6.7",
+    "geist": "^1.7.0",
+    "lucide-react": "^0.575.0",
+    "motion": "^12.34.3",
+    "next": "16.1.6",
+    "next-intl": "^4.8.3",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "tailwind-merge": "^3.5.0"
+  },
+  "devDependencies": {
+    "@netlify/plugin-nextjs": "^5.15.8",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.6",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
 }

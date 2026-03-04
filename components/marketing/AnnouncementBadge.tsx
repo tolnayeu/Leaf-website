@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { motion, useAnimation, type Easing } from 'motion/react'
-import { RefreshCw, ChevronRight } from 'lucide-react'
+import { FlaskConical, ChevronRight } from 'lucide-react'
 
 interface Props {
   text: string
@@ -39,7 +39,7 @@ export function AnnouncementBadge({ text, href }: Props) {
         animate={controls}
         transition={{ type: 'spring', stiffness: 300, damping: 10 }}
       >
-        <RefreshCw size={11} strokeWidth={2} />
+        <FlaskConical size={11} strokeWidth={2} />
       </motion.div>
       <span>{text}</span>
       <motion.div style={{ color: 'rgba(120,194,135,0.6)', display: 'flex' }}>

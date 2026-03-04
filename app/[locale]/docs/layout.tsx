@@ -2,8 +2,10 @@ import { DocsLayout } from 'fumadocs-ui/layouts/docs'
 import { RootProvider } from 'fumadocs-ui/provider/next'
 import { source } from '@/lib/source'
 import Image from 'next/image'
+import Link from 'next/link'
 import type { ReactNode } from 'react'
 import { setRequestLocale } from 'next-intl/server'
+import { ArrowLeft, Home } from 'lucide-react'
 import 'fumadocs-ui/style.css'
 
 export default async function Layout({
@@ -49,10 +51,41 @@ export default async function Layout({
         #nd-sidebar [data-active="true"]::before {
           background-color: rgb(120, 194, 135) !important;
         }
+        /* Put home link in the same row as the theme toggle */
+        #nd-sidebar div:has(> .sidebar-home-link) {
+          flex-direction: row;
+          align-items: center;
+        }
+        /* Push theme toggle to the right */
+        #nd-sidebar div:has(> .sidebar-home-link) > div {
+          margin-left: auto;
+        }
+        .sidebar-home-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          font-size: 13px;
+          color: var(--color-fd-muted-foreground);
+          text-decoration: none;
+          order: -1;
+          transition: color 150ms ease;
+        }
+        .sidebar-home-link:hover {
+          color: var(--color-fd-foreground);
+        }
       `}</style>
       <DocsLayout
         tree={tree}
         nav={{ title }}
+        sidebar={{
+          footer: (
+            <Link href={`/${locale}`} className="sidebar-home-link">
+              <ArrowLeft size={13} strokeWidth={2} />
+              <Home size={13} strokeWidth={2} />
+              Home
+            </Link>
+          ),
+        }}
       >
         {children}
       </DocsLayout>

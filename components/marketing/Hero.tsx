@@ -12,9 +12,10 @@ const fadeDown = (delay: number) => ({
   transition: { duration: 0.55, ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number], delay },
 })
 
-// More vibrant — colors need to be visible at viewport edges
-const GRADIENT_COLORS = ['#000000', '#0a1a0d', '#0d3318', '#1a6030', '#2e9448', '#78c287', '#1e6a7a']
-const GRADIENT_STOPS = [20, 36, 50, 62, 76, 88, 100]
+// Logo colors: #39b54a (vivid green), #7acca8 (mint), #249c5f (dark teal), #8fc69d (sage)
+// Mixed bands: black → dark teal → vivid green → mixed → mint → sage
+const GRADIENT_COLORS = ['#000000', '#061a0c', '#249c5f', '#39b54a', '#5ec878', '#7acca8', '#8fc69d']
+const GRADIENT_STOPS = [8, 28, 44, 57, 70, 84, 100]
 
 export function Hero({ content }: { content: HomeConfig['hero'] }) {
   const hero = content
@@ -28,29 +29,30 @@ export function Hero({ content }: { content: HomeConfig['hero'] }) {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
-        padding: '80px 24px 48px',
+        justifyContent: 'flex-start',
+        padding: '96px 24px 48px',
         overflow: 'hidden',
       }}
     >
       {/* Full-coverage gradient — visible at all edges */}
       <AnimatedGradientBackground
-        startingGap={145}
+        startingGap={125}
+        topOffset={35}
         breathing
         gradientColors={GRADIENT_COLORS}
         gradientStops={GRADIENT_STOPS}
         animationSpeed={0.012}
-        breathingRange={8}
+        breathingRange={10}
         bleedBottom={0}
       />
 
-      {/* Dark oval vignette in the center — gradient bleeds through at edges & bottom */}
+      {/* Dark oval vignette — centered in upper area, gradient fully visible at sides & bottom */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
           background:
-            'radial-gradient(ellipse 72% 54% at 50% 38%, rgba(0,0,0,0.97) 14%, rgba(0,0,0,0.93) 32%, rgba(0,0,0,0.74) 50%, rgba(0,0,0,0.28) 66%, transparent 82%)',
+            'radial-gradient(ellipse 68% 52% at 50% 28%, rgba(0,0,0,0.97) 12%, rgba(0,0,0,0.94) 28%, rgba(0,0,0,0.76) 46%, rgba(0,0,0,0.22) 62%, transparent 78%)',
           pointerEvents: 'none',
           zIndex: 0,
         }}

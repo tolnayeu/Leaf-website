@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@number-flow/react": "^0.6.0",
+    "@react-three/fiber": "^9.5.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.35.0",
     "fumadocs-core": "^16.6.7",
@@ -22,7 +23,8 @@
     "next-intl": "^4.8.3",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "tailwind-merge": "^3.5.0"
+    "tailwind-merge": "^3.5.0",
+    "three": "^0.183.2"
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "^5.15.8",
@@ -30,6 +32,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/three": "^0.183.1",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",

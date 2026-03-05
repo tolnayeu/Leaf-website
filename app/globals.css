@@ -140,3 +140,11 @@ code, pre, kbd {
 .btn-secondary:hover {
   border-color: var(--color-border-hover);
 }
+
+@keyframes star-btn {
+  from { offset-distance: 0%; }
+  to   { offset-distance: 100%; }
+}
+.animate-star-btn {
+  animation: star-btn calc(var(--duration) * 1s) linear infinite;
+}

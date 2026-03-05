@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { downloadContent, type VersionStatus } from '@/content/download'
+import { AnimatePresence, motion } from 'framer-motion'
 
 const statusColors: Record<VersionStatus, string> = {
   stable:       'var(--color-success)',
@@ -64,62 +65,71 @@ export function VersionDropdown({ versions, selected, onChange }: Props) {
         />
       </button>
 
-      {open && (
-        <div
-          style={{
-            position: 'absolute',
-            top: 'calc(100% + 4px)',
-            left: 0,
-            right: 0,
-            border: '1px solid var(--color-border)',
-            background: 'var(--color-background-300)',
-            overflow: 'hidden',
-            zIndex: 50,
-            padding: '4px',
-          }}
-        >
-          {versions.map((v) => {
-            const s = (downloadContent.versionStatusMap[v] ?? 'stable') as VersionStatus
-            const info = downloadContent.versionStatus[s]
-            const isSelected = v === selected
-            const isHov = hovered === v
-            return (
-              <button
-                key={v}
-                onClick={() => { onChange(v); setOpen(false) }}
-                onMouseEnter={() => setHovered(v)}
-                onMouseLeave={() => setHovered(null)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  width: '100%',
-                  padding: '9px 12px',
-                  border: 'none',
-                  borderRadius: 'var(--radius-sm)',
-                  background: isSelected
-                    ? 'var(--color-accent-subtle)'
-                    : isHov
-                    ? 'var(--color-background-200)'
-                    : 'transparent',
-                  color: isSelected ? 'var(--color-accent)' : 'var(--color-fg-100)',
-                  fontSize: 'var(--text-sm)',
-                  cursor: 'pointer',
-                  fontFamily: 'var(--font-mono)',
-                  textAlign: 'left',
-                  transition: 'background var(--duration-fast) var(--ease)',
-                }}
-              >
-                <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: statusColors[s], flexShrink: 0 }} />
-                <span style={{ flex: 1 }}>{v}</span>
-                <span style={{ fontSize: 'var(--text-xs)', color: statusColors[s], opacity: 0.9 }}>
-                  {info.label}
-                </span>
-              </button>
-            )
-          })}
-        </div>
-      )}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.15, ease: 'easeOut' }}
+            style={{
+              position: 'absolute',
+              top: 'calc(100% + 4px)',
+              left: 0,
+              right: 0,
+              border: '1px solid var(--color-border)',
+              background: 'var(--color-background-300)',
+              overflow: 'hidden',
+              zIndex: 50,
+              padding: '4px',
+            }}
+          >
+            {versions.map((v, i) => {
+              const s = (downloadContent.versionStatusMap[v] ?? 'stable') as VersionStatus
+              const info = downloadContent.versionStatus[s]
+              const isSelected = v === selected
+              const isHov = hovered === v
+              return (
+                <motion.button
+                  key={v}
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.18, delay: i * 0.04, ease: 'easeOut' }}
+                  onClick={() => { onChange(v); setOpen(false) }}
+                  onMouseEnter={() => setHovered(v)}
+                  onMouseLeave={() => setHovered(null)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                    width: '100%',
+                    padding: '9px 12px',
+                    border: 'none',
+                    borderRadius: 'var(--radius-sm)',
+                    background: isSelected
+                      ? 'var(--color-accent-subtle)'
+                      : isHov
+                      ? 'var(--color-background-200)'
+                      : 'transparent',
+                    color: isSelected ? 'var(--color-accent)' : 'var(--color-fg-100)',
+                    fontSize: 'var(--text-sm)',
+                    cursor: 'pointer',
+                    fontFamily: 'var(--font-mono)',
+                    textAlign: 'left',
+                    transition: 'background var(--duration-fast) var(--ease)',
+                  }}
+                >
+                  <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: statusColors[s], flexShrink: 0 }} />
+                  <span style={{ flex: 1 }}>{v}</span>
+                  <span style={{ fontSize: 'var(--text-xs)', color: statusColors[s], opacity: 0.9 }}>
+                    {info.label}
+                  </span>
+                </motion.button>
+              )
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

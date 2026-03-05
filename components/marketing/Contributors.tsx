@@ -82,8 +82,8 @@ export function Contributors({ content }: { content: HomeConfig['contributors'] 
   const OVERLAP = 14
 
   return (
-    <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px 80px', textAlign: 'center' }}>
-      <h2 style={{ fontSize: '24px', fontWeight: 600, color: 'var(--color-fg-100)', marginBottom: '36px' }}>
+    <section style={{ maxWidth: '1200px', margin: '0 auto', padding: 'var(--space-7) var(--space-3)', textAlign: 'center', borderTop: '1px solid var(--color-border)' }}>
+      <h2 style={{ fontSize: 'var(--text-xl)', fontWeight: 600, color: 'var(--color-fg-100)', marginBottom: 'var(--space-5)', letterSpacing: '-0.02em' }}>
         {content.title}
       </h2>
 
@@ -141,7 +141,7 @@ export function Contributors({ content }: { content: HomeConfig['contributors'] 
                         ? 'translateY(6px) scale(1.1)'
                         : 'translateY(-6px) scale(1.1)'
                       : 'translateY(0) scale(1)',
-                    filter: isHovered ? 'drop-shadow(0 4px 12px rgba(120,194,135,0.4))' : 'none',
+                    filter: 'none',
                   }}
                 />
               </a>
@@ -165,7 +165,6 @@ export function Contributors({ content }: { content: HomeConfig['contributors'] 
                     whiteSpace: 'nowrap',
                     pointerEvents: 'none',
                     zIndex: 999,
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.4)',
                   }}
                 >
                   {c.login}

@@ -131,7 +131,7 @@ function DescriptionBlock({ html }: { html: string }) {
         color: 'var(--color-fg-100)',
         padding: '0.5rem 0.75rem',
         margin: '0.25rem 0',
-        borderLeft: '4px solid var(--brand)',
+        borderLeft: '4px solid var(--color-accent)',
         borderRadius: '4px',
         lineHeight: '26px',
       }}
@@ -193,7 +193,7 @@ function ConfigValueNodeComp({ node, globalSignal, signalKey }: NodeProps & { no
           textAlign: 'left',
         }}
       >
-        <span style={{ whiteSpace: 'nowrap', color: 'var(--brand)' }}>
+        <span style={{ whiteSpace: 'nowrap', color: 'var(--color-accent)' }}>
           {node.name}
           <span style={{ color: 'var(--color-fg-300)' }}>:</span>
         </span>

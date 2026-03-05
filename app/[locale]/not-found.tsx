@@ -70,7 +70,7 @@ export default function NotFound() {
             fontSize: '12px',
             fontWeight: 600,
             letterSpacing: '0.1em',
-            color: 'var(--brand)',
+            color: 'var(--color-accent)',
             background: 'rgba(120,194,135,0.08)',
             border: '1px solid rgba(120,194,135,0.2)',
             borderRadius: '100px',

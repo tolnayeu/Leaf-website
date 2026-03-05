@@ -52,11 +52,11 @@ export function DownloadPage() {
   const visibleBuilds = showAll ? builds : builds.slice(0, 6)
 
   return (
-    <main style={{ maxWidth: '800px', margin: '0 auto', padding: '80px 24px' }}>
-      <h1 style={{ fontSize: '40px', fontWeight: 700, color: 'var(--color-fg-100)', marginBottom: '8px', letterSpacing: '-0.02em' }}>
+    <main style={{ maxWidth: '800px', margin: '0 auto', padding: 'var(--space-8) var(--space-3)' }}>
+      <h1 style={{ fontSize: 'var(--text-2xl)', fontWeight: 700, color: 'var(--color-fg-100)', marginBottom: 'var(--space-1)', letterSpacing: '-0.03em' }}>
         {downloadContent.title}
       </h1>
-      <p style={{ fontSize: '16px', color: 'var(--color-fg-200)', marginBottom: '40px' }}>
+      <p style={{ fontSize: 'var(--text-base)', color: 'var(--color-fg-200)', marginBottom: 'var(--space-5)' }}>
         {downloadContent.subtitle}
       </p>
 

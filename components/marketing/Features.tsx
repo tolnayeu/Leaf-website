@@ -1,111 +1,82 @@
 'use client'
-
 import { Zap, Plug, Settings, type LucideIcon } from 'lucide-react'
-import { GlowingEffect } from '@/components/ui/glowing-effect'
 import type { HomeConfig } from '@/content/home'
 
-const iconMap: Record<string, LucideIcon> = {
-  Zap,
-  Plug,
-  Settings,
-}
+const iconMap: Record<string, LucideIcon> = { Zap, Plug, Settings }
 
 export function Features({ content }: { content: HomeConfig['features'] }) {
-  const features = content
-
   return (
-    <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '140px 24px 80px' }}>
-      <ul
+    <section
+      style={{
+        borderTop: '1px solid var(--color-border)',
+        borderBottom: '1px solid var(--color-border)',
+      }}
+    >
+      <div
         style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: '16px',
-          listStyle: 'none',
-          padding: 0,
-          margin: 0,
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          /* shared borders: left edge on container, right+bottom on each cell */
+          borderLeft: '1px solid var(--color-border)',
         }}
       >
-        {features.map((feature) => {
+        {content.map((feature) => {
           const Icon = iconMap[feature.icon] ?? Zap
           return (
-            <li key={feature.title} style={{ minHeight: '200px' }}>
-              {/* outer wrapper — rounded border, tight padding for the glow border */}
+            <div
+              key={feature.title}
+              style={{
+                borderRight: '1px solid var(--color-border)',
+                borderBottom: '1px solid var(--color-border)',
+                padding: 'var(--space-5) var(--space-4)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'var(--space-3)',
+                transition: 'background var(--duration) var(--ease)',
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--color-background-200)')}
+              onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+            >
               <div
                 style={{
-                  position: 'relative',
-                  height: '100%',
-                  borderRadius: 'var(--radius-lg)',
+                  width: 'fit-content',
                   border: '1px solid var(--color-border)',
-                  padding: '2px',
+                  borderRadius: 'var(--radius-sm)',
+                  padding: '8px',
+                  color: 'var(--color-accent)',
                 }}
               >
-                <GlowingEffect
-                  spread={40}
-                  glow
-                  disabled={false}
-                  proximity={64}
-                  inactiveZone={0.01}
-                  borderWidth={2}
-                />
-                {/* inner card */}
-                <div
+                <Icon size={18} strokeWidth={1.5} />
+              </div>
+              <div>
+                <h3
                   style={{
-                    position: 'relative',
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    gap: '24px',
-                    overflow: 'hidden',
-                    borderRadius: 'calc(var(--radius-lg) - 2px)',
-                    background: 'var(--color-background-200)',
-                    padding: '28px',
-                    boxShadow: '0px 0px 27px 0px rgba(45,45,45,0.3)',
+                    fontSize: 'var(--text-lg)',
+                    fontWeight: 600,
+                    color: 'var(--color-fg-100)',
+                    margin: '0 0 var(--space-1)',
+                    letterSpacing: '-0.02em',
                   }}
                 >
-                  {/* icon badge */}
-                  <div
-                    style={{
-                      width: 'fit-content',
-                      borderRadius: 'var(--radius)',
-                      border: '1px solid var(--color-border)',
-                      background: 'var(--color-background-300)',
-                      padding: '8px',
-                      color: 'var(--brand)',
-                    }}
-                  >
-                    <Icon size={18} strokeWidth={1.5} />
-                  </div>
-
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    <h3
-                      style={{
-                        fontSize: '18px',
-                        fontWeight: 600,
-                        color: 'var(--color-fg-100)',
-                        margin: 0,
-                        letterSpacing: '-0.02em',
-                      }}
-                    >
-                      {feature.title}
-                    </h3>
-                    <p
-                      style={{
-                        fontSize: '14px',
-                        color: 'var(--color-fg-200)',
-                        lineHeight: 1.6,
-                        margin: 0,
-                      }}
-                    >
-                      {feature.description}
-                    </p>
-                  </div>
-                </div>
+                  {feature.title}
+                </h3>
+                <p
+                  style={{
+                    fontSize: 'var(--text-sm)',
+                    color: 'var(--color-fg-200)',
+                    lineHeight: 'var(--leading-base)',
+                    margin: 0,
+                  }}
+                >
+                  {feature.description}
+                </p>
               </div>
-            </li>
+            </div>
           )
         })}
-      </ul>
+      </div>
     </section>
   )
 }

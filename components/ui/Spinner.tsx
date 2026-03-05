@@ -1,4 +1,4 @@
-export function Spinner({ size = 24, color = 'var(--brand)' }: { size?: number; color?: string }) {
+export function Spinner({ size = 24, color = 'var(--color-accent)' }: { size?: number; color?: string }) {
   return (
     <div aria-label="Loading..." role="status">
       <svg

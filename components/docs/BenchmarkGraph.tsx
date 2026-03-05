@@ -108,7 +108,7 @@ const DEFAULT_COLORS: Record<string, string> = {
 
 function barColor(bar: BenchmarkBar): string {
   if (bar.color) return bar.color
-  return DEFAULT_COLORS[bar.label] ?? 'var(--brand)'
+  return DEFAULT_COLORS[bar.label] ?? 'var(--color-accent)'
 }
 
 // ---------------------------------------------------------------------------
@@ -463,7 +463,7 @@ export function BenchmarkGraph({
                 key={card.title}
                 style={{
                   backgroundColor: card.highlight ? 'rgba(120,194,135,0.08)' : 'var(--color-background-300)',
-                  border: `${card.highlight ? '2px' : '1px'} solid var(--brand)`,
+                  border: `${card.highlight ? '2px' : '1px'} solid var(--color-accent)`,
                   borderRadius: '8px',
                   padding: '20px',
                   textAlign: 'center',
@@ -476,7 +476,7 @@ export function BenchmarkGraph({
                   style={{
                     fontSize: '2rem',
                     fontWeight: 700,
-                    color: 'var(--brand)',
+                    color: 'var(--color-accent)',
                     marginBottom: '8px',
                   }}
                 >

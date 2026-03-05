@@ -20,7 +20,7 @@ function StatCard({ card }: { card: CardDef }) {
         flex: '1 1 0',
         minWidth: 0,
         background: card.bg,
-        borderRadius: '16px',
+        borderRadius: 'var(--radius-xl)',
         padding: '24px',
         display: 'flex',
         flexDirection: 'column',

@@ -78,8 +78,8 @@ export function Contributors({ content }: { content: HomeConfig['contributors'] 
 
   if (contributors.length === 0) return null
 
-  const AVATAR_SIZE = 52
-  const OVERLAP = 16
+  const AVATAR_SIZE = 48
+  const OVERLAP = 14
 
   return (
     <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px 80px', textAlign: 'center' }}>

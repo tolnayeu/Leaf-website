@@ -30,7 +30,7 @@ export function Footer() {
             alt="Leaf"
             width={36}
             height={36}
-            style={{ filter: 'drop-shadow(0 0 8px rgba(120,194,135,0.45))' }}
+            style={{ filter: 'drop-shadow(0 0 6px var(--brand-glow-strong)) drop-shadow(0 0 14px var(--brand-glow))' }}
           />
         </div>
 
@@ -40,7 +40,7 @@ export function Footer() {
             <Link
               key={link.href}
               href={link.href}
-              style={{ fontSize: '14px', color: 'var(--text-secondary)', textDecoration: 'none' }}
+              style={{ fontSize: '13px', color: 'var(--text-secondary)', textDecoration: 'none' }}
             >
               {link.label}
             </Link>

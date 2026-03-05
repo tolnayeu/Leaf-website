@@ -65,7 +65,7 @@ export function Navbar({ config }: { config: NavConfig }) {
         >
           <div
             style={{
-              filter: 'drop-shadow(0 0 6px rgba(120,194,135,0.55)) drop-shadow(0 0 14px rgba(120,194,135,0.25))',
+              filter: 'drop-shadow(0 0 6px var(--brand-glow-strong)) drop-shadow(0 0 14px var(--brand-glow))',
               display: 'flex',
               alignItems: 'center',
             }}
@@ -118,7 +118,7 @@ export function Navbar({ config }: { config: NavConfig }) {
             style={{
               textDecoration: 'none',
               border: '1px solid rgba(255,255,255,0.18)',
-              borderRadius: '7px',
+              borderRadius: 'var(--radius-md)',
               padding: '5px 12px',
               background: 'rgba(255,255,255,0.06)',
             }}

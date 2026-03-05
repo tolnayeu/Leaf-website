@@ -206,3 +206,63 @@ code, pre, kbd {
   border-radius: inherit;
   background: var(--bg);
 }
+
+/* ─── Ghost / secondary button ─── */
+.ghost-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  background: transparent;
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  border-radius: var(--radius);
+  font-weight: 500;
+  font-size: 13px;
+  text-decoration: none;
+  transition: border-color var(--duration-base) var(--ease), color var(--duration-base) var(--ease);
+}
+.ghost-btn:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+/* ─── Outline sponsor/community button ─── */
+.outline-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 20px;
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  background: transparent;
+  transition: border-color var(--duration-base) var(--ease), color var(--duration-base) var(--ease);
+}
+.outline-btn:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+/* ─── Community CTA primary button ─── */
+.community-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #78c287 0%, #5a922c 100%);
+  color: #000;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 0 20px var(--brand-glow);
+  transition: opacity var(--duration-base) var(--ease), box-shadow var(--duration-base) var(--ease);
+}
+.community-cta-btn:hover {
+  opacity: 0.9;
+  box-shadow: 0 0 28px var(--brand-glow-strong);
+}

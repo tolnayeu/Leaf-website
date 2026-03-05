@@ -9,8 +9,8 @@ export function CommunityCTA({ content }: { content: HomeConfig['community'] }) 
       <div
         style={{
           position: 'relative',
-          border: '1px solid rgba(120,194,135,0.2)',
-          borderRadius: '16px',
+          border: '1px solid var(--brand-border)',
+          borderRadius: 'var(--radius-xl)',
           padding: '64px 48px',
           textAlign: 'center',
           background: 'var(--bg-card)',
@@ -53,12 +53,12 @@ export function CommunityCTA({ content }: { content: HomeConfig['community'] }) 
               width={56}
               height={56}
               style={{
-                filter: 'drop-shadow(0 0 12px rgba(120,194,135,0.7)) drop-shadow(0 0 28px rgba(120,194,135,0.3))',
+                filter: 'drop-shadow(0 0 12px var(--brand-glow-strong)) drop-shadow(0 0 28px var(--brand-glow))',
               }}
             />
           </div>
 
-          <h2 style={{ fontSize: '30px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '12px', letterSpacing: '-0.02em' }}>
+          <h2 style={{ fontSize: '28px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '12px', letterSpacing: '-0.02em' }}>
             {community.headline}
           </h2>
           <p style={{ fontSize: '15px', color: 'var(--text-secondary)', marginBottom: '32px', maxWidth: '400px', margin: '0 auto 32px' }}>
@@ -68,19 +68,7 @@ export function CommunityCTA({ content }: { content: HomeConfig['community'] }) 
             href={community.cta.href}
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '11px 28px',
-              background: 'linear-gradient(135deg, #78c287 0%, #5a922c 100%)',
-              color: '#000',
-              borderRadius: '8px',
-              fontSize: '14px',
-              fontWeight: 600,
-              textDecoration: 'none',
-              boxShadow: '0 0 20px rgba(120,194,135,0.3)',
-            }}
+            className="community-cta-btn"
           >
             {community.cta.label} →
           </a>

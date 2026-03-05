@@ -16,6 +16,9 @@
   /* Brand */
   --brand: #78c287;
   --brand-subtle: rgba(120, 194, 135, 0.1);
+  --brand-border: rgba(120, 194, 135, 0.2);
+  --brand-glow: rgba(120, 194, 135, 0.3);
+  --brand-glow-strong: rgba(120, 194, 135, 0.55);
 
   /* Semantic */
   --color-success: #78c287;
@@ -29,8 +32,14 @@
 
   /* Radius */
   --radius: 6px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
 
   /* Motion */
   --duration: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 350ms;
   --ease: ease;
 }

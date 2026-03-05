@@ -34,7 +34,7 @@ export function Features({ content }: { content: HomeConfig['features'] }) {
                 style={{
                   position: 'relative',
                   height: '100%',
-                  borderRadius: '12px',
+                  borderRadius: 'var(--radius-lg)',
                   border: '1px solid var(--border-default)',
                   padding: '2px',
                 }}
@@ -57,7 +57,7 @@ export function Features({ content }: { content: HomeConfig['features'] }) {
                     justifyContent: 'space-between',
                     gap: '24px',
                     overflow: 'hidden',
-                    borderRadius: '10px',
+                    borderRadius: 'calc(var(--radius-lg) - 2px)',
                     background: 'var(--bg-card)',
                     padding: '28px',
                     boxShadow: '0px 0px 27px 0px rgba(45,45,45,0.3)',
@@ -67,7 +67,7 @@ export function Features({ content }: { content: HomeConfig['features'] }) {
                   <div
                     style={{
                       width: 'fit-content',
-                      borderRadius: '8px',
+                      borderRadius: 'var(--radius-md)',
                       border: '1px solid var(--border-default)',
                       background: 'var(--bg-elevated)',
                       padding: '8px',

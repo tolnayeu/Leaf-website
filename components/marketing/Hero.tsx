@@ -128,19 +128,7 @@ export function Hero({ content }: { content: HomeConfig['hero'] }) {
           <Link
             href={hero.cta.secondary.href}
             prefetch={false}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              padding: '9px 18px',
-              background: 'transparent',
-              border: '1px solid var(--border-default)',
-              color: 'var(--text-secondary)',
-              borderRadius: 'var(--radius)',
-              fontWeight: 500,
-              fontSize: '13px',
-              textDecoration: 'none',
-            }}
+            className="ghost-btn"
           >
             {hero.cta.secondary.label} →
           </Link>

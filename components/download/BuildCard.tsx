@@ -44,7 +44,7 @@ export function BuildCard({ build, version, highlight }: Props) {
           alignItems: 'center',
           gap: '16px',
           padding: '20px 24px',
-          border: '1px solid rgba(120,194,135,0.3)',
+          border: '1px solid var(--brand-border)',
           borderRadius: '10px',
           background: 'var(--bg-card)',
           marginBottom: '8px',
@@ -70,8 +70,8 @@ export function BuildCard({ build, version, highlight }: Props) {
                 fontSize: '11px',
                 fontWeight: 600,
                 color: 'var(--brand)',
-                background: 'rgba(120,194,135,0.1)',
-                border: '1px solid rgba(120,194,135,0.2)',
+                background: 'var(--brand-subtle)',
+                border: '1px solid var(--brand-border)',
                 borderRadius: '4px',
                 padding: '2px 8px',
                 letterSpacing: '0.04em',
@@ -85,7 +85,7 @@ export function BuildCard({ build, version, highlight }: Props) {
             </p>
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>
-            <p style={{ margin: 0, fontSize: '15px', fontWeight: 500, color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            <p style={{ margin: 0, fontSize: '14px', fontWeight: 500, color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {summary}
             </p>
             <p style={{ margin: '3px 0 0', fontSize: '12px', color: 'var(--text-muted)' }}>{date}</p>

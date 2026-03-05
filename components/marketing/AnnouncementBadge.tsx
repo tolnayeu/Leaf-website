@@ -21,9 +21,16 @@ export function AnnouncementBadge({ text, href }: Props) {
 
   const badge = (
     <motion.div
-      className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium shadow-sm cursor-pointer"
       style={{
-        borderColor: 'rgba(120, 194, 135, 0.35)',
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '6px',
+        borderRadius: '999px',
+        border: '1px solid rgba(120, 194, 135, 0.35)',
+        padding: '4px 12px',
+        fontSize: '12px',
+        fontWeight: 500,
+        cursor: 'pointer',
         background: 'rgba(120, 194, 135, 0.06)',
         color: 'var(--brand)',
       }}

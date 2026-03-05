@@ -7,7 +7,7 @@ export function Sponsors({ content }: { content: HomeConfig['sponsors'] }) {
 
   return (
     <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '80px 24px', textAlign: 'center', borderTop: '1px solid var(--border-default)' }}>
-      <h2 style={{ fontSize: '28px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '8px' }}>
+      <h2 style={{ fontSize: '24px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '8px' }}>
         {sponsors.title}
       </h2>
 
@@ -45,19 +45,7 @@ export function Sponsors({ content }: { content: HomeConfig['sponsors'] }) {
         href={sponsors.cta.href}
         target="_blank"
         rel="noopener noreferrer"
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '6px',
-          padding: '10px 20px',
-          border: '1px solid var(--border-default)',
-          color: 'var(--text-primary)',
-          borderRadius: 'var(--radius)',
-          fontSize: '14px',
-          fontWeight: 500,
-          textDecoration: 'none',
-          background: 'transparent',
-        }}
+        className="outline-btn"
       >
         {sponsors.cta.label} →
       </a>

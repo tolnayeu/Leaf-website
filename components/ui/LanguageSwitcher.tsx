@@ -80,7 +80,7 @@ export function LanguageSwitcher() {
             right: 0,
             minWidth: '148px',
             border: '1px solid var(--color-border)',
-            borderRadius: '8px',
+            borderRadius: 'var(--radius)',
             background: 'var(--color-background-300)',
             boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
             overflow: 'hidden',
@@ -101,16 +101,16 @@ export function LanguageSwitcher() {
                 width: '100%',
                 padding: '8px 10px',
                 border: 'none',
-                borderRadius: '5px',
-                background: l === locale ? 'rgba(120,194,135,0.08)' : 'transparent',
-                color: l === locale ? 'var(--brand)' : 'var(--color-fg-200)',
+                borderRadius: 'var(--radius-sm)',
+                background: l === locale ? 'var(--color-accent-subtle)' : 'transparent',
+                color: l === locale ? 'var(--color-accent)' : 'var(--color-fg-200)',
                 fontSize: '13px',
                 cursor: 'pointer',
                 fontFamily: 'var(--font-sans)',
                 textAlign: 'left',
               }}
             >
-              <span style={{ fontWeight: 600, fontSize: '11px', minWidth: '22px', color: l === locale ? 'var(--brand)' : 'var(--color-fg-300)' }}>
+              <span style={{ fontWeight: 600, fontSize: '11px', minWidth: '22px', color: l === locale ? 'var(--color-accent)' : 'var(--color-fg-300)' }}>
                 {l.toUpperCase()}
               </span>
               <span>{localeLabels[l] ?? l}</span>

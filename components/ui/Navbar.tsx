@@ -4,132 +4,165 @@ import Image from 'next/image'
 import { useLocale } from 'next-intl'
 import type { NavConfig } from '@/content/nav'
 import { LanguageSwitcher } from './LanguageSwitcher'
-import { LetterSwap } from './letter-swap'
 import { useEffect, useState } from 'react'
+import { Menu, X } from 'lucide-react'
 
 export function Navbar({ config }: { config: NavConfig }) {
   const locale = useLocale()
-  const [scrolled, setScrolled] = useState(false)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 60)
-    handler()
-    window.addEventListener('scroll', handler, { passive: true })
-    return () => window.removeEventListener('scroll', handler)
+    const close = () => setOpen(false)
+    window.addEventListener('resize', close)
+    return () => window.removeEventListener('resize', close)
   }, [])
 
   return (
     <header
       style={{
-        position: 'fixed',
+        position: 'sticky',
         top: 0,
-        left: 0,
-        right: 0,
         zIndex: 50,
-        padding: '10px 16px',
+        borderBottom: '1px solid var(--color-border)',
+        background: 'rgba(10,10,10,0.9)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
       }}
     >
-      <nav
+      <div
         style={{
-          maxWidth: scrolled ? '860px' : '920px',
+          maxWidth: '1200px',
           margin: '0 auto',
-          padding: '0 18px',
-          height: '48px',
+          padding: '0 var(--space-3)',
+          height: '56px',
           display: 'flex',
           alignItems: 'center',
-          gap: '24px',
-          backdropFilter: scrolled ? 'blur(20px)' : 'blur(8px)',
-          WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'blur(8px)',
-          background: scrolled ? 'rgba(0,0,0,0.78)' : 'rgba(0,0,0,0.32)',
-          border: scrolled
-            ? '1px solid var(--color-border)'
-            : '1px solid rgba(255,255,255,0.10)',
-          borderRadius: '14px',
-          transition: [
-            'max-width 350ms ease',
-            'background 350ms ease',
-            'border-color 350ms ease',
-            'backdrop-filter 350ms ease',
-          ].join(', '),
+          gap: 'var(--space-3)',
         }}
       >
         {/* Logo */}
         <Link
           href={`/${locale}`}
-          style={{
-            textDecoration: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            flexShrink: 0,
-          }}
+          style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', flexShrink: 0 }}
         >
-          <div
-            style={{
-              filter: 'drop-shadow(0 0 6px rgba(120, 194, 135, 0.55)) drop-shadow(0 0 14px rgba(120, 194, 135, 0.3))',
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <Image
-              src="/logo.svg"
-              alt={config.logo.text}
-              width={24}
-              height={24}
-              priority
-            />
-          </div>
+          <Image src="/logo.svg" alt={config.logo.text} width={22} height={22} priority />
         </Link>
 
-        {/* Nav links */}
-        <div style={{ display: 'flex', gap: '18px', flex: 1 }}>
+        {/* Nav links — hidden on mobile */}
+        <div className="nav-links" style={{ display: 'flex', gap: 'var(--space-3)', flex: 1 }}>
           {config.links.map((link) => (
             <Link
               key={link.href}
               href={`/${locale}${link.href}`}
               prefetch={link.href.startsWith('/docs') ? false : undefined}
-              style={{ textDecoration: 'none' }}
+              style={{
+                textDecoration: 'none',
+                fontSize: 'var(--text-sm)',
+                color: 'var(--color-fg-200)',
+                transition: 'color var(--duration) var(--ease)',
+              }}
             >
-              <LetterSwap
-                label={link.label}
-                style={{ fontSize: '13px', color: 'var(--color-fg-200)' }}
-              />
+              {link.label}
             </Link>
           ))}
         </div>
 
-        {/* Right side */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        {/* Right side — hidden on mobile */}
+        <div className="nav-right" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
           <LanguageSwitcher />
           <a
             href={config.social.github}
             target="_blank"
             rel="noopener noreferrer"
-            style={{ textDecoration: 'none' }}
+            style={{
+              textDecoration: 'none',
+              fontSize: 'var(--text-sm)',
+              color: 'var(--color-fg-200)',
+              transition: 'color var(--duration) var(--ease)',
+            }}
           >
-            <LetterSwap
-              label="GitHub"
-              style={{ fontSize: '13px', color: 'var(--color-fg-200)' }}
-            />
+            GitHub
           </a>
           <a
             href={config.social.discord}
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-              textDecoration: 'none',
-              border: '1px solid rgba(255,255,255,0.18)',
-              borderRadius: 'var(--radius)',
-              padding: '5px 12px',
-              background: 'rgba(255,255,255,0.06)',
-            }}
+            className="btn-primary"
+            style={{ padding: '6px 12px' }}
           >
-            <LetterSwap
-              label="Discord"
-              style={{ fontSize: '13px', color: 'var(--color-fg-100)' }}
-            />
+            Discord
           </a>
         </div>
-      </nav>
+
+        {/* Hamburger */}
+        <button
+          className="nav-hamburger"
+          onClick={() => setOpen((v) => !v)}
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          style={{
+            display: 'none',
+            marginLeft: 'auto',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            color: 'var(--color-fg-100)',
+            padding: '4px',
+          }}
+        >
+          {open ? <X size={20} /> : <Menu size={20} />}
+        </button>
+      </div>
+
+      {/* Mobile dropdown */}
+      {open && (
+        <div
+          style={{
+            borderTop: '1px solid var(--color-border)',
+            background: 'rgba(10,10,10,0.95)',
+            padding: 'var(--space-2) var(--space-3)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '4px',
+          }}
+        >
+          {config.links.map((link) => (
+            <Link
+              key={link.href}
+              href={`/${locale}${link.href}`}
+              onClick={() => setOpen(false)}
+              style={{
+                textDecoration: 'none',
+                padding: '10px 0',
+                fontSize: 'var(--text-sm)',
+                color: 'var(--color-fg-200)',
+                borderBottom: '1px solid var(--color-border)',
+              }}
+            >
+              {link.label}
+            </Link>
+          ))}
+          <div style={{ display: 'flex', gap: 'var(--space-2)', marginTop: 'var(--space-1)', alignItems: 'center' }}>
+            <LanguageSwitcher />
+            <a
+              href={config.social.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontSize: 'var(--text-sm)', color: 'var(--color-fg-200)', textDecoration: 'none' }}
+            >
+              GitHub
+            </a>
+            <a
+              href={config.social.discord}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary"
+              style={{ padding: '6px 12px' }}
+            >
+              Discord
+            </a>
+          </div>
+        </div>
+      )}
     </header>
   )
 }

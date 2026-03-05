@@ -5,14 +5,32 @@
 
 html { scroll-behavior: smooth; }
 
+/* ─── Page guide lines (left/right edges of 1200px container) ─── */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--color-border);
+  pointer-events: none;
+  z-index: 9999;
+}
+body::before {
+  left: max(0px, calc(50% - 600px));
+}
+body::after {
+  right: max(0px, calc(50% - 600px));
+}
+
 /* ─── Mobile responsive ─── */
 @media (max-width: 640px) {
   .nav-links,
   .nav-right { display: none !important; }
   .nav-hamburger { display: flex !important; }
 
-  .stat-cards { flex-direction: column !important; }
-  .stat-cards > * { flex: none !important; width: 100% !important; min-width: 0 !important; }
+  .stat-cards { grid-template-columns: 1fr !important; }
 }
 
 body {
@@ -60,6 +78,24 @@ code, pre, kbd {
 .hero-animate-delay-2 { animation-delay: 200ms; }
 .hero-animate-delay-3 { animation-delay: 320ms; }
 .hero-animate-delay-4 { animation-delay: 440ms; }
+
+/* Logo engraving — scales in large, fades to subtle as hero text animates in */
+@keyframes logoEngraveReveal {
+  0%   { opacity: 0;    }
+  20%  { opacity: 1;    }
+  100% { opacity: 0.75; }
+}
+.hero-logo-engrave {
+  animation: logoEngraveReveal 2.2s cubic-bezier(0.4, 0, 0.2, 1) 0ms both;
+}
+
+@keyframes heroDotBlink {
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50%       { opacity: 1;    transform: scale(1.4); }
+}
+.hero-dot {
+  animation: heroDotBlink 2.8s ease-in-out infinite;
+}
 
 /* ─── Primary button ─── */
 .btn-primary {

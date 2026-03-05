@@ -87,7 +87,7 @@ export function OCBackers() {
         style={{
           display: 'flex',
           flexWrap: 'wrap',
-          justifyContent: 'center',
+          justifyContent: 'flex-start',
           gap: '0px',
           rowGap: '6px',
         }}
@@ -148,7 +148,7 @@ export function OCBackers() {
                       transform: 'translateX(-50%)',
                       background: 'var(--color-background-300)',
                       border: '1px solid var(--color-border)',
-                      borderRadius: '6px',
+                      borderRadius: '0px',
                       padding: '6px 10px',
                       fontSize: '12px',
                       color: 'var(--color-fg-100)',
@@ -223,7 +223,7 @@ export function OCBackers() {
                     transform: 'translateX(-50%)',
                     background: 'var(--color-background-300)',
                     border: '1px solid var(--color-border)',
-                    borderRadius: '6px',
+                    borderRadius: '0px',
                     padding: '3px 8px',
                     fontSize: '12px',
                     color: 'var(--color-fg-100)',

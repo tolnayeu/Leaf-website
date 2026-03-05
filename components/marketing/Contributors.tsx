@@ -71,7 +71,7 @@ export function Contributors({ content }: { content: HomeConfig['contributors'] 
   if (loading) {
     return (
       <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px 80px' }}>
-        <p style={{ color: 'var(--color-fg-300)', fontSize: '14px', textAlign: 'center' }}>Loading contributors…</p>
+        <p style={{ color: 'var(--color-fg-300)', fontSize: '14px' }}>Loading contributors…</p>
       </section>
     )
   }
@@ -82,7 +82,7 @@ export function Contributors({ content }: { content: HomeConfig['contributors'] 
   const OVERLAP = 14
 
   return (
-    <section style={{ maxWidth: '1200px', margin: '0 auto', padding: 'var(--space-7) var(--space-3)', textAlign: 'center', borderTop: '1px solid var(--color-border)' }}>
+    <section style={{ maxWidth: '1200px', margin: '0 auto', padding: 'var(--space-7) var(--space-3)', borderTop: '1px solid var(--color-border)' }}>
       <h2 style={{ fontSize: 'var(--text-xl)', fontWeight: 600, color: 'var(--color-fg-100)', marginBottom: 'var(--space-5)', letterSpacing: '-0.02em' }}>
         {content.title}
       </h2>
@@ -93,7 +93,7 @@ export function Contributors({ content }: { content: HomeConfig['contributors'] 
         style={{
           display: 'flex',
           flexWrap: 'wrap',
-          justifyContent: 'center',
+          justifyContent: 'flex-start',
           gap: '0px',
           rowGap: '6px',
         }}
@@ -158,7 +158,7 @@ export function Contributors({ content }: { content: HomeConfig['contributors'] 
                     transform: 'translateX(-50%)',
                     background: 'var(--color-background-300)',
                     border: '1px solid var(--color-border)',
-                    borderRadius: '6px',
+                    borderRadius: '0px',
                     padding: '3px 8px',
                     fontSize: '12px',
                     color: 'var(--color-fg-100)',

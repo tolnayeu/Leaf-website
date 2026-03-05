@@ -19,14 +19,14 @@ function StatCard({ card }: { card: CardDef }) {
       style={{
         position: 'relative',
         overflow: 'hidden',
-        borderRadius: 'var(--radius-lg)',
-        border: '1px solid var(--color-border)',
+        borderRight: '1px solid var(--color-border)',
+        borderBottom: '1px solid var(--color-border)',
         background: 'var(--color-background-200)',
         padding: 'var(--space-4)',
         display: 'flex',
         flexDirection: 'column',
         gap: 'var(--space-2)',
-        minHeight: '160px',
+        height: '220px',
       }}
     >
       {/* Animated gradient background */}
@@ -125,14 +125,14 @@ export async function Comparison({ content }: { content: HomeConfig['comparison'
           </p>
         </div>
 
-        {/* Stat cards — bento grid */}
+        {/* Stat cards — shared-border grid */}
         <div
           className="stat-cards"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: 'var(--space-2)',
-            padding: 'var(--space-4) var(--space-3)',
+            borderLeft: '1px solid var(--color-border)',
+            borderTop: '1px solid var(--color-border)',
           }}
         >
           {cards.map((card) => (
@@ -141,7 +141,7 @@ export async function Comparison({ content }: { content: HomeConfig['comparison'
         </div>
 
         {/* Benchmark tabs */}
-        <div style={{ padding: '0 var(--space-3) var(--space-4)' }}>
+        <div style={{ padding: 'var(--space-4) var(--space-3)' }}>
           <BenchmarkTabs />
         </div>
       </div>

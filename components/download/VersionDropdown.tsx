@@ -72,7 +72,6 @@ export function VersionDropdown({ versions, selected, onChange }: Props) {
             left: 0,
             right: 0,
             border: '1px solid var(--color-border)',
-            borderRadius: 'var(--radius)',
             background: 'var(--color-background-300)',
             overflow: 'hidden',
             zIndex: 50,

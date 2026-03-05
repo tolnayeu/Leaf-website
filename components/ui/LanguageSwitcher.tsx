@@ -50,7 +50,7 @@ export function LanguageSwitcher() {
           border: 'none',
           cursor: 'pointer',
           padding: '4px 8px',
-          borderRadius: '6px',
+          borderRadius: 'var(--radius)',
           fontFamily: 'var(--font-sans)',
           transition: 'color 150ms ease',
         }}
@@ -80,7 +80,6 @@ export function LanguageSwitcher() {
             right: 0,
             minWidth: '148px',
             border: '1px solid var(--color-border)',
-            borderRadius: 'var(--radius)',
             background: 'var(--color-background-300)',
             boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
             overflow: 'hidden',

@@ -9,19 +9,11 @@ export function BenchmarkTabs() {
   const [active, setActive] = useState<Tab>('Entity Performance')
 
   return (
-    <div
-      style={{
-        background: 'var(--color-background-300)',
-        border: '1px solid var(--color-border)',
-        borderRadius: '12px',
-        overflow: 'hidden',
-      }}
-    >
-      {/* Tab list — OriginUI default segment control style */}
+    <div>
+      {/* Tab list */}
       <div
         style={{
-          padding: '12px 16px',
-          borderBottom: '1px solid var(--color-border)',
+          padding: '0 0 16px',
         }}
       >
         <div
@@ -30,7 +22,6 @@ export function BenchmarkTabs() {
             display: 'inline-flex',
             background: 'var(--color-background-200)',
             border: '1px solid var(--color-border)',
-            borderRadius: '8px',
             padding: '3px',
             gap: '2px',
           }}
@@ -47,7 +38,7 @@ export function BenchmarkTabs() {
                   padding: '6px 16px',
                   background: isActive ? 'var(--color-background-300)' : 'transparent',
                   border: 'none',
-                  borderRadius: '6px',
+                  borderRadius: 'var(--radius)',
                   cursor: 'pointer',
                   fontSize: '13px',
                   fontWeight: isActive ? 600 : 400,
@@ -66,7 +57,7 @@ export function BenchmarkTabs() {
       </div>
 
       {/* Tab panels */}
-      <div style={{ padding: '32px 24px' }}>
+      <div>
         {active === 'Entity Performance' && (
           <BenchmarkGraph
             unit="mspt"

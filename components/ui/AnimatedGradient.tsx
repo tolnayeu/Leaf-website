@@ -25,6 +25,16 @@ function useDimensions(ref: RefObject<HTMLElement | null>): { width: number; hei
 const rand = () => Math.random() - 0.5
 const randInt = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min
 
+interface BlobConfig {
+  top: number
+  left: number
+  tx1: number; ty1: number
+  tx2: number; ty2: number
+  tx3: number; ty3: number
+  tx4: number; ty4: number
+  sizeMultiplier: number
+}
+
 interface AnimatedGradientProps {
   colors: string[]
   speed?: number
@@ -40,27 +50,42 @@ export function AnimatedGradient({ colors, speed = 5, blur = 'light' }: Animated
   )
   const blurClass = blur === 'light' ? 'blur-2xl' : blur === 'medium' ? 'blur-3xl' : 'blur-[100px]'
 
+  // Generate random configs only on the client, after mount
+  const [blobs, setBlobs] = useState<BlobConfig[]>([])
+  useEffect(() => {
+    setBlobs(colors.map(() => ({
+      top: Math.random() * 50,
+      left: Math.random() * 50,
+      tx1: rand(), ty1: rand(),
+      tx2: rand(), ty2: rand(),
+      tx3: rand(), ty3: rand(),
+      tx4: rand(), ty4: rand(),
+      sizeMultiplier: randInt(0.5, 1.5) + Math.random() * 0.5,
+    })))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [colors.length])
+
   return (
     <div ref={containerRef} className="absolute inset-0 overflow-hidden">
       <div className={cn('absolute inset-0', blurClass)}>
-        {colors.map((color, index) => (
+        {blobs.map((blob, index) => (
           <svg
             key={index}
             className="absolute animate-background-gradient"
             style={{
-              top: `${Math.random() * 50}%`,
-              left: `${Math.random() * 50}%`,
+              top: `${blob.top}%`,
+              left: `${blob.left}%`,
               '--background-gradient-speed': `${1 / speed}s`,
-              '--tx-1': rand(), '--ty-1': rand(),
-              '--tx-2': rand(), '--ty-2': rand(),
-              '--tx-3': rand(), '--ty-3': rand(),
-              '--tx-4': rand(), '--ty-4': rand(),
+              '--tx-1': blob.tx1, '--ty-1': blob.ty1,
+              '--tx-2': blob.tx2, '--ty-2': blob.ty2,
+              '--tx-3': blob.tx3, '--ty-3': blob.ty3,
+              '--tx-4': blob.tx4, '--ty-4': blob.ty4,
             } as React.CSSProperties}
-            width={circleSize * randInt(0.5, 1.5)}
-            height={circleSize * randInt(0.5, 1.5)}
+            width={circleSize * blob.sizeMultiplier}
+            height={circleSize * blob.sizeMultiplier}
             viewBox="0 0 100 100"
           >
-            <circle cx="50" cy="50" r="50" fill={color} className="opacity-25 dark:opacity-[0.15]" />
+            <circle cx="50" cy="50" r="50" fill={colors[index]} className="opacity-25 dark:opacity-[0.15]" />
           </svg>
         ))}
       </div>

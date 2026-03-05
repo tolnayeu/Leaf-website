@@ -22,7 +22,6 @@ export function BuildCard({ build, version, highlight }: Props) {
           gap: 'var(--space-2)',
           padding: 'var(--space-3)',
           border: '1px solid var(--color-accent-border)',
-          borderRadius: 'var(--radius)',
           background: 'var(--color-background-200)',
           marginBottom: '8px',
         }}
@@ -72,7 +71,6 @@ export function BuildCard({ build, version, highlight }: Props) {
         gap: 'var(--space-2)',
         padding: 'var(--space-2) var(--space-3)',
         border: '1px solid var(--color-border)',
-        borderRadius: 'var(--radius)',
         background: 'transparent',
         marginBottom: '6px',
         transition: 'border-color var(--duration) var(--ease)',

@@ -25,9 +25,9 @@ export default async function Layout({
       <Image
         src="/logo.svg"
         alt="Leaf"
-        width={22}
-        height={22}
-        style={{ filter: 'drop-shadow(0 0 6px rgba(120,194,135,0.6))' }}
+        width={20}
+        height={20}
+        style={{ filter: 'drop-shadow(0 0 5px rgba(120,194,135,0.55))' }}
       />
       Leaf Docs
     </span>
@@ -35,44 +35,252 @@ export default async function Layout({
 
   return (
     <RootProvider>
-      {/* Override fumadocs accent colour to leaf-green */}
       <style>{`
-        /* Override primary colour in left nav sidebar only (not the TOC) */
+        /* ── Hide homepage guide lines in docs ── */
+        body::before, body::after { display: none !important; }
+
+        /* ── Hide theme toggle ── */
+        [aria-label="Toggle theme"],
+        [data-theme-toggle],
+        #nd-sidebar button[class*="theme"],
+        #nd-nav button[class*="theme"] { display: none !important; }
+
+        /* ── Map fumadocs tokens to our design system ── */
+        :root,
+        .dark {
+          --color-fd-background:          #0a0a0a;
+          --color-fd-foreground:          #ededed;
+          --color-fd-muted:               #111111;
+          --color-fd-muted-foreground:    #6f6f6f;
+          --color-fd-popover:             #111111;
+          --color-fd-popover-foreground:  #ededed;
+          --color-fd-card:                #111111;
+          --color-fd-card-foreground:     #ededed;
+          --color-fd-border:              #2e2e2e;
+          --color-fd-input:               #2e2e2e;
+          --color-fd-ring:                rgba(120,194,135,0.4);
+          --color-fd-primary:             #78c287;
+          --color-fd-primary-foreground:  #000;
+          --color-fd-secondary:           #1a1a1a;
+          --color-fd-secondary-foreground:#ededed;
+          --color-fd-accent:              #1a1a1a;
+          --color-fd-accent-foreground:   #ededed;
+
+          /* Kill all border-radius */
+          --radius-fd: 0px;
+        }
+
+        /* ── Global reset for docs ── */
+        #nd-docs-layout * {
+          border-radius: 0 !important;
+        }
+        /* Keep pill badges readable */
+        #nd-docs-layout [class*="rounded-full"] {
+          border-radius: 999px !important;
+        }
+
+        /* ── Sidebar ── */
         #nd-sidebar {
-          --color-fd-primary: rgb(120, 194, 135);
+          background: #0a0a0a;
+          border-right: 1px solid #2e2e2e;
+          font-family: var(--font-geist-sans), system-ui, sans-serif;
+          font-size: 13px;
         }
-        #nd-sidebar [data-active="true"] {
-          color: rgb(120, 194, 135) !important;
-          background-color: rgba(120, 194, 135, 0.08) !important;
-        }
-        #nd-sidebar [data-active="true"]:hover {
-          background-color: rgba(120, 194, 135, 0.12) !important;
-        }
-        #nd-sidebar [data-active="true"]::before {
-          background-color: rgb(120, 194, 135) !important;
-        }
-        /* Put home link in the same row as the theme toggle */
-        #nd-sidebar div:has(> .sidebar-home-link) {
-          flex-direction: row;
+
+        /* Sidebar nav header */
+        #nd-sidebar header {
+          border-bottom: 1px solid #2e2e2e;
+          background: #0a0a0a;
+          padding: 0 16px;
+          height: 56px;
+          display: flex;
           align-items: center;
         }
-        /* Push theme toggle to the right */
-        #nd-sidebar div:has(> .sidebar-home-link) > div {
-          margin-left: auto;
+
+        /* Active page item */
+        #nd-sidebar [data-active="true"] {
+          color: #78c287 !important;
+          background: rgba(120,194,135,0.07) !important;
+          font-weight: 500;
         }
+        #nd-sidebar [data-active="true"]:hover {
+          background: rgba(120,194,135,0.1) !important;
+        }
+        #nd-sidebar [data-active="true"]::before {
+          background: #78c287 !important;
+        }
+
+        /* Sidebar items hover (exclude header logo and footer home link) */
+        #nd-sidebar nav a:not([data-active="true"]):hover,
+        #nd-sidebar nav button:hover {
+          background: rgba(255,255,255,0.04) !important;
+          color: #ededed !important;
+        }
+
+        /* Kill any background on the logo/title link and home link */
+        #nd-sidebar header a:hover,
+        #nd-sidebar footer a:hover,
+        .sidebar-home-link:hover {
+          background: transparent !important;
+        }
+
+        /* Sidebar section headings */
+        #nd-sidebar .text-fd-muted-foreground {
+          color: #6f6f6f;
+          font-size: 11px;
+          font-weight: 600;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+        }
+
+        /* Sidebar footer */
+        #nd-sidebar footer {
+          border-top: 1px solid #2e2e2e;
+          background: #0a0a0a;
+        }
+
+        /* Home link */
         .sidebar-home-link {
           display: inline-flex;
           align-items: center;
           gap: 5px;
           font-size: 13px;
-          color: var(--color-fd-muted-foreground);
+          color: #6f6f6f;
           text-decoration: none;
-          order: -1;
           transition: color 150ms ease;
         }
-        .sidebar-home-link:hover {
-          color: var(--color-fd-foreground);
+        .sidebar-home-link:hover { color: #ededed; }
+
+        /* ── Top navbar (docs) ── */
+        #nd-subnav,
+        header[id="nd-nav"] {
+          background: rgba(10,10,10,0.9);
+          backdrop-filter: blur(12px);
+          border-bottom: 1px solid #2e2e2e;
+          height: 56px;
         }
+
+        /* ── Content area ── */
+        #nd-page {
+          background: #0a0a0a;
+        }
+
+        /* Article typography */
+        #nd-page article {
+          font-family: var(--font-geist-sans), system-ui, sans-serif;
+          font-size: 15px;
+          line-height: 24px;
+          color: #a1a1a1;
+          max-width: 680px;
+        }
+
+        #nd-page article h1,
+        #nd-page article h2,
+        #nd-page article h3,
+        #nd-page article h4 {
+          color: #ededed;
+          font-weight: 600;
+          letter-spacing: -0.02em;
+          border-bottom: 1px solid #2e2e2e;
+          padding-bottom: 8px;
+          margin-bottom: 16px;
+        }
+
+        #nd-page article h1 { font-size: 28px; line-height: 1.1; }
+        #nd-page article h2 { font-size: 20px; margin-top: 40px; }
+        #nd-page article h3 { font-size: 16px; margin-top: 32px; border-bottom: none; padding-bottom: 0; }
+        #nd-page article h4 { font-size: 14px; margin-top: 24px; border-bottom: none; padding-bottom: 0; }
+
+        #nd-page article p { color: #a1a1a1; margin: 12px 0; }
+
+        #nd-page article a {
+          color: #78c287;
+          text-decoration: none;
+          border-bottom: 1px solid rgba(120,194,135,0.3);
+          transition: border-color 150ms ease;
+        }
+        #nd-page article a:hover { border-color: #78c287; }
+
+        /* Code */
+        #nd-page article code:not(pre code) {
+          background: #1a1a1a;
+          border: 1px solid #2e2e2e;
+          color: #78c287;
+          font-family: var(--font-geist-mono), monospace;
+          font-size: 12px;
+          padding: 1px 6px;
+        }
+
+        #nd-page article pre {
+          background: #111111 !important;
+          border: 1px solid #2e2e2e !important;
+          font-family: var(--font-geist-mono), monospace;
+          font-size: 13px;
+          line-height: 1.6;
+          overflow-x: auto;
+          margin: 20px 0;
+        }
+
+        /* Blockquote */
+        #nd-page article blockquote {
+          border-left: 2px solid #78c287;
+          padding-left: 16px;
+          color: #6f6f6f;
+          margin: 16px 0;
+          font-style: normal;
+        }
+
+        /* Tables */
+        #nd-page article table {
+          width: 100%;
+          border-collapse: collapse;
+          font-size: 13px;
+          margin: 20px 0;
+        }
+        #nd-page article th {
+          text-align: left;
+          font-size: 11px;
+          font-weight: 600;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: #6f6f6f;
+          border-bottom: 1px solid #2e2e2e;
+          padding: 8px 12px;
+        }
+        #nd-page article td {
+          padding: 8px 12px;
+          border-bottom: 1px solid #1a1a1a;
+          color: #a1a1a1;
+        }
+
+        /* Callouts / admonitions */
+        #nd-page article .nd-callout,
+        #nd-page article [class*="callout"] {
+          border-left: 2px solid #2e2e2e;
+          background: #111111;
+          padding: 14px 16px;
+          margin: 20px 0;
+          font-size: 14px;
+        }
+
+        /* ── TOC (right sidebar) ── */
+        #nd-toc {
+          font-family: var(--font-geist-sans), system-ui, sans-serif;
+          font-size: 12px;
+          border-left: 1px solid #2e2e2e;
+          background: #0a0a0a;
+        }
+        #nd-toc a { color: #6f6f6f; text-decoration: none; transition: color 150ms ease; }
+        #nd-toc a:hover { color: #ededed; }
+        #nd-toc a[data-active="true"] { color: #78c287; }
+
+        /* Scrollbar */
+        #nd-sidebar ::-webkit-scrollbar,
+        #nd-page ::-webkit-scrollbar { width: 4px; }
+        #nd-sidebar ::-webkit-scrollbar-track,
+        #nd-page ::-webkit-scrollbar-track { background: transparent; }
+        #nd-sidebar ::-webkit-scrollbar-thumb,
+        #nd-page ::-webkit-scrollbar-thumb { background: #2e2e2e; }
       `}</style>
       <DocsLayout
         tree={tree}

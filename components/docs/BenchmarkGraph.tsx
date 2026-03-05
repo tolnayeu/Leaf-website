@@ -1,60 +1,34 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import NumberFlow from '@number-flow/react'
+import { motion } from 'framer-motion'
 
-// ---------------------------------------------------------------------------
-// Data types – matches what the Vue EntityPerformanceGraph / ChunkGenerationGraph
-// components embed inline, now surfaced as props so MDX can supply them.
-// ---------------------------------------------------------------------------
-
-/** A single bar in the chart. `value` is the raw measurement. */
 export interface BenchmarkBar {
-  /** Display label below the bar (e.g. "Paper", "Leaf", "Leaf+Async") */
   label: string
-  /** Numeric measurement (MSPT, seconds, etc.) */
   value: number
-  /** Bar color. Defaults to the brand colour for "Leaf*" bars. */
   color?: string
+  highlight?: boolean
 }
 
-/** One group of bars (e.g. "Default Config" scenario). */
 export interface BenchmarkGroup {
-  /** Group label shown above the bars */
   name: string
   bars: BenchmarkBar[]
 }
 
-/** Key/value pair shown in the environment card. */
 export interface EnvEntry {
   label: string
   value: string
 }
 
 export interface BenchmarkGraphProps {
-  /** Unit label shown in the axis / improvement card, e.g. "mspt" or "s" */
   unit?: string
-  /**
-   * If true values are formatted as mm:ss (for chunk generation times
-   * expressed in seconds). Default false.
-   */
   formatAsTime?: boolean
-  /** Environment details shown in the collapsible card. */
   environment?: EnvEntry[]
-  /** Extra pre-formatted text blocks (JVM flags, moonrise config, …). */
   codeBlocks?: { title: string; content: string }[]
-  /** The bar groups to render. */
   groups: BenchmarkGroup[]
-  /**
-   * Improvement cards shown below the chart.
-   * If omitted they are auto-derived from the first two bars of each group
-   * (comparing bar[0] vs bar[1..n]).
-   */
   improvements?: { title: string; details: string; percentage: string; highlight?: boolean }[]
 }
-
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
 
 function formatTime(seconds: number): string {
   const m = Math.floor(seconds / 60)
@@ -62,48 +36,10 @@ function formatTime(seconds: number): string {
   return `${m}:${s.toString().padStart(2, '0')}`
 }
 
-// ---------------------------------------------------------------------------
-// Animated counter hook
-// ---------------------------------------------------------------------------
-
-function useAnimatedValue(target: number, active: boolean, durationMs = 1400): number {
-  const [value, setValue] = useState(0)
-  const rafRef = useRef<number | null>(null)
-  const startRef = useRef<number | null>(null)
-
-  useEffect(() => {
-    if (!active) return
-    startRef.current = null
-    const animate = (ts: number) => {
-      if (startRef.current === null) startRef.current = ts
-      const elapsed = ts - startRef.current
-      const progress = Math.min(elapsed / durationMs, 1)
-      // ease-out cubic
-      const eased = 1 - Math.pow(1 - progress, 3)
-      setValue(target * eased)
-      if (progress < 1) {
-        rafRef.current = requestAnimationFrame(animate)
-      } else {
-        setValue(target)
-      }
-    }
-    rafRef.current = requestAnimationFrame(animate)
-    return () => {
-      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
-    }
-  }, [target, active, durationMs])
-
-  return value
-}
-
-// ---------------------------------------------------------------------------
-// Bar colours
-// ---------------------------------------------------------------------------
-
 const DEFAULT_COLORS: Record<string, string> = {
-  Paper: '#3498db',
-  Leaf: '#78c287',
-  'Leaf+Async': '#49b858',
+  Paper:       '#3b82f6',
+  Leaf:        '#78c287',
+  'Leaf+Async':'#49b858',
 }
 
 function barColor(bar: BenchmarkBar): string {
@@ -111,203 +47,123 @@ function barColor(bar: BenchmarkBar): string {
   return DEFAULT_COLORS[bar.label] ?? 'var(--color-accent)'
 }
 
-// ---------------------------------------------------------------------------
-// Sub-components
-// ---------------------------------------------------------------------------
 
-function EnvCard({
-  environment,
-  codeBlocks,
-}: {
-  environment?: EnvEntry[]
-  codeBlocks?: { title: string; content: string }[]
-}) {
-  const [open, setOpen] = useState(false)
-  if (!environment?.length && !codeBlocks?.length) return null
-  return (
-    <div
-      style={{
-        backgroundColor: 'var(--color-background-300)',
-        borderRadius: '8px',
-        padding: '20px',
-        marginBottom: '24px',
-        border: '1px solid var(--color-border)',
-      }}
-    >
-      <button
-        onClick={() => setOpen((o) => !o)}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          background: 'none',
-          border: 'none',
-          padding: 0,
-          cursor: 'pointer',
-          color: 'var(--color-fg-100)',
-          fontFamily: 'var(--font-sans)',
-          fontSize: '1.1rem',
-          fontWeight: 600,
-        }}
-      >
-        <span
-          style={{
-            fontSize: '12px',
-            display: 'inline-block',
-            transition: 'transform 150ms',
-            transform: open ? 'rotate(90deg)' : 'none',
-          }}
-        >
-          ▶
-        </span>
-        Test Environment
-      </button>
-
-      {open && (
-        <>
-          {environment && environment.length > 0 && (
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(2, 1fr)',
-                gap: '16px',
-                marginTop: '16px',
-                marginBottom: '16px',
-              }}
-            >
-              {environment.map((e) => (
-                <div key={e.label} style={{ fontSize: '0.9rem' }}>
-                  <span style={{ fontWeight: 600, marginRight: '6px' }}>{e.label}:</span>
-                  {e.value}
-                </div>
-              ))}
-            </div>
-          )}
-          {codeBlocks?.map((block) => (
-            <div key={block.title} style={{ marginTop: '16px' }}>
-              <h4
-                style={{
-                  fontSize: '1rem',
-                  fontWeight: 500,
-                  marginBottom: '8px',
-                }}
-              >
-                {block.title}
-              </h4>
-              <pre
-                style={{
-                  backgroundColor: 'var(--color-background-200)',
-                  padding: '12px',
-                  borderRadius: '6px',
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.8em',
-                  lineHeight: 1.4,
-                  overflowX: 'auto',
-                  whiteSpace: 'pre-wrap',
-                  wordBreak: 'break-word',
-                  margin: '0',
-                }}
-              >
-                {block.content}
-              </pre>
-            </div>
-          ))}
-        </>
-      )}
-    </div>
-  )
-}
-
-interface AnimatedBarProps {
+interface BarProps {
   bar: BenchmarkBar
   maxValue: number
-  chartHeight: number
-  active: boolean
-  showLabels: boolean
-  unit: string
   formatAsTime: boolean
-  delayMs: number
+  active: boolean
+  delay: number
+  showTooltip?: boolean
 }
 
-function AnimatedBar({
-  bar,
-  maxValue,
-  chartHeight,
-  active,
-  showLabels,
-  unit,
-  formatAsTime,
-  delayMs,
-}: AnimatedBarProps) {
-  const animated = useAnimatedValue(bar.value, active, 1400)
-  const targetPx = (bar.value / maxValue) * chartHeight
+const CHART_HEIGHT = 340
+
+function Bar({ bar, maxValue, formatAsTime, active, delay, showTooltip }: BarProps) {
+  const pct = Math.round((bar.value / maxValue) * 100)
+  const fillPx = Math.round((pct / 100) * CHART_HEIGHT)
   const color = barColor(bar)
 
-  const displayValue = formatAsTime
-    ? formatTime(animated)
-    : `${animated.toFixed(1)} ${unit}`
-
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        width: '70px',
-      }}
-    >
-      {/* wrapper so bar grows upward */}
+    <div style={{ flex: 1, minWidth: 0 }}>
+      {/* Track */}
       <div
         style={{
-          height: `${chartHeight}px`,
-          display: 'flex',
-          alignItems: 'flex-end',
+          position: 'relative',
+          width: '100%',
+          height: CHART_HEIGHT,
+          overflow: 'hidden',
+          backgroundColor: 'rgba(28,28,28,0.8)',
+          backgroundImage: `linear-gradient(135deg, rgba(60,60,60,0.35) 25%, transparent 25.5%, transparent 50%, rgba(60,60,60,0.35) 50.5%, rgba(60,60,60,0.35) 75%, transparent 75.5%, transparent)`,
+          backgroundSize: '10px 10px',
         }}
       >
-        <div
+        {/* Bar fill */}
+        <motion.div
+          initial={{ height: 0 }}
+          animate={{ height: active ? fillPx : 0 }}
+          transition={{ duration: 0.8, type: 'spring', damping: 20, delay }}
           style={{
-            width: '60px',
-            borderRadius: '4px 4px 0 0',
-            transition: `height 1.2s cubic-bezier(0.34,1.56,0.64,1) ${delayMs}ms`,
-            height: active ? `${targetPx}px` : '0',
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
             backgroundColor: color,
+            display: 'flex',
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+            paddingTop: 10,
+            overflow: 'hidden',
           }}
-        />
+        >
+          <div style={{
+            background: 'rgba(0,0,0,0.3)',
+            padding: '3px 8px',
+            fontSize: 'var(--text-sm)',
+            fontWeight: 700,
+            color: '#fff',
+            fontFamily: 'var(--font-mono)',
+            letterSpacing: '-0.02em',
+            whiteSpace: 'nowrap',
+          }}>
+            {formatAsTime
+              ? formatTime(bar.value)
+              : <NumberFlow value={bar.value} suffix=" mspt" format={{ minimumFractionDigits: 1, maximumFractionDigits: 1 }} />
+            }
+          </div>
+        </motion.div>
+
+        {/* "Best" badge */}
+        {showTooltip && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: active ? 1 : 0 }}
+            transition={{ duration: 0.3, delay: delay + 0.9 }}
+            style={{
+              position: 'absolute',
+              bottom: fillPx + 8,
+              left: '50%',
+              transform: 'translateX(-50%)',
+              background: color,
+              color: '#000',
+              fontSize: 'var(--text-xs)',
+              fontWeight: 700,
+              padding: '2px 8px',
+              whiteSpace: 'nowrap',
+              pointerEvents: 'none',
+            }}
+          >
+            Best
+            <span style={{
+              position: 'absolute',
+              top: '100%',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: 0,
+              height: 0,
+              borderLeft: '5px solid transparent',
+              borderRight: '5px solid transparent',
+              borderTop: `5px solid ${color}`,
+            }} />
+          </motion.div>
+        )}
       </div>
-      {/* value */}
-      <div
-        style={{
-          fontSize: '0.85rem',
-          marginTop: '8px',
-          fontWeight: 600,
-          whiteSpace: 'nowrap',
-          opacity: showLabels ? 1 : 0,
-          transform: showLabels ? 'translateY(0)' : 'translateY(10px)',
-          transition: `opacity 0.5s ease ${delayMs + 200}ms, transform 0.5s ease ${delayMs + 200}ms`,
-        }}
-      >
-        {displayValue}
-      </div>
-      {/* name */}
-      <div
-        style={{
-          fontSize: '0.85rem',
-          marginTop: '4px',
-          opacity: showLabels ? 0.8 : 0,
-          transform: showLabels ? 'translateY(0)' : 'translateY(10px)',
-          transition: `opacity 0.5s ease ${delayMs + 250}ms, transform 0.5s ease ${delayMs + 250}ms`,
-          textAlign: 'center',
-        }}
-      >
+
+      {/* Label */}
+      <div style={{
+        textAlign: 'center',
+        fontSize: 'var(--text-xs)',
+        color: 'var(--color-fg-300)',
+        paddingTop: 8,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+      }}>
         {bar.label}
       </div>
     </div>
   )
 }
-
-// ---------------------------------------------------------------------------
-// Main component
-// ---------------------------------------------------------------------------
 
 export function BenchmarkGraph({
   unit = 'mspt',
@@ -317,41 +173,28 @@ export function BenchmarkGraph({
   groups,
   improvements,
 }: BenchmarkGraphProps) {
-  const [showBars, setShowBars] = useState(false)
-  const [showLabels, setShowLabels] = useState(false)
-  const [showCards, setShowCards] = useState(false)
-
-  const containerRef = useRef<HTMLDivElement>(null)
-  const started = useRef(false)
-  const timeoutIds = useRef<ReturnType<typeof setTimeout>[]>([])
+  const [active, setActive] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const el = containerRef.current
+    const el = ref.current
     if (!el) return
+    const trigger = () => setActive(true)
     const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !started.current) {
-          started.current = true
-          timeoutIds.current.push(setTimeout(() => setShowBars(true), 300))
-          timeoutIds.current.push(setTimeout(() => setShowLabels(true), 800))
-          timeoutIds.current.push(setTimeout(() => setShowCards(true), 1500))
-        }
-      },
-      { threshold: 0.2 }
+      (entries) => { if (entries[0].isIntersecting) trigger() },
+      { threshold: 0 }
     )
     observer.observe(el)
-    return () => {
-      observer.disconnect()
-      timeoutIds.current.forEach(clearTimeout)
-    }
+    // Fallback: if already in viewport on mount
+    const rect = el.getBoundingClientRect()
+    if (rect.top < window.innerHeight) trigger()
+    return () => observer.disconnect()
   }, [])
 
-  // Max value across all bars for scale
   const allValues = groups.flatMap((g) => g.bars.map((b) => b.value))
   const maxValue = Math.max(...allValues, 1)
-  const chartHeight = 180 // px for tallest bar
 
-  // Auto-derive improvement cards if not provided
+  // Derive improvement cards
   const cards =
     improvements ??
     groups.flatMap((group) => {
@@ -359,8 +202,8 @@ export function BenchmarkGraph({
       return group.bars.slice(1).map((bar) => {
         const pct = (((baseline.value - bar.value) / baseline.value) * 100).toFixed(1)
         return {
-          title: `${bar.label} – ${group.name}`,
-          details: `${bar.label} (${formatAsTime ? formatTime(bar.value) : `${bar.value} ${unit}`}) vs ${baseline.label} (${formatAsTime ? formatTime(baseline.value) : `${baseline.value} ${unit}`})`,
+          title: `${bar.label} vs ${baseline.label}`,
+          details: `${group.name}`,
           percentage: `${pct}%`,
           highlight: bar.label.toLowerCase().includes('async'),
         }
@@ -368,134 +211,105 @@ export function BenchmarkGraph({
     })
 
   return (
-    <div ref={containerRef} style={{ width: '100%', maxWidth: '960px', margin: '0 auto' }}>
-      <EnvCard environment={environment} codeBlocks={codeBlocks} />
-
-      {/* Chart */}
-      <h3 style={{ fontSize: '1.2rem', fontWeight: 600, marginBottom: '16px' }}>
-        Performance Comparison ({unit} – lower is better)
-      </h3>
+    <div ref={ref}>
+      {/* Groups as bordered boxes */}
       <div
         style={{
-          backgroundColor: 'var(--color-background-300)',
-          borderRadius: '8px',
-          padding: '20px',
-          marginBottom: '24px',
-          overflowX: 'auto',
-          border: '1px solid var(--color-border)',
+          display: 'grid',
+          gridTemplateColumns: `repeat(${groups.length}, 1fr)`,
+          borderLeft: '1px solid var(--color-border)',
+          borderTop: '1px solid var(--color-border)',
+          marginBottom: 'var(--space-3)',
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-around',
-            alignItems: 'flex-end',
-            padding: '20px 0',
-            flexWrap: 'wrap',
-            gap: '24px',
-          }}
-        >
-          {groups.map((group, gi) => (
+        {groups.map((group, gi) => (
+          <div
+            key={group.name}
+            style={{
+              borderRight: '1px solid var(--color-border)',
+              borderBottom: '1px solid var(--color-border)',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            {/* Group header */}
             <div
-              key={group.name}
               style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                minWidth: '240px',
+                padding: 'var(--space-2) var(--space-3)',
+                borderBottom: '1px solid var(--color-border)',
+                fontSize: 'var(--text-sm)',
+                fontWeight: 600,
+                color: 'var(--color-fg-100)',
+                letterSpacing: '-0.01em',
               }}
             >
-              <div
-                style={{
-                  fontWeight: 600,
-                  fontSize: '1rem',
-                  marginBottom: '20px',
-                  textAlign: 'center',
-                }}
-              >
-                {group.name}
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'flex-end',
-                  gap: '32px',
-                  height: `${chartHeight + 70}px`,
-                  width: '100%',
-                }}
-              >
-                {group.bars.map((bar, bi) => (
-                  <AnimatedBar
-                    key={bar.label}
+              {group.name}
+            </div>
+
+            {/* Bars */}
+            <div
+              style={{
+                display: 'flex',
+                gap: 'var(--space-2)',
+                padding: 'var(--space-3)',
+              }}
+            >
+              {group.bars.map((bar, bi) => {
+                const delay = (gi * group.bars.length + bi) * 0.15
+                const groupMin = Math.min(...group.bars.map((b) => b.value))
+                const isMin = bar.value === groupMin
+                return (
+                  <Bar
+                    key={bi}
                     bar={bar}
                     maxValue={maxValue}
-                    chartHeight={chartHeight}
-                    active={showBars}
-                    showLabels={showLabels}
-                    unit={unit}
                     formatAsTime={formatAsTime}
-                    delayMs={gi * 100 + bi * 150}
+                    active={active}
+                    delay={delay}
+                    showTooltip={isMin}
                   />
-                ))}
-              </div>
+                )
+              })}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
 
       {/* Improvement cards */}
       {cards.length > 0 && (
-        <>
-          <h3 style={{ fontSize: '1.2rem', fontWeight: 600, marginBottom: '16px' }}>
-            Performance Improvement
-          </h3>
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-              gap: '16px',
-              marginBottom: '24px',
-            }}
-          >
-            {cards.map((card, i) => (
-              <div
-                key={card.title}
-                style={{
-                  backgroundColor: card.highlight ? 'rgba(120,194,135,0.08)' : 'var(--color-background-300)',
-                  border: `${card.highlight ? '2px' : '1px'} solid var(--color-accent)`,
-                  borderRadius: '8px',
-                  padding: '20px',
-                  textAlign: 'center',
-                  opacity: showCards ? 1 : 0,
-                  transform: showCards ? 'translateY(0)' : 'translateY(20px)',
-                  transition: `opacity 0.6s ease ${i * 200}ms, transform 0.6s ease ${i * 200}ms`,
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: '2rem',
-                    fontWeight: 700,
-                    color: 'var(--color-accent)',
-                    marginBottom: '8px',
-                  }}
-                >
-                  {card.percentage}
-                </div>
-                <div
-                  style={{
-                    fontSize: '1rem',
-                    fontWeight: 600,
-                    marginBottom: '10px',
-                  }}
-                >
-                  {card.title}
-                </div>
-                <div style={{ fontSize: '0.9rem', opacity: 0.8 }}>{card.details}</div>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: `repeat(${cards.length}, 1fr)`,
+            borderLeft: '1px solid var(--color-border)',
+            borderTop: '1px solid var(--color-border)',
+          }}
+        >
+          {cards.map((card, i) => (
+            <motion.div
+              key={card.title}
+              initial={{ opacity: 0, y: 12 }}
+              animate={active ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.4, delay: 0.8 + i * 0.1 }}
+              style={{
+                borderRight: '1px solid var(--color-border)',
+                borderBottom: '1px solid var(--color-border)',
+                padding: 'var(--space-3)',
+                background: card.highlight ? 'var(--color-accent-subtle)' : 'transparent',
+              }}
+            >
+              <div style={{ fontSize: 'var(--text-2xl)', fontWeight: 700, fontFamily: 'var(--font-mono)', color: 'var(--color-accent)', letterSpacing: '-0.04em', lineHeight: 1 }}>
+                {card.percentage}
               </div>
-            ))}
-          </div>
-        </>
+              <div style={{ fontSize: 'var(--text-xs)', fontWeight: 600, color: 'var(--color-fg-100)', marginTop: '6px' }}>
+                {card.title}
+              </div>
+              <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-fg-300)', marginTop: '2px' }}>
+                {card.details}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       )}
     </div>
   )

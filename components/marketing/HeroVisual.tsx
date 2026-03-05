@@ -28,7 +28,7 @@ export function HeroVisual() {
       transition={{ duration: 1.4, delay: 0.15 }}
     >
       {size.width > 0 && (
-        <div style={{ position: 'absolute', inset: 0, transform: 'scale(1.08) translateX(28px)', transformOrigin: 'center right' }}>
+        <div className="hero-visual-inner" style={{ position: 'absolute', inset: 0, transform: 'scale(1.08) translateX(28px)', transformOrigin: 'center right' }}>
           {/* Ambient dots */}
           <FlickeringGrid
             width={size.width}

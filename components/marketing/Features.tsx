@@ -13,6 +13,7 @@ export function Features({ content }: { content: HomeConfig['features'] }) {
       }}
     >
       <div
+        className="features-grid"
         style={{
           maxWidth: '1200px',
           margin: '0 auto',

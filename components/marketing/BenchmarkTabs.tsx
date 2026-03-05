@@ -18,6 +18,7 @@ export function BenchmarkTabs() {
       >
         <div
           role="tablist"
+          className="tab-list"
           style={{
             display: 'inline-flex',
             background: 'var(--color-background-200)',

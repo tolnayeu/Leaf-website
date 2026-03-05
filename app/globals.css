@@ -24,13 +24,85 @@ body::after {
   right: max(0px, calc(50% - 600px));
 }
 
-/* ─── Mobile responsive ─── */
+/* ─── Guide lines: only meaningful when viewport ≥ 1200px ─── */
+@media (max-width: 1199px) {
+  body::before, body::after { display: none; }
+}
+
+/* ─── Tablet (≤ 1024px) ─── */
+@media (max-width: 1024px) {
+  /* Stat cards: 4-col → 2-col */
+  .stat-cards { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+/* ─── Mobile layout reflow (≤ 768px) ─── */
+@media (max-width: 768px) {
+  /* Hero: 12-col grid → single column, visual below text */
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+    padding-left: var(--space-3) !important;
+    padding-right: var(--space-3) !important;
+  }
+  .hero-left {
+    grid-column: auto !important;
+    padding-top: var(--space-6) !important;
+    padding-bottom: var(--space-4) !important;
+  }
+  .hero-right {
+    grid-column: auto !important;
+    height: 180px !important;
+    align-self: auto !important;
+    position: relative !important;
+  }
+  /* Reset visual transform so it fills the strip evenly */
+  .hero-visual-inner {
+    transform: none !important;
+  }
+
+  /* Features: 3-col → 1-col */
+  .features-grid {
+    grid-template-columns: 1fr !important;
+    border-left: none !important;
+  }
+  .features-grid > * {
+    border-left: 1px solid var(--color-border) !important;
+  }
+
+  /* Comparison header: row → column */
+  .comparison-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: var(--space-1) !important;
+  }
+
+  /* Community CTA: reduce padding */
+  .community-warp { padding: 40px 24px !important; }
+}
+
+/* ─── Mobile (≤ 640px) ─── */
 @media (max-width: 640px) {
+  /* Navbar */
   .nav-links,
   .nav-right { display: none !important; }
   .nav-hamburger { display: flex !important; }
 
+  /* Stat cards: 2-col → 1-col */
   .stat-cards { grid-template-columns: 1fr !important; }
+
+  /* Benchmark tabs: stretch full width */
+  .tab-list {
+    display: flex !important;
+    width: 100% !important;
+  }
+  .tab-list > button {
+    flex: 1 !important;
+    padding: 6px 8px !important;
+    font-size: 12px !important;
+  }
+
+  /* Community CTA: further reduce padding */
+  .community-warp { padding: 32px 16px !important; }
 }
 
 body {

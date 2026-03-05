@@ -13,6 +13,7 @@ export function Hero({ content }: { content: HomeConfig['hero'] }) {
   return (
     <section style={{ borderBottom: '1px solid var(--color-border)', overflow: 'hidden' }}>
       <div
+        className="hero-grid"
         style={{
           maxWidth: '1200px',
           margin: '0 auto',
@@ -25,7 +26,7 @@ export function Hero({ content }: { content: HomeConfig['hero'] }) {
         }}
       >
         {/* Left — text content */}
-        <div style={{ gridColumn: '1 / 8', paddingTop: 'var(--space-8)', paddingBottom: 'var(--space-8)', position: 'relative', zIndex: 1 }}>
+        <div className="hero-left" style={{ gridColumn: '1 / 8', paddingTop: 'var(--space-8)', paddingBottom: 'var(--space-8)', position: 'relative', zIndex: 1 }}>
           {hero.announcement.visible && (
             <motion.div
               initial={{ opacity: 0, y: 6 }}
@@ -72,7 +73,7 @@ export function Hero({ content }: { content: HomeConfig['hero'] }) {
         </div>
 
         {/* Right — visual fades in as text animates */}
-        <div style={{ gridColumn: '8 / 13', alignSelf: 'stretch', position: 'relative', zIndex: 0 }}>
+        <div className="hero-right" style={{ gridColumn: '8 / 13', alignSelf: 'stretch', position: 'relative', zIndex: 0 }}>
           <HeroVisual />
         </div>
       </div>

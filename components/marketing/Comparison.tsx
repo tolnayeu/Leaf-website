@@ -101,6 +101,7 @@ export async function Comparison({ content }: { content: HomeConfig['comparison'
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         {/* Section header */}
         <div
+          className="comparison-header"
           style={{
             padding: 'var(--space-5) var(--space-3)',
             borderBottom: '1px solid var(--color-border)',

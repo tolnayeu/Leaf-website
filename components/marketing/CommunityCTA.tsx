@@ -22,6 +22,7 @@ export function CommunityCTA({ content }: { content: HomeConfig['community'] }) 
           beamSize={5}
           beamDuration={4}
           beamDelayMax={4}
+          className="community-warp"
           style={{
             border: '1px solid var(--color-border)',
             padding: '64px 48px',

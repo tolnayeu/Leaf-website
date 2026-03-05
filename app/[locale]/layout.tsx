@@ -4,8 +4,6 @@ import { GeistMono } from 'geist/font/mono'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import { routing } from '@/i18n/routing'
-import { Preloader } from '@/components/ui/Preloader'
-import { GatedContent } from '@/components/ui/GatedContent'
 import '../globals.css'
 
 export const metadata: Metadata = {
@@ -40,12 +38,9 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
       <body>
-        <Preloader />
-        <GatedContent>
-          <NextIntlClientProvider locale={locale} messages={messages}>
-            {children}
-          </NextIntlClientProvider>
-        </GatedContent>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   )

@@ -1,45 +1,61 @@
 :root {
   /* Backgrounds */
-  --bg-page: #000000;
-  --bg-card: #0a0a0a;
-  --bg-elevated: #111111;
+  --color-background-100: #0a0a0a;
+  --color-background-200: #111111;
+  --color-background-300: #1a1a1a;
 
   /* Borders */
-  --border-default: #1a1a1a;
-  --border-hover: #333333;
+  --color-border:       #2e2e2e;
+  --color-border-hover: #444444;
 
-  /* Text */
-  --text-primary: #ededed;
-  --text-secondary: #888888;
-  --text-muted: #666666;
+  /* Foreground */
+  --color-fg-100: #ededed;
+  --color-fg-200: #a1a1a1;
+  --color-fg-300: #6f6f6f;
+  --color-fg-400: #444444;
 
-  /* Brand */
-  --brand: #78c287;
-  --brand-subtle: rgba(120, 194, 135, 0.1);
-  --brand-border: rgba(120, 194, 135, 0.2);
-  --brand-glow: rgba(120, 194, 135, 0.3);
-  --brand-glow-strong: rgba(120, 194, 135, 0.55);
+  /* Accent */
+  --color-accent:        #78c287;
+  --color-accent-subtle: rgba(120, 194, 135, 0.08);
+  --color-accent-border: rgba(120, 194, 135, 0.2);
 
   /* Semantic */
   --color-success: #78c287;
-  --color-error: #e5484d;
+  --color-error:   #e5484d;
   --color-warning: #f76b15;
-  --color-info: #3b9edd;
+  --color-info:    #3b9edd;
 
   /* Typography */
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
 
+  --text-xs:   11px;  --leading-xs:   16px;
+  --text-sm:   13px;  --leading-sm:   20px;
+  --text-base: 15px;  --leading-base: 24px;
+  --text-lg:   18px;  --leading-lg:   28px;
+  --text-xl:   24px;  --leading-xl:   32px;
+  --text-2xl:  32px;  --leading-2xl:  40px;
+
+  /* Spacing (8px base) */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 48px;
+  --space-6: 64px;
+  --space-7: 80px;
+  --space-8: 96px;
+  --space-9: 128px;
+
   /* Radius */
-  --radius: 6px;
   --radius-sm: 4px;
-  --radius-md: 8px;
+  --radius:    8px;
   --radius-lg: 12px;
-  --radius-xl: 16px;
 
   /* Motion */
-  --duration: 150ms;
+  --duration-fast: 100ms;
+  --duration:      150ms;
   --duration-base: 300ms;
-  --duration-slow: 350ms;
-  --ease: ease;
+  --ease:     ease;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }

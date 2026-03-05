@@ -42,7 +42,7 @@ export function Navbar({ config }: { config: NavConfig }) {
           WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'blur(8px)',
           background: scrolled ? 'rgba(0,0,0,0.78)' : 'rgba(0,0,0,0.32)',
           border: scrolled
-            ? '1px solid var(--border-default)'
+            ? '1px solid var(--color-border)'
             : '1px solid rgba(255,255,255,0.10)',
           borderRadius: '14px',
           transition: [
@@ -65,7 +65,7 @@ export function Navbar({ config }: { config: NavConfig }) {
         >
           <div
             style={{
-              filter: 'drop-shadow(0 0 6px var(--brand-glow-strong)) drop-shadow(0 0 14px var(--brand-glow))',
+              filter: 'drop-shadow(0 0 6px rgba(120, 194, 135, 0.55)) drop-shadow(0 0 14px rgba(120, 194, 135, 0.3))',
               display: 'flex',
               alignItems: 'center',
             }}
@@ -91,7 +91,7 @@ export function Navbar({ config }: { config: NavConfig }) {
             >
               <LetterSwap
                 label={link.label}
-                style={{ fontSize: '13px', color: 'var(--text-secondary)' }}
+                style={{ fontSize: '13px', color: 'var(--color-fg-200)' }}
               />
             </Link>
           ))}
@@ -108,7 +108,7 @@ export function Navbar({ config }: { config: NavConfig }) {
           >
             <LetterSwap
               label="GitHub"
-              style={{ fontSize: '13px', color: 'var(--text-secondary)' }}
+              style={{ fontSize: '13px', color: 'var(--color-fg-200)' }}
             />
           </a>
           <a
@@ -118,14 +118,14 @@ export function Navbar({ config }: { config: NavConfig }) {
             style={{
               textDecoration: 'none',
               border: '1px solid rgba(255,255,255,0.18)',
-              borderRadius: 'var(--radius-md)',
+              borderRadius: 'var(--radius)',
               padding: '5px 12px',
               background: 'rgba(255,255,255,0.06)',
             }}
           >
             <LetterSwap
               label="Discord"
-              style={{ fontSize: '13px', color: 'var(--text-primary)' }}
+              style={{ fontSize: '13px', color: 'var(--color-fg-100)' }}
             />
           </a>
         </div>

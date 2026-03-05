@@ -64,7 +64,7 @@ export function OCBackers() {
 
   if (loading) {
     return (
-      <p style={{ color: 'var(--text-muted)', fontSize: '14px', textAlign: 'center', margin: '16px 0' }}>
+      <p style={{ color: 'var(--color-fg-300)', fontSize: '14px', textAlign: 'center', margin: '16px 0' }}>
         Loading supporters…
       </p>
     )
@@ -78,7 +78,7 @@ export function OCBackers() {
 
   return (
     <div>
-      <p style={{ fontSize: '12px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '16px' }}>
+      <p style={{ fontSize: '12px', color: 'var(--color-fg-300)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '16px' }}>
         Supporters
       </p>
 
@@ -121,7 +121,7 @@ export function OCBackers() {
                     width: AVATAR_SIZE,
                     height: AVATAR_SIZE,
                     borderRadius: '50%',
-                    border: '2.5px solid var(--bg-page)',
+                    border: '2.5px solid var(--color-background-100)',
                     background: AVATAR_BG,
                     display: 'flex',
                     alignItems: 'center',
@@ -146,12 +146,12 @@ export function OCBackers() {
                       ...(isSecond ? { top: 'calc(100% + 8px)' } : { bottom: 'calc(100% + 6px)' }),
                       left: '50%',
                       transform: 'translateX(-50%)',
-                      background: 'var(--bg-elevated)',
-                      border: '1px solid var(--border-default)',
+                      background: 'var(--color-background-300)',
+                      border: '1px solid var(--color-border)',
                       borderRadius: '6px',
                       padding: '6px 10px',
                       fontSize: '12px',
-                      color: 'var(--text-primary)',
+                      color: 'var(--color-fg-100)',
                       whiteSpace: 'nowrap',
                       pointerEvents: 'none',
                       zIndex: 999,
@@ -199,7 +199,7 @@ export function OCBackers() {
                   onError={() => setFailedImages((prev) => new Set(prev).add(b.profile))}
                   style={{
                     borderRadius: '50%',
-                    border: '2.5px solid var(--bg-page)',
+                    border: '2.5px solid var(--color-background-100)',
                     display: 'block',
                     width: AVATAR_SIZE,
                     height: AVATAR_SIZE,
@@ -221,12 +221,12 @@ export function OCBackers() {
                     ...(isSecond ? { top: 'calc(100% + 8px)' } : { bottom: 'calc(100% + 6px)' }),
                     left: '50%',
                     transform: 'translateX(-50%)',
-                    background: 'var(--bg-elevated)',
-                    border: '1px solid var(--border-default)',
+                    background: 'var(--color-background-300)',
+                    border: '1px solid var(--color-border)',
                     borderRadius: '6px',
                     padding: '3px 8px',
                     fontSize: '12px',
-                    color: 'var(--text-primary)',
+                    color: 'var(--color-fg-100)',
                     whiteSpace: 'nowrap',
                     pointerEvents: 'none',
                     zIndex: 999,
@@ -241,7 +241,7 @@ export function OCBackers() {
         })}
       </div>
 
-      <p style={{ marginTop: '16px', fontSize: '13px', color: 'var(--text-muted)' }}>
+      <p style={{ marginTop: '16px', fontSize: '13px', color: 'var(--color-fg-300)' }}>
         {backers.length} supporters on OpenCollective
       </p>
     </div>

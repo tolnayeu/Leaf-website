@@ -35,7 +35,7 @@ export function Features({ content }: { content: HomeConfig['features'] }) {
                   position: 'relative',
                   height: '100%',
                   borderRadius: 'var(--radius-lg)',
-                  border: '1px solid var(--border-default)',
+                  border: '1px solid var(--color-border)',
                   padding: '2px',
                 }}
               >
@@ -58,7 +58,7 @@ export function Features({ content }: { content: HomeConfig['features'] }) {
                     gap: '24px',
                     overflow: 'hidden',
                     borderRadius: 'calc(var(--radius-lg) - 2px)',
-                    background: 'var(--bg-card)',
+                    background: 'var(--color-background-200)',
                     padding: '28px',
                     boxShadow: '0px 0px 27px 0px rgba(45,45,45,0.3)',
                   }}
@@ -67,9 +67,9 @@ export function Features({ content }: { content: HomeConfig['features'] }) {
                   <div
                     style={{
                       width: 'fit-content',
-                      borderRadius: 'var(--radius-md)',
-                      border: '1px solid var(--border-default)',
-                      background: 'var(--bg-elevated)',
+                      borderRadius: 'var(--radius)',
+                      border: '1px solid var(--color-border)',
+                      background: 'var(--color-background-300)',
                       padding: '8px',
                       color: 'var(--brand)',
                     }}
@@ -82,7 +82,7 @@ export function Features({ content }: { content: HomeConfig['features'] }) {
                       style={{
                         fontSize: '18px',
                         fontWeight: 600,
-                        color: 'var(--text-primary)',
+                        color: 'var(--color-fg-100)',
                         margin: 0,
                         letterSpacing: '-0.02em',
                       }}
@@ -92,7 +92,7 @@ export function Features({ content }: { content: HomeConfig['features'] }) {
                     <p
                       style={{
                         fontSize: '14px',
-                        color: 'var(--text-secondary)',
+                        color: 'var(--color-fg-200)',
                         lineHeight: 1.6,
                         margin: 0,
                       }}

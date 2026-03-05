@@ -20,7 +20,7 @@ function StatCard({ card }: { card: CardDef }) {
         flex: '1 1 0',
         minWidth: 0,
         background: card.bg,
-        borderRadius: 'var(--radius-xl)',
+        borderRadius: 'var(--radius-lg)',
         padding: '24px',
         display: 'flex',
         flexDirection: 'column',
@@ -234,7 +234,7 @@ export async function Comparison({ content }: { content: HomeConfig['comparison'
             fontSize: 'clamp(28px, 5vw, 44px)',
             fontWeight: 700,
             letterSpacing: '-0.03em',
-            color: 'var(--text-primary)',
+            color: 'var(--color-fg-100)',
             margin: '0 0 12px',
             lineHeight: 1.1,
           }}
@@ -244,7 +244,7 @@ export async function Comparison({ content }: { content: HomeConfig['comparison'
         <p
           style={{
             fontSize: '16px',
-            color: 'var(--text-secondary)',
+            color: 'var(--color-fg-200)',
             maxWidth: '460px',
             margin: '0 auto',
             lineHeight: 1.6,

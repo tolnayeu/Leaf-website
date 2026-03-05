@@ -9,11 +9,11 @@ export function CommunityCTA({ content }: { content: HomeConfig['community'] }) 
       <div
         style={{
           position: 'relative',
-          border: '1px solid var(--brand-border)',
-          borderRadius: 'var(--radius-xl)',
+          border: '1px solid var(--color-accent-border)',
+          borderRadius: 'var(--radius-lg)',
           padding: '64px 48px',
           textAlign: 'center',
-          background: 'var(--bg-card)',
+          background: 'var(--color-background-200)',
           overflow: 'hidden',
         }}
       >
@@ -32,7 +32,7 @@ export function CommunityCTA({ content }: { content: HomeConfig['community'] }) 
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'radial-gradient(ellipse 70% 70% at 50% 50%, transparent 20%, var(--bg-card) 80%)',
+            background: 'radial-gradient(ellipse 70% 70% at 50% 50%, transparent 20%, var(--color-background-200) 80%)',
             pointerEvents: 'none',
           }}
         />
@@ -53,15 +53,15 @@ export function CommunityCTA({ content }: { content: HomeConfig['community'] }) 
               width={56}
               height={56}
               style={{
-                filter: 'drop-shadow(0 0 12px var(--brand-glow-strong)) drop-shadow(0 0 28px var(--brand-glow))',
+                filter: 'drop-shadow(0 0 12px rgba(120, 194, 135, 0.55)) drop-shadow(0 0 28px rgba(120, 194, 135, 0.3))',
               }}
             />
           </div>
 
-          <h2 style={{ fontSize: '28px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '12px', letterSpacing: '-0.02em' }}>
+          <h2 style={{ fontSize: '28px', fontWeight: 600, color: 'var(--color-fg-100)', marginBottom: '12px', letterSpacing: '-0.02em' }}>
             {community.headline}
           </h2>
-          <p style={{ fontSize: '15px', color: 'var(--text-secondary)', marginBottom: '32px', maxWidth: '400px', margin: '0 auto 32px' }}>
+          <p style={{ fontSize: '15px', color: 'var(--color-fg-200)', marginBottom: '32px', maxWidth: '400px', margin: '0 auto 32px' }}>
             {community.subheadline}
           </p>
           <a

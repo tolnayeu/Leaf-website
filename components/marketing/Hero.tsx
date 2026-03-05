@@ -82,7 +82,7 @@ export function Hero({ content }: { content: HomeConfig['hero'] }) {
             fontSize: 'clamp(32px, 5.5vw, 56px)',
             fontWeight: 700,
             lineHeight: 1.08,
-            color: 'var(--text-primary)',
+            color: 'var(--color-fg-100)',
             margin: '0 0 16px',
             letterSpacing: '-0.03em',
           }}
@@ -100,7 +100,7 @@ export function Hero({ content }: { content: HomeConfig['hero'] }) {
           delay={0.45}
           style={{
             fontSize: '15px',
-            color: 'var(--text-secondary)',
+            color: 'var(--color-fg-200)',
             lineHeight: 1.65,
             margin: '0 auto 32px',
             maxWidth: '480px',

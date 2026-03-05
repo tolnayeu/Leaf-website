@@ -127,11 +127,11 @@ function EnvCard({
   return (
     <div
       style={{
-        backgroundColor: 'var(--bg-elevated)',
+        backgroundColor: 'var(--color-background-300)',
         borderRadius: '8px',
         padding: '20px',
         marginBottom: '24px',
-        border: '1px solid var(--border-default)',
+        border: '1px solid var(--color-border)',
       }}
     >
       <button
@@ -144,7 +144,7 @@ function EnvCard({
           border: 'none',
           padding: 0,
           cursor: 'pointer',
-          color: 'var(--text-primary)',
+          color: 'var(--color-fg-100)',
           fontFamily: 'var(--font-sans)',
           fontSize: '1.1rem',
           fontWeight: 600,
@@ -196,7 +196,7 @@ function EnvCard({
               </h4>
               <pre
                 style={{
-                  backgroundColor: 'var(--bg-card)',
+                  backgroundColor: 'var(--color-background-200)',
                   padding: '12px',
                   borderRadius: '6px',
                   fontFamily: 'var(--font-mono)',
@@ -377,12 +377,12 @@ export function BenchmarkGraph({
       </h3>
       <div
         style={{
-          backgroundColor: 'var(--bg-elevated)',
+          backgroundColor: 'var(--color-background-300)',
           borderRadius: '8px',
           padding: '20px',
           marginBottom: '24px',
           overflowX: 'auto',
-          border: '1px solid var(--border-default)',
+          border: '1px solid var(--color-border)',
         }}
       >
         <div
@@ -462,7 +462,7 @@ export function BenchmarkGraph({
               <div
                 key={card.title}
                 style={{
-                  backgroundColor: card.highlight ? 'rgba(120,194,135,0.08)' : 'var(--bg-elevated)',
+                  backgroundColor: card.highlight ? 'rgba(120,194,135,0.08)' : 'var(--color-background-300)',
                   border: `${card.highlight ? '2px' : '1px'} solid var(--brand)`,
                   borderRadius: '8px',
                   padding: '20px',

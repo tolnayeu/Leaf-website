@@ -4,7 +4,7 @@ const config: Record<Status, { bg: string; text: string; label: string }> = {
   stable: { bg: 'rgba(120,194,135,0.1)', text: 'var(--color-success)', label: 'Stable' },
   dev:    { bg: 'rgba(247,107,21,0.1)',  text: 'var(--color-warning)', label: 'Dev' },
   eol:    { bg: 'rgba(229,72,77,0.1)',   text: 'var(--color-error)',   label: 'EOL' },
-  dead:   { bg: 'rgba(102,102,102,0.1)', text: 'var(--text-muted)',    label: 'Dead' },
+  dead:   { bg: 'rgba(102,102,102,0.1)', text: 'var(--color-fg-300)',    label: 'Dead' },
 }
 
 export function VersionBadge({ status }: { status: Status }) {

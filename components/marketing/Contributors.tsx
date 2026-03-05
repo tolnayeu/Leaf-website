@@ -71,7 +71,7 @@ export function Contributors({ content }: { content: HomeConfig['contributors'] 
   if (loading) {
     return (
       <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px 80px' }}>
-        <p style={{ color: 'var(--text-muted)', fontSize: '14px', textAlign: 'center' }}>Loading contributors…</p>
+        <p style={{ color: 'var(--color-fg-300)', fontSize: '14px', textAlign: 'center' }}>Loading contributors…</p>
       </section>
     )
   }
@@ -83,7 +83,7 @@ export function Contributors({ content }: { content: HomeConfig['contributors'] 
 
   return (
     <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px 80px', textAlign: 'center' }}>
-      <h2 style={{ fontSize: '24px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '36px' }}>
+      <h2 style={{ fontSize: '24px', fontWeight: 600, color: 'var(--color-fg-100)', marginBottom: '36px' }}>
         {content.title}
       </h2>
 
@@ -130,7 +130,7 @@ export function Contributors({ content }: { content: HomeConfig['contributors'] 
                   height={AVATAR_SIZE}
                   style={{
                     borderRadius: '50%',
-                    border: '2.5px solid var(--bg-page)',
+                    border: '2.5px solid var(--color-background-100)',
                     display: 'block',
                     width: AVATAR_SIZE,
                     height: AVATAR_SIZE,
@@ -156,12 +156,12 @@ export function Contributors({ content }: { content: HomeConfig['contributors'] 
                       : { bottom: 'calc(100% + 6px)' }),
                     left: '50%',
                     transform: 'translateX(-50%)',
-                    background: 'var(--bg-elevated)',
-                    border: '1px solid var(--border-default)',
+                    background: 'var(--color-background-300)',
+                    border: '1px solid var(--color-border)',
                     borderRadius: '6px',
                     padding: '3px 8px',
                     fontSize: '12px',
-                    color: 'var(--text-primary)',
+                    color: 'var(--color-fg-100)',
                     whiteSpace: 'nowrap',
                     pointerEvents: 'none',
                     zIndex: 999,
@@ -176,7 +176,7 @@ export function Contributors({ content }: { content: HomeConfig['contributors'] 
         })}
       </div>
 
-      <p style={{ marginTop: '20px', fontSize: '13px', color: 'var(--text-muted)' }}>
+      <p style={{ marginTop: '20px', fontSize: '13px', color: 'var(--color-fg-300)' }}>
         {contributors.length} contributors across Leaf & website
       </p>
     </section>

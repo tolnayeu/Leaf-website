@@ -21,7 +21,7 @@ function DiscordIcon() {
 export function Footer() {
   const nav = getNavConfig()
   return (
-    <footer style={{ borderTop: '1px solid var(--border-default)', padding: '48px 24px 32px' }}>
+    <footer style={{ borderTop: '1px solid var(--color-border)', padding: '48px 24px 32px' }}>
       <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
         {/* Logo */}
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '24px' }}>
@@ -30,7 +30,7 @@ export function Footer() {
             alt="Leaf"
             width={36}
             height={36}
-            style={{ filter: 'drop-shadow(0 0 6px var(--brand-glow-strong)) drop-shadow(0 0 14px var(--brand-glow))' }}
+            style={{ filter: 'drop-shadow(0 0 6px rgba(120, 194, 135, 0.55)) drop-shadow(0 0 14px rgba(120, 194, 135, 0.3))' }}
           />
         </div>
 
@@ -40,7 +40,7 @@ export function Footer() {
             <Link
               key={link.href}
               href={link.href}
-              style={{ fontSize: '13px', color: 'var(--text-secondary)', textDecoration: 'none' }}
+              style={{ fontSize: '13px', color: 'var(--color-fg-200)', textDecoration: 'none' }}
             >
               {link.label}
             </Link>
@@ -54,7 +54,7 @@ export function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            style={{ color: 'var(--text-secondary)', display: 'flex' }}
+            style={{ color: 'var(--color-fg-200)', display: 'flex' }}
           >
             <GitHubIcon />
           </a>
@@ -63,13 +63,13 @@ export function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Discord"
-            style={{ color: 'var(--text-secondary)', display: 'flex' }}
+            style={{ color: 'var(--color-fg-200)', display: 'flex' }}
           >
             <DiscordIcon />
           </a>
         </div>
 
-        <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
+        <p style={{ fontSize: '13px', color: 'var(--color-fg-300)' }}>
           © {new Date().getFullYear()} Winds Studio · MIT License
         </p>
       </div>

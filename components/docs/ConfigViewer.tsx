@@ -126,9 +126,9 @@ function DescriptionBlock({ html }: { html: string }) {
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: safe }}
       style={{
-        background: 'var(--bg-elevated)',
+        background: 'var(--color-background-300)',
         fontFamily: 'var(--font-sans)',
-        color: 'var(--text-primary)',
+        color: 'var(--color-fg-100)',
         padding: '0.5rem 0.75rem',
         margin: '0.25rem 0',
         borderLeft: '4px solid var(--brand)',
@@ -195,7 +195,7 @@ function ConfigValueNodeComp({ node, globalSignal, signalKey }: NodeProps & { no
       >
         <span style={{ whiteSpace: 'nowrap', color: 'var(--brand)' }}>
           {node.name}
-          <span style={{ color: 'var(--text-muted)' }}>:</span>
+          <span style={{ color: 'var(--color-fg-300)' }}>:</span>
         </span>
         <span
           style={{
@@ -212,7 +212,7 @@ function ConfigValueNodeComp({ node, globalSignal, signalKey }: NodeProps & { no
               transition: 'transform 100ms ease-in-out',
               transform: effectiveOpen ? 'rotate(90deg)' : 'none',
               marginLeft: '0.25rem',
-              color: 'var(--text-muted)',
+              color: 'var(--color-fg-300)',
               display: 'inline-block',
             }}
           >
@@ -264,9 +264,9 @@ function ConfigSectionNodeComp({ node, globalSignal, signalKey }: NodeProps & { 
             fontSize: 'inherit',
           }}
         >
-          <span style={{ whiteSpace: 'nowrap', color: 'var(--text-secondary)' }}>
+          <span style={{ whiteSpace: 'nowrap', color: 'var(--color-fg-200)' }}>
             {node.name}
-            <span style={{ color: 'var(--text-muted)' }}>:</span>
+            <span style={{ color: 'var(--color-fg-300)' }}>:</span>
           </span>
           <span
             style={{
@@ -274,7 +274,7 @@ function ConfigSectionNodeComp({ node, globalSignal, signalKey }: NodeProps & { 
               transition: 'transform 100ms ease-in-out',
               transform: effectiveOpen ? 'rotate(90deg)' : 'none',
               marginLeft: '0.25rem',
-              color: 'var(--text-muted)',
+              color: 'var(--color-fg-300)',
               display: 'inline-block',
             }}
           >
@@ -282,9 +282,9 @@ function ConfigSectionNodeComp({ node, globalSignal, signalKey }: NodeProps & { 
           </span>
         </button>
       ) : (
-        <span style={{ whiteSpace: 'nowrap', color: 'var(--text-secondary)' }}>
+        <span style={{ whiteSpace: 'nowrap', color: 'var(--color-fg-200)' }}>
           {node.name}
-          <span style={{ color: 'var(--text-muted)' }}>:</span>
+          <span style={{ color: 'var(--color-fg-300)' }}>:</span>
         </span>
       )}
 
@@ -332,7 +332,7 @@ export function ConfigViewer({ config }: ConfigViewerProps) {
     <div
       style={{
         fontFamily: 'var(--font-mono)',
-        backgroundColor: 'var(--bg-card)',
+        backgroundColor: 'var(--color-background-200)',
         padding: '1rem',
         borderRadius: '6px',
         display: 'flex',
@@ -340,7 +340,7 @@ export function ConfigViewer({ config }: ConfigViewerProps) {
         gap: '1rem',
         maxWidth: '50rem',
         overflowX: 'auto',
-        border: '1px solid var(--border-default)',
+        border: '1px solid var(--color-border)',
       }}
     >
       {/* Expand / Collapse buttons */}
@@ -352,10 +352,10 @@ export function ConfigViewer({ config }: ConfigViewerProps) {
             alignItems: 'center',
             gap: '0.5rem',
             padding: '0.15rem 0.75rem',
-            border: '1px solid var(--border-default)',
-            backgroundColor: 'var(--bg-elevated)',
+            border: '1px solid var(--color-border)',
+            backgroundColor: 'var(--color-background-300)',
             borderRadius: '0.25rem',
-            color: 'var(--text-primary)',
+            color: 'var(--color-fg-100)',
             fontFamily: 'var(--font-sans)',
             fontSize: '13px',
             cursor: 'pointer',
@@ -376,10 +376,10 @@ export function ConfigViewer({ config }: ConfigViewerProps) {
             alignItems: 'center',
             gap: '0.5rem',
             padding: '0.15rem 0.75rem',
-            border: '1px solid var(--border-default)',
-            backgroundColor: 'var(--bg-elevated)',
+            border: '1px solid var(--color-border)',
+            backgroundColor: 'var(--color-background-300)',
             borderRadius: '0.25rem',
-            color: 'var(--text-primary)',
+            color: 'var(--color-fg-100)',
             fontFamily: 'var(--font-sans)',
             fontSize: '13px',
             cursor: 'pointer',

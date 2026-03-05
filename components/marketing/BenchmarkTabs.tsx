@@ -11,8 +11,8 @@ export function BenchmarkTabs() {
   return (
     <div
       style={{
-        background: 'var(--bg-elevated)',
-        border: '1px solid var(--border-default)',
+        background: 'var(--color-background-300)',
+        border: '1px solid var(--color-border)',
         borderRadius: '12px',
         overflow: 'hidden',
       }}
@@ -21,15 +21,15 @@ export function BenchmarkTabs() {
       <div
         style={{
           padding: '12px 16px',
-          borderBottom: '1px solid var(--border-default)',
+          borderBottom: '1px solid var(--color-border)',
         }}
       >
         <div
           role="tablist"
           style={{
             display: 'inline-flex',
-            background: 'var(--bg-card)',
-            border: '1px solid var(--border-default)',
+            background: 'var(--color-background-200)',
+            border: '1px solid var(--color-border)',
             borderRadius: '8px',
             padding: '3px',
             gap: '2px',
@@ -45,13 +45,13 @@ export function BenchmarkTabs() {
                 onClick={() => setActive(tab)}
                 style={{
                   padding: '6px 16px',
-                  background: isActive ? 'var(--bg-elevated)' : 'transparent',
+                  background: isActive ? 'var(--color-background-300)' : 'transparent',
                   border: 'none',
                   borderRadius: '6px',
                   cursor: 'pointer',
                   fontSize: '13px',
                   fontWeight: isActive ? 600 : 400,
-                  color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)',
+                  color: isActive ? 'var(--color-fg-100)' : 'var(--color-fg-200)',
                   fontFamily: 'var(--font-sans)',
                   transition: 'background 150ms ease, color 150ms ease',
                   whiteSpace: 'nowrap',

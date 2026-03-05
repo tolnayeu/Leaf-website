@@ -45,7 +45,7 @@ export function LanguageSwitcher() {
           alignItems: 'center',
           gap: '6px',
           fontSize: '13px',
-          color: 'var(--text-secondary)',
+          color: 'var(--color-fg-200)',
           background: 'none',
           border: 'none',
           cursor: 'pointer',
@@ -79,9 +79,9 @@ export function LanguageSwitcher() {
             top: 'calc(100% + 6px)',
             right: 0,
             minWidth: '148px',
-            border: '1px solid var(--border-default)',
+            border: '1px solid var(--color-border)',
             borderRadius: '8px',
-            background: 'var(--bg-elevated)',
+            background: 'var(--color-background-300)',
             boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
             overflow: 'hidden',
             zIndex: 100,
@@ -103,14 +103,14 @@ export function LanguageSwitcher() {
                 border: 'none',
                 borderRadius: '5px',
                 background: l === locale ? 'rgba(120,194,135,0.08)' : 'transparent',
-                color: l === locale ? 'var(--brand)' : 'var(--text-secondary)',
+                color: l === locale ? 'var(--brand)' : 'var(--color-fg-200)',
                 fontSize: '13px',
                 cursor: 'pointer',
                 fontFamily: 'var(--font-sans)',
                 textAlign: 'left',
               }}
             >
-              <span style={{ fontWeight: 600, fontSize: '11px', minWidth: '22px', color: l === locale ? 'var(--brand)' : 'var(--text-muted)' }}>
+              <span style={{ fontWeight: 600, fontSize: '11px', minWidth: '22px', color: l === locale ? 'var(--brand)' : 'var(--color-fg-300)' }}>
                 {l.toUpperCase()}
               </span>
               <span>{localeLabels[l] ?? l}</span>

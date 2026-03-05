@@ -8,7 +8,7 @@ const statusColors: Record<VersionStatus, string> = {
   stable:       'var(--color-success)',
   experimental: 'var(--color-info)',
   discontinued: 'var(--color-error)',
-  dead:         'var(--text-muted)',
+  dead:         'var(--color-fg-300)',
 }
 
 interface Props {
@@ -45,10 +45,10 @@ export function VersionDropdown({ versions, selected, onChange }: Props) {
             alignItems: 'center',
             gap: '10px',
             padding: '10px 16px',
-            border: open ? '1px solid var(--border-hover)' : '1px solid var(--border-default)',
+            border: open ? '1px solid var(--color-border-hover)' : '1px solid var(--color-border)',
             borderRadius: '8px',
-            background: 'var(--bg-card)',
-            color: 'var(--text-primary)',
+            background: 'var(--color-background-200)',
+            color: 'var(--color-fg-100)',
             fontSize: '14px',
             cursor: 'pointer',
             width: '100%',
@@ -76,9 +76,9 @@ export function VersionDropdown({ versions, selected, onChange }: Props) {
                 top: 'calc(100% + 6px)',
                 left: 0,
                 right: 0,
-                border: '1px solid var(--border-default)',
+                border: '1px solid var(--color-border)',
                 borderRadius: '10px',
-                background: 'var(--bg-elevated)',
+                background: 'var(--color-background-300)',
                 boxShadow: '0 12px 40px rgba(0,0,0,0.6)',
                 overflow: 'hidden',
                 zIndex: 50,
@@ -108,9 +108,9 @@ export function VersionDropdown({ versions, selected, onChange }: Props) {
                         background: isSelected
                           ? 'rgba(120,194,135,0.08)'
                           : isHovered
-                          ? 'var(--bg-card)'
+                          ? 'var(--color-background-200)'
                           : 'transparent',
-                        color: isSelected ? 'var(--brand)' : 'var(--text-primary)',
+                        color: isSelected ? 'var(--brand)' : 'var(--color-fg-100)',
                         fontSize: '13px',
                         cursor: 'pointer',
                         fontFamily: 'var(--font-mono)',

@@ -101,7 +101,7 @@ export function CanvasRevealEffect({
           style={{
             position: 'absolute',
             inset: 0,
-            background: `radial-gradient(ellipse at ${gradientPos}, transparent 20%, var(--bg-card) 70%)`,
+            background: `radial-gradient(ellipse at ${gradientPos}, transparent 20%, var(--color-background-200) 70%)`,
             pointerEvents: 'none',
           }}
         />

@@ -35,13 +35,13 @@ export function Preloader() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'var(--bg-page)',
+        background: 'var(--color-background-100)',
         opacity: phase === 'fading' ? 0 : 1,
         transition: `opacity ${FADE}ms ease`,
         pointerEvents: phase === 'fading' ? 'none' : 'auto',
       }}
     >
-      <LoaderIcon size={28} className="animate-spin" style={{ color: 'var(--text-muted)' }} />
+      <LoaderIcon size={28} className="animate-spin" style={{ color: 'var(--color-fg-300)' }} />
     </div>
   )
 }

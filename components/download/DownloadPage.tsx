@@ -53,10 +53,10 @@ export function DownloadPage() {
 
   return (
     <main style={{ maxWidth: '800px', margin: '0 auto', padding: '80px 24px' }}>
-      <h1 style={{ fontSize: '40px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '8px', letterSpacing: '-0.02em' }}>
+      <h1 style={{ fontSize: '40px', fontWeight: 700, color: 'var(--color-fg-100)', marginBottom: '8px', letterSpacing: '-0.02em' }}>
         {downloadContent.title}
       </h1>
-      <p style={{ fontSize: '16px', color: 'var(--text-secondary)', marginBottom: '40px' }}>
+      <p style={{ fontSize: '16px', color: 'var(--color-fg-200)', marginBottom: '40px' }}>
         {downloadContent.subtitle}
       </p>
 
@@ -117,7 +117,7 @@ export function DownloadPage() {
         <>
           {builds[0] && (
             <div style={{ marginBottom: '32px' }}>
-              <p style={{ fontSize: '12px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '12px' }}>
+              <p style={{ fontSize: '12px', color: 'var(--color-fg-300)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '12px' }}>
                 {downloadContent.ui.latestBuild}
               </p>
               <BuildCard build={builds[0]} version={selected} highlight />
@@ -126,7 +126,7 @@ export function DownloadPage() {
 
           {builds.length > 1 && (
             <div>
-              <p style={{ fontSize: '12px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '12px' }}>
+              <p style={{ fontSize: '12px', color: 'var(--color-fg-300)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '12px' }}>
                 {downloadContent.ui.buildHistory}
               </p>
               {visibleBuilds.slice(1).map((b) => (
@@ -139,7 +139,7 @@ export function DownloadPage() {
                     marginTop: '12px',
                     background: 'none',
                     border: 'none',
-                    color: 'var(--text-secondary)',
+                    color: 'var(--color-fg-200)',
                     fontSize: '14px',
                     cursor: 'pointer',
                     padding: 0,
@@ -152,7 +152,7 @@ export function DownloadPage() {
             </div>
           )}
 
-          <p style={{ marginTop: '40px', fontSize: '13px', color: 'var(--text-muted)' }}>
+          <p style={{ marginTop: '40px', fontSize: '13px', color: 'var(--color-fg-300)' }}>
             <a href={downloadContent.legacyLink.href} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>
               {downloadContent.legacyLink.label}
             </a>

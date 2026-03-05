@@ -44,9 +44,9 @@ export function BuildCard({ build, version, highlight }: Props) {
           alignItems: 'center',
           gap: '16px',
           padding: '20px 24px',
-          border: '1px solid var(--brand-border)',
+          border: '1px solid var(--color-accent-border)',
           borderRadius: '10px',
-          background: 'var(--bg-card)',
+          background: 'var(--color-background-200)',
           marginBottom: '8px',
           overflow: 'hidden',
           cursor: 'default',
@@ -70,8 +70,8 @@ export function BuildCard({ build, version, highlight }: Props) {
                 fontSize: '11px',
                 fontWeight: 600,
                 color: 'var(--brand)',
-                background: 'var(--brand-subtle)',
-                border: '1px solid var(--brand-border)',
+                background: 'var(--color-accent-subtle)',
+                border: '1px solid var(--color-accent-border)',
                 borderRadius: '4px',
                 padding: '2px 8px',
                 letterSpacing: '0.04em',
@@ -80,15 +80,15 @@ export function BuildCard({ build, version, highlight }: Props) {
             >
               LATEST
             </span>
-            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--text-muted)', margin: '4px 0 0' }}>
+            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--color-fg-300)', margin: '4px 0 0' }}>
               #{build.build}
             </p>
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>
-            <p style={{ margin: 0, fontSize: '14px', fontWeight: 500, color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            <p style={{ margin: 0, fontSize: '14px', fontWeight: 500, color: 'var(--color-fg-100)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {summary}
             </p>
-            <p style={{ margin: '3px 0 0', fontSize: '12px', color: 'var(--text-muted)' }}>{date}</p>
+            <p style={{ margin: '3px 0 0', fontSize: '12px', color: 'var(--color-fg-300)' }}>{date}</p>
           </div>
           {downloadUrl && (
             <span ref={btnRef} style={{ display: 'inline-flex', flexShrink: 0 }}>
@@ -109,20 +109,20 @@ export function BuildCard({ build, version, highlight }: Props) {
         alignItems: 'center',
         gap: '16px',
         padding: '14px 20px',
-        border: '1px solid var(--border-default)',
+        border: '1px solid var(--color-border)',
         borderRadius: '8px',
         background: 'transparent',
         marginBottom: '6px',
       }}
     >
-      <span style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--text-muted)', minWidth: '60px' }}>
+      <span style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--color-fg-300)', minWidth: '60px' }}>
         #{build.build}
       </span>
       <div style={{ flex: 1, minWidth: 0 }}>
-        <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        <p style={{ margin: 0, fontSize: '14px', color: 'var(--color-fg-100)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
           {summary}
         </p>
-        <p style={{ margin: '2px 0 0', fontSize: '12px', color: 'var(--text-muted)' }}>{date}</p>
+        <p style={{ margin: '2px 0 0', fontSize: '12px', color: 'var(--color-fg-300)' }}>{date}</p>
       </div>
       {downloadUrl && (
         <a
@@ -133,9 +133,9 @@ export function BuildCard({ build, version, highlight }: Props) {
             alignItems: 'center',
             gap: '6px',
             padding: '7px 14px',
-            border: '1px solid var(--border-default)',
+            border: '1px solid var(--color-border)',
             borderRadius: '6px',
-            color: 'var(--text-primary)',
+            color: 'var(--color-fg-100)',
             fontSize: '13px',
             textDecoration: 'none',
             whiteSpace: 'nowrap',

@@ -33,8 +33,17 @@ export default async function Layout({
     </span>
   )
 
+  const locales = [
+    { name: 'English',    locale: 'en' },
+    { name: 'Deutsch',    locale: 'de' },
+    { name: 'Türkçe',     locale: 'tr' },
+    { name: 'Português',  locale: 'pt' },
+    { name: 'Русский',    locale: 'ru' },
+    { name: '中文',        locale: 'zh' },
+  ]
+
   return (
-    <RootProvider>
+    <RootProvider i18n={{ locale, locales }}>
       <style>{`
         /* ── Hide homepage guide lines in docs ── */
         body::before, body::after { display: none !important; }
@@ -304,10 +313,84 @@ export default async function Layout({
           font-size: 12px;
           border-left: 1px solid #2e2e2e;
           background: #0a0a0a;
+          padding-left: 24px;
         }
         #nd-toc a { color: #6f6f6f; text-decoration: none; transition: color 150ms ease; }
         #nd-toc a:hover { color: #ededed; }
         #nd-toc a[data-active="true"] { color: #78c287; }
+
+        /* ── Sidebar footer: home + lang in one row ── */
+        /* The fumadocs container has flex-col with [icons-div, footer] as children.
+           Use :has() to flip it to flex-row so home link is left, lang toggle is right. */
+        #nd-sidebar div:has(> .sidebar-home-link) {
+          flex-direction: row !important;
+          align-items: center !important;
+          padding: 10px 16px !important;
+        }
+        /* Home link: first in visual order */
+        #nd-sidebar .sidebar-home-link {
+          order: 1;
+          flex: 1;
+        }
+        /* Icons div (contains language toggle): push to right */
+        #nd-sidebar div:has(> .sidebar-home-link) > div {
+          order: 2;
+          margin-left: auto;
+          flex: 0 0 auto;
+        }
+
+        /* ── Language toggle button ── */
+        #nd-sidebar [aria-label="Choose a language"] {
+          color: #6f6f6f;
+          transition: color 150ms ease;
+        }
+        #nd-sidebar [aria-label="Choose a language"]:hover {
+          color: #ededed;
+          background: rgba(255,255,255,0.04) !important;
+        }
+
+        /* Popover content */
+        [data-radix-popper-content-wrapper] > div {
+          background: #0e0e0e !important;
+          border: 1px solid #2e2e2e !important;
+          border-radius: 0 !important;
+          backdrop-filter: none !important;
+          box-shadow: 0 8px 24px rgba(0,0,0,0.6) !important;
+          min-width: 164px !important;
+          padding: 4px !important;
+        }
+
+        /* Popover label */
+        [data-radix-popper-content-wrapper] > div p {
+          font-size: 10px !important;
+          font-weight: 600 !important;
+          letter-spacing: 0.06em !important;
+          text-transform: uppercase !important;
+          color: #6f6f6f !important;
+          padding: 6px 8px 4px !important;
+          margin: 0 !important;
+        }
+
+        /* Locale items */
+        [data-radix-popper-content-wrapper] > div button {
+          border-radius: 0 !important;
+          font-family: var(--font-geist-sans), system-ui, sans-serif !important;
+          font-size: 13px !important;
+          padding: 8px 10px !important;
+          transition: background 100ms ease, color 100ms ease !important;
+        }
+
+        /* Active locale */
+        [data-radix-popper-content-wrapper] > div button.bg-fd-primary\/10 {
+          background: rgba(120,194,135,0.08) !important;
+          color: #78c287 !important;
+        }
+
+        /* Hover locale */
+        [data-radix-popper-content-wrapper] > div button:not(.bg-fd-primary\/10):hover {
+          background: rgba(255,255,255,0.05) !important;
+          color: #ededed !important;
+        }
 
         /* Scrollbar */
         #nd-sidebar ::-webkit-scrollbar,
@@ -319,6 +402,7 @@ export default async function Layout({
       `}</style>
       <DocsLayout
         tree={tree}
+        i18n
         nav={{ title }}
         sidebar={{
           footer: (

@@ -1,35 +1,35 @@
 ---
-title: Java Flags for Servers
+title: Java Flags für Server
 description: A guide to choosing JVM arguments and garbage collection settings for optimal Minecraft server performance.
 ---
 
-# Java Flags for Servers
+# Java Flags für Server
 
-## Before You Begin: Essential Practices
+## Bevor du beginnst: Wichtige Grundlagen
 
-Proper optimization requires a methodical approach. **Refer to the detailed steps outlined in the ["Optimize Your Leaf Server"](../how-to/optimize-leaf-server) guide for _how_ to perform these essential practices.** In summary, always:
+Eine korrekte Optimierung erfordert ein methodisches Vorgehen. **Beziehe dich auf die detaillierten Schritte im Guide ["Optimize Your Leaf Server"](../how-to/optimize-leaf-server), um zu verstehen, _wie_ diese grundlegenden Maßnahmen umzusetzen sind.** Zusammengefasst gilt immer:
 
-1.  **Backup Your Server:** Before any changes, back up everything. (Not necessarily needed for this guide but It's a good practice.)
-2.  **Profile, Don't Guess:** Use tools like [Spark](https://spark.lucko.me/) to identify actual bottlenecks (low TPS, lag spikes) before changing settings. The linked document details how to use Spark for general lag and specific spikes.
-3.  **Change Incrementally:** Modify only a few related settings at a time, then restart and test.
+1.  **Backup deines Servers:** Erstelle vor jeder Änderung ein vollständiges Backup. (Für diesen Guide nicht zwingend nötig, aber eine bewährte Praxis.)
+2.  **Profiling statt Raten:** Nutze Tools wie [Spark](https://spark.lucko.me/), um echte Bottlenecks (niedrige TPS, Lag-Spikes) zu identifizieren, bevor du Einstellungen änderst. Das verlinkte Dokument erklärt, wie du Spark für allgemeinen Lag und spezifische Spikes verwendest.
+3.  **Schrittweise Änderungen:** Ändere immer nur wenige zusammenhängende Einstellungen gleichzeitig, starte den Server neu und teste anschließend.
 
-## Choosing Your Java Runtime Environment (JRE/JDK)
+## Auswahl deiner Java Runtime Environment (JRE/JDK)
 
-- **Recommendation:** Use a recent Java 21 Long-Term Support (LTS) release from a reputable OpenJDK vendor that includes the desired GC options (G1GC is standard, ZGC and Shenandoah availability may vary slightly by vendor, but are common in major builds like Temurin, Corretto, GraalVM). Good options include:
-    - **Adoptium Eclipse Temurin:** A widely recommended, community-supported build providing pure OpenJDK binaries [3].
-    - **Amazon Corretto:** Well-supported, production-ready distribution of OpenJDK with long-term support [4].
-    - **GraalVM (based on OpenJDK):** Offers potential performance benefits through its advanced Graal Just-In-Time (JIT) compiler. However, it might behave differently than standard HotSpot JVMs and could potentially have compatibility quirks. Test thoroughly if choosing GraalVM [6]. **Using GraalVM enables specific JIT tuning options discussed later.**
-- **Avoid:** Headless variants (often suffixed with `-headless`) as they may lack components needed by Minecraft servers. Use the full JDK (Java Development Kit).
+- **Empfehlung:** Verwende eine aktuelle Java-21-Long-Term-Support-(LTS)-Version von einem seriösen OpenJDK-Anbieter, die die gewünschten GC-Optionen enthält (G1GC ist Standard, ZGC und Shenandoah können je nach Anbieter leicht variieren, sind aber in großen Builds wie Temurin, Corretto oder GraalVM üblich). Gute Optionen sind:
+    - **Adoptium Eclipse Temurin:** Weit verbreitetes, von der Community unterstütztes Build mit reinen OpenJDK-Binaries.
+    - **Amazon Corretto:** Gut unterstützte, produktionsreife OpenJDK-Distribution mit Langzeit-Support.
+    - **GraalVM (basierend auf OpenJDK):** Bietet potenzielle Performance-Vorteile durch den fortschrittlichen Graal Just-In-Time (JIT) Compiler. Kann sich jedoch anders verhalten als Standard-HotSpot-JVMs und unter Umständen Kompatibilitätsbesonderheiten haben. Teste gründlich, wenn du GraalVM wählst. **Die Nutzung von GraalVM ermöglicht spezielle JIT-Tuning-Optionen, die weiter unten beschrieben werden.**
+- **Vermeide:** Headless-Varianten (oft mit `-headless` gekennzeichnet), da ihnen Komponenten fehlen können, die Minecraft-Server benötigen. Verwende das vollständige JDK (Java Development Kit).
 
-## Java Startup Flags (JVM Arguments) - Garbage Collection
+## Java Startup Flags (JVM Arguments) – Garbage Collection
 
-Java flags control how the JVM operates, particularly memory management (Garbage Collection - GC) and performance optimizations [7]. This section focuses on GC tuning.
+Java Flags steuern das Verhalten der JVM, insbesondere das Memory Management (Garbage Collection – GC) und Performance-Optimierungen. Dieser Abschnitt konzentriert sich auf GC-Tuning.
 
-### The Foundation: Aikar's Flags (G1GC)
+### Die Basis: Aikar’s Flags (G1GC)
 
-- **Purpose:** Aikar's flags are a well-known set of arguments optimized for Minecraft servers using the Garbage-First Garbage Collector (G1GC) [8]. G1GC is the default GC in modern Java versions and generally provides a good balance between throughput (how much work the server gets done) and pause times (how long the server freezes for GC) [9, 10].
-- **Suitability:** These flags are an excellent starting point and work well for **most servers** (roughly up to 1-100 players). They aim to reduce lag spikes caused by GC pauses by tuning G1GC specifically for Minecraft's typical object allocation patterns (many short-lived objects) [8].
-- **Java 21+ Aikar's Flags (using G1GC):**
+- **Zweck:** Aikar’s Flags sind ein bekannter Satz von Argumenten, die speziell für Minecraft-Server mit dem Garbage-First Garbage Collector (G1GC) optimiert sind. G1GC ist der Standard-GC in modernen Java-Versionen und bietet in der Regel ein gutes Gleichgewicht zwischen Throughput (wie viel Arbeit der Server erledigt) und Pausenzeiten (wie lange der Server während GC stoppt).
+- **Eignung:** Diese Flags sind ein hervorragender Ausgangspunkt und funktionieren gut für **die meisten Server** (ungefähr bis 1–100 Spieler). Ziel ist es, Lag-Spikes durch GC-Pausen zu reduzieren, indem G1GC gezielt auf die typischen Objekt-Allokationsmuster von Minecraft (viele kurzlebige Objekte) abgestimmt wird.
+- **Java 21+ Aikar’s Flags (mit G1GC):**
 
     ```bash
     java -Xms<RAM>M -Xmx<RAM>M \
@@ -56,19 +56,19 @@ Java flags control how the JVM operates, particularly memory management (Garbage
     -jar your-server-jar-file.jar nogui
     ```
 
-    - Replace `<RAM>` with the amount of RAM (e.g., `10240` for 10GB).
-    - **Important:** Set `-Xms` and `-Xmx` to the _same value_ [8, 11].
-    - `-XX:+AlwaysPreTouch`: Pre-allocates memory pages [7, 8].
-    - **Note:** Use `/spark health` or `/spark gcmonitor` in-game to see actual heap usage and GC performance [8].
+    - Ersetze `<RAM>` durch die gewünschte RAM-Menge (z. B. `10240` für 10GB).
+    - **Wichtig:** Setze `-Xms` und `-Xmx` auf **denselben Wert**.
+    - `-XX:+AlwaysPreTouch`: Allokiert Speicherseiten im Voraus.
+    - **Hinweis:** Verwende `/spark health` oder `/spark gcmonitor` im Spiel, um tatsächliche Heap-Nutzung und GC-Performance zu sehen.
 
-### Scaling Up: Low-Latency Generational GCs (150+)
+### Skalierung: Low-Latency Generational GCs (150+)
 
-For very large or active servers (150-300 players), the sheer **rate of object allocation** becomes a major challenge. Minecraft generates vast amounts of temporary data (player movements, AI calculations, block updates, etc.) that quickly become garbage [12]. While G1GC handles this reasonably well, its pause times can still become noticeable under extreme load. Java 21 offers advanced low-latency GCs with _generational_ capabilities, specifically designed to handle high allocation rates of short-lived objects efficiently while keeping pauses minimal [10, 12, 13, 17].
+Für sehr große oder aktive Server (150–300 Spieler) wird die schiere **Objekt-Allokationsrate** zur größten Herausforderung. Minecraft erzeugt enorme Mengen temporärer Daten (Spielerbewegungen, AI-Berechnungen, Block-Updates usw.), die schnell zu Garbage werden. Während G1GC damit relativ gut umgehen kann, können die Pausenzeiten unter extremer Last dennoch spürbar werden. Java 21 bietet fortschrittliche Low-Latency-GCs mit _generationalen_ Fähigkeiten, die speziell darauf ausgelegt sind, hohe Allokationsraten kurzlebiger Objekte effizient zu verarbeiten und dabei minimale Pausen zu verursachen.
 
 - **Generational ZGC (GZGC):**
-    - **Why:** Combines ZGC's concurrent, ultra-low pause time performance with a generational heap structure [10, 13, 17]. It frequently collects the young generation where most objects die, reducing the need for full heap scans and better handling high allocation rates compared to the older non-generational ZGC [12, 17].
-    - **Suitability:** Excellent for powerful servers (high core count, 16GB+ RAM recommended) where minimizing pause time is paramount [10, 13].
-    - **Example Flags (Java 21):**
+    - **Warum:** Kombiniert ZGCs nebenläufige Ultra-Low-Latency-Performance mit einer generationalen Heap-Struktur. Die Young Generation, in der die meisten Objekte sterben, wird häufig gesammelt, wodurch Full-Heap-Scans reduziert und hohe Allokationsraten besser bewältigt werden als beim älteren, nicht-generationalen ZGC.
+    - **Eignung:** Hervorragend für leistungsstarke Server (hohe Kernanzahl, 16GB+ RAM empfohlen), bei denen minimale Pausenzeiten höchste Priorität haben.
+    - **Beispiel-Flags (Java 21):**
 
         ```bash
         java -Xms<RAM>M -Xmx<RAM>M \
@@ -82,13 +82,13 @@ For very large or active servers (150-300 players), the sheer **rate of object a
         -jar your-server-jar-file.jar nogui
         ```
 
-        - `-XX:+UseZGC -XX:+ZGenerational`: Enables Generational ZGC [13, 17]. (Becomes default in Java 23+) [10].
-        - `-XX:+UseDynamicNumberOfGCThreads`: Allows dynamic adjustment of GC threads [7].
+        - `-XX:+UseZGC -XX:+ZGenerational`: Aktiviert Generational ZGC. (Wird ab Java 23+ Standard.)
+        - `-XX:+UseDynamicNumberOfGCThreads`: Ermöglicht eine dynamische Anpassung der GC-Threads.
 
 - **Generational Shenandoah:**
-    - **Why:** Shenandoah also performs most GC work concurrently, aiming for low pauses independent of heap size [14]. JEP 404 introduced generational capabilities as experimental in Java 17-23, becoming more stable in later builds [18]. It allows Shenandoah to more efficiently handle young object collections, similar in principle to GZGC [18].
-    - **Suitability:** An alternative low-latency generational collector available in many OpenJDK builds (not Oracle JDK). Performance relative to GZGC can depend on the specific workload; testing is recommended, especially on Java 24+ for the generational mode [12, 18].
-    - **Example Flags (Using Java 24 - _Experimental_ Generational Mode):**
+    - **Warum:** Shenandoah führt den Großteil der GC-Arbeit ebenfalls nebenläufig aus und zielt auf geringe Pausen unabhängig von der Heap-Größe ab. JEP 404 führte generationalen Support experimentell in Java 17–23 ein, der in neueren Builds stabiler wird. Dadurch kann Shenandoah Young-Object-Collections effizienter handhaben, ähnlich wie GZGC.
+    - **Eignung:** Eine alternative Low-Latency-GC-Option, die in vielen OpenJDK-Builds verfügbar ist (nicht im Oracle JDK). Die Performance im Vergleich zu GZGC hängt vom Workload ab; Tests sind empfehlenswert, besonders unter Java 24+ für den generationalen Modus.
+    - **Beispiel-Flags (Java 24 – _Experimenteller_ Generational Mode):**
 
         ```bash
         java -Xms<RAM>M -Xmx<RAM>M \
@@ -105,117 +105,117 @@ For very large or active servers (150-300 players), the sheer **rate of object a
         -jar your-server-jar-file.jar nogui
         ```
 
-        - `-XX:+UseShenandoahGC`: Enables Shenandoah [14]. (Not explicit to Java 24)
-        - `-XX:ShenandoahGCMode=generational`: Explicitly selects the generational mode introduced via JEP 404 [18].
+        - `-XX:+UseShenandoahGC`: Aktiviert Shenandoah.
+        - `-XX:ShenandoahGCMode=generational`: Wählt explizit den generationalen Modus aus JEP 404.
 
-### G1GC vs. Low-Latency Generational GCs (GZGC/GenShen) Comparison (Java 21+)
+### Vergleich: G1GC vs. Low-Latency Generational GCs (GZGC/GenShen) (Java 21+)
 
-| Feature                 | G1GC (with Aikar's Flags)                        | Generational ZGC / Generational Shenandoah              |
-| :---------------------- | :----------------------------------------------- | :------------------------------------------------------ |
-| **Primary Goal**        | Balance throughput & pause times                 | Minimize pause times (ultra-low latency)                |
-| **Typical Pause**       | Low, but can increase with load (&lt;200ms aim) \[8\] | Extremely low, sub-millisecond target \[13, 14\]          |
-| **Allocation Handling** | Good (Generational)                              | Excellent (Generational + Concurrent) \[12, 17, 18\]      |
-| **Throughput**          | Generally very good                              | Potentially slightly lower due to concurrent work \[12\]  |
-| **CPU Usage**           | Moderate, peaks during pauses                    | Higher _background_ CPU usage for concurrent tasks \[12\] |
-| **RAM Overhead**        | Efficient                                        | May require slightly more overhead \[12\]                 |
-| **Complexity**          | Well-understood baseline \[8\]                     | Simpler tuning than G1GC \[10, 12, 14\]                   |
-| **Maturity**            | Very mature \[9\]                                  | Generational modes newer (Java 21+) \[10, 18\]            |
-| **Best For**            | Most servers (&lt;100 players), balance \[8\]         | Very large servers (150/300+), latency sensitive \[12\]   |
+| Feature                 | G1GC (mit Aikar’s Flags)                 | Generational ZGC / Generational Shenandoah   |
+| :---------------------- | :--------------------------------------- | :------------------------------------------- |
+| **Hauptziel**           | Balance aus Throughput & Pausenzeiten    | Minimale Pausenzeiten (Ultra-Low-Latency)    |
+| **Typische Pause**      | Niedrig, steigt unter Last (&lt;200ms Ziel) | Extrem niedrig, Sub-Millisekunden-Ziel       |
+| **Allokationshandling** | Gut (generational)                       | Exzellent (generational + nebenläufig)       |
+| **Throughput**          | In der Regel sehr gut                    | Potenziell etwas geringer durch Nebenarbeit  |
+| **CPU-Nutzung**         | Moderat, Peaks während Pausen            | Höhere _Hintergrund_-CPU-Nutzung             |
+| **RAM-Overhead**        | Effizient                                | Etwas höher möglich                          |
+| **Komplexität**         | Bewährte Basis                           | Einfacheres Tuning als G1GC                  |
+| **Reifegrad**           | Sehr ausgereift                          | Generationale Modi neuer (Java 21+)          |
+| **Am besten für**       | Die meisten Server (&lt;100 Spieler)        | Sehr große Server (150/300+), latenzsensitiv |
 
-**Recommendation:** Start with Aikar's G1GC flags. If `/spark gcmonitor` shows frequent or long GC pauses _despite_ tuning, or if profiling indicates the server struggles to keep up with the **allocation rate** on a high-player-count server (and you have sufficient hardware + Java 21), then consider switching to Generational ZGC. Test Generational Shenandoah if using Java 24+ or if GZGC presents issues.
+**Empfehlung:** Starte mit Aikar’s G1GC-Flags. Wenn `/spark gcmonitor` trotz Tuning häufige oder lange GC-Pausen zeigt oder das Profiling ergibt, dass der Server bei hoher Spielerzahl mit der **Allokationsrate** kämpft (und du ausreichend Hardware + Java 21 hast), ziehe einen Wechsel zu Generational ZGC in Betracht. Teste Generational Shenandoah, wenn du Java 24+ nutzt oder GZGC Probleme verursacht.
 
-### Extreme Scale (300+ Players) & Advanced Tuning
+### Extreme Skalierung (300+ Spieler) & Advanced Tuning
 
-- **Allocation Rate is Key:** At this scale, the sheer volume of temporary objects created per second (allocation rate) puts immense pressure on the GC. Even ultra-low-pause collectors like GZGC or Generational Shenandoah can struggle if the application allocates memory faster than the GC can reclaim it concurrently. This can lead to allocation stalls (brief freezes) or require significantly larger heap sizes to provide buffer space.
-- **Deep Profiling (Spark):** Essential. Use `/spark profiler` to identify application hotspots causing high allocation rates (e.g., inefficient plugins, complex entity AI). Use `/spark gcmonitor` to observe GC pause times _and_ allocation rates. Reducing unnecessary allocations in the application itself (plugin optimization, server config tuning) is often more effective than solely relying on GC tuning at this level.
-- **Hardware:** Requires powerful CPUs (high single-thread _and_ multi-core performance), ample RAM (32GB++, potentially 64GB+ depending on allocation rates and heap needs), and fast NVMe storage.
+- **Allokationsrate ist entscheidend:** In diesem Bereich setzt die enorme Menge temporärer Objekte pro Sekunde den GC massiv unter Druck. Selbst Ultra-Low-Latency-Collector wie GZGC oder Generational Shenandoah können an ihre Grenzen stoßen, wenn die Anwendung schneller Speicher allokiert, als der GC ihn nebenläufig freigeben kann. Das kann zu Allocation Stalls (kurze Freezes) führen oder sehr große Heaps erfordern.
+- **Tiefgehendes Profiling (Spark):** Unverzichtbar. Nutze `/spark profiler`, um Hotspots mit hoher Allokationsrate zu identifizieren (z. B. ineffiziente Plugins, komplexe Entity-AI). Beobachte mit `/spark gcmonitor` sowohl GC-Pausen als auch Allokationsraten. Das Reduzieren unnötiger Allokationen auf Anwendungsebene (Plugin-Optimierung, Server-Config-Tuning) ist hier oft effektiver als reines GC-Tuning.
+- **Hardware:** Erfordert sehr leistungsstarke CPUs (starke Single-Thread- _und_ Multi-Core-Leistung), viel RAM (32GB++, ggf. 64GB+ je nach Allokationsrate) und schnellen NVMe-Speicher.
 
-## Advanced JVM Tuning: Compiler and Runtime Optimizations
+## Advanced JVM Tuning: Compiler- und Runtime-Optimierungen
 
-Beyond Garbage Collection, other JVM flags can influence performance, particularly related to memory usage, code compilation (JIT), and thread handling. **These are advanced options; test changes carefully using Spark or other means.** Defaults mentioned are for Java 21 unless otherwise noted.
+Neben der Garbage Collection können weitere JVM-Flags die Performance beeinflussen, insbesondere in Bezug auf Speicherverbrauch, Code-Compilation (JIT) und Thread-Handling. **Das sind fortgeschrittene Optionen – teste Änderungen sorgfältig mit Spark oder ähnlichen Tools.** Genannte Defaults beziehen sich auf Java 21, sofern nicht anders angegeben.
 
 ### Standard HotSpot (C1/C2) Compiler & Runtime Tuning
 
-These flags apply when using standard OpenJDK builds like Temurin or Corretto.
+Diese Flags gelten für Standard-OpenJDK-Builds wie Temurin oder Corretto.
 
-- **Memory & Pointers:**
-    - `-XX:+UseCompressedOops` (Default: false): Reduces memory usage for object pointers on 64-bit systems. May affect performance slightly with saving a small amount of memory [7].
-    - `-XX:+UseCompressedClassPointers` (Default: true ): Similar to Oops but for class pointers. Reduces metadata memory usage. Keep it enabled [7].
-    - `-XX:+UseStringDeduplication` (Default: false, Requires G1GC): Can save significant memory on servers with many duplicate strings (chat, signs, item names) by making them share the same underlying character array. Adds some CPU overhead during GC cycles. Worth testing on servers with high RAM usage and G1GC by adding `+XX:+UseStringDeduplication` [7, 8].
-- **Code Cache:** (Stores compiled native code)
-    - `-XX:ReservedCodeCacheSize=<size>` (Default: platform-dependent, often 240M): Sets the maximum size. Increase (e.g., `512M`) _only_ if logs warn "CodeCache is full. Compiler has been disabled." [7]. Monitor usage (`jcmd <pid> VM.native_memory` or Spark).
-    - `-XX:+UseCodeCacheFlushing` (Default: true): Allows the JVM to flush less-used compiled code if the cache is low on space. Keep enabled [7].
+- **Memory & Pointer:**
+    - `-XX:+UseCompressedOops` (Default: false): Reduziert den Speicherbedarf für Objekt-Pointer auf 64-Bit-Systemen. Kann minimale Performance-Auswirkungen haben, spart aber etwas RAM.
+    - `-XX:+UseCompressedClassPointers` (Default: true): Ähnlich wie Oops, aber für Class Pointer. Reduziert Metadaten-Speicherverbrauch – aktiviert lassen.
+    - `-XX:+UseStringDeduplication` (Default: false, benötigt G1GC): Kann viel RAM sparen, wenn viele identische Strings existieren (Chat, Schilder, Item-Namen), indem sie sich ein gemeinsames Character-Array teilen. Verursacht zusätzlichen CPU-Overhead während GC-Zyklen. Testenswert auf Servern mit hohem RAM-Verbrauch und G1GC durch Hinzufügen von `+XX:+UseStringDeduplication`.
+- **Code Cache:** (Speichert kompilierten nativen Code)
+    - `-XX:ReservedCodeCacheSize=<size>` (Default: plattformabhängig, oft 240M): Setzt die maximale Größe. Erhöhe (z. B. `512M`) **nur**, wenn Logs melden: "CodeCache is full. Compiler has been disabled." Nutzung überwachen (`jcmd <pid> VM.native_memory` oder Spark).
+    - `-XX:+UseCodeCacheFlushing` (Default: true): Erlaubt das Entfernen selten genutzten kompilierten Codes bei Platzmangel – aktiviert lassen.
 - **Threading & Scheduling:**
-    - `-XX:+UseThreadPriorities` (Default: true): Allows JVM threads to have different OS priorities (e.g., GC threads vs main thread). Keep enabled [7].
-    - `-XX:ThreadPriorityPolicy=1` (Default: 0): Setting to `1` attempts to give Java threads higher OS priorities relative to other processes. Can potentially make the server more responsive under load but might starve other essential system processes. Use with caution and monitor system stability [7].
-- **Hardware Specific:**
-    - `-XX:+UseNUMA` (Default: false): Enables NUMA awareness, attempting to allocate memory on the NUMA node local to the executing CPU. Can significantly improve performance on multi-socket systems or large single-socket CPUs (EPYC, Threadripper) _if_ the hardware and OS support it properly. Test carefully by adding `+XX:+UseNUMA`, as incorrect configuration can hurt performance [7]. Low-latency GCs like ZGC/Shenandoah often have their own NUMA handling.
-    - `-XX:+UseLargePages` (Default: false, Requires OS configuration): Allows the JVM to use larger memory pages (e.g., 2MB/1GB instead of 4KB). Can improve performance by reducing TLB (Translation Lookaside Buffer) misses, especially with very large heaps (>32GB). Requires specific OS configuration (granting permissions, configuring hugepages pool) which can be complex. Test carefully if attempting by adding `+XX:+UseLargePages` [7].
-    - `-XX:+AlwaysActAsServerClassMachine` (Default: false): Ensures the JVM uses server-mode defaults (like the C2 compiler) even if hardware detection fails or if the server is inside of a Docker container. Harmless to add explicitly [7].
+    - `-XX:+UseThreadPriorities` (Default: true): Erlaubt unterschiedliche OS-Prioritäten für JVM-Threads (z. B. GC vs. Main Thread) – aktiviert lassen.
+    - `-XX:ThreadPriorityPolicy=1` (Default: 0): Versucht, Java-Threads höhere OS-Prioritäten gegenüber anderen Prozessen zu geben. Kann die Reaktionsfähigkeit unter Last erhöhen, aber andere Systemprozesse verhungern lassen. Mit Vorsicht verwenden und Systemstabilität überwachen.
+- **Hardware-spezifisch:**
+    - `-XX:+UseNUMA` (Default: false): Aktiviert NUMA-Awareness, um Speicher möglichst nahe an der ausführenden CPU zu allokieren. Kann auf Multi-Socket-Systemen oder großen CPUs (EPYC, Threadripper) die Performance deutlich verbessern, **wenn** Hardware und OS korrekt konfiguriert sind. Sorgfältig testen, da Fehlkonfiguration Performance verschlechtern kann. Low-Latency-GCs wie ZGC/Shenandoah haben oft eigenes NUMA-Handling.
+    - `-XX:+UseLargePages` (Default: false, benötigt OS-Konfiguration): Erlaubt die Nutzung großer Speicherseiten (z. B. 2MB/1GB statt 4KB). Kann TLB-Misses reduzieren und die Performance bei sehr großen Heaps (>32GB) verbessern. Erfordert komplexe OS-Konfiguration – vorsichtig testen.
+    - `-XX:+AlwaysActAsServerClassMachine` (Default: false): Erzwingt Server-Mode-Defaults (z. B. C2-Compiler), auch wenn Hardware-Erkennung fehlschlägt oder der Server in Docker läuft. Unproblematisch, explizit zu setzen.
 
 ---
 
-- Long story short - most of the "heavy lifters" are already enabled by default, no need to "overtune" it. But of course, if you want to learn about the flags more visit [this cool website](https://chriswhocodes.com/hotspot_options_openjdk21.html) that tracks every change on each java version with great explanations provided!
+- Kurz gesagt: Die meisten wichtigen Optimierungen sind bereits standardmäßig aktiviert – es gibt keinen Grund, alles „zu übertunen“. Wenn du dennoch tiefer einsteigen willst, schau dir [diese hilfreiche Website](https://chriswhocodes.com/hotspot_options_openjdk21.html) an, die jede Änderung pro Java-Version mit guten Erklärungen dokumentiert.
 
 ---
 
 ### GraalVM JIT Compiler Tuning
 
-- **General Options:**
-    - `-XX:+UseJVMCIVMCompiler` (Default: true in GraalVM): Enables the GraalVM compiler as the top-tier JIT. Disabling this (`-XX:-UseJVMCIVMCompiler`) falls back to HotSpot's C2 compiler, useful for comparison [19].
-    - `-Dgraal.CompilerConfiguration=<community|enterprise|economy>` (Default: community for CE): Selects compiler configuration. `community` is standard, `enterprise` offers more aggressive optimizations with potentially longer compile times, `economy` compiles faster with less optimization [19]
-    - `-Dgraal.ShowConfiguration=<none|info|verbose>` (Default: none): Prints information about the selected Graal compiler configuration during startup [19]. Useful for verification.
-    - `-Djdk.graal.MitigateSpeculativeExecutionAttacks=<None|AllTargets|GuardTargets|NonDeoptGuardTargets>` (Default varies, often `GuardTargets`): (Since GraalVM JDK 24, this flag changes to `-Djdk.graal.SpectrePHTBarriers=<None|AllTargets|GuardTargets|NonDeoptGuardTargets>`) Controls mitigations for CPU vulnerabilities like Spectre. `None` offers the best performance but least security. `AllTargets` is most secure but has a large performance impact. `GuardTargets` is a common balance [19]. For trusted server environments, `None` might be considered after careful risk assessment, otherwise, the default is usually appropriate.
-- **Performance Tuning Options:**
-    - `-Dgraal.UsePriorityInlining=true` (Default: true): Enables an advanced inlining algorithm that favors throughput over compilation speed [19]. Disabling (`false`) might speed up warmup but potentially reduce peak performance.
-    - `-Dgraal.Vectorization=true` (Default: true): Enables automatic use of SIMD instructions (vectorization) for potentially faster mathematical/array operations [19]. Disabling (`false`) is unlikely to be beneficial unless it causes issues.
-    - `-Dgraal.OptDuplication=true` (Default: true): Enables path duplication optimization, which can improve performance by optimizing different paths through the code separately [19]. Disabling (`false`) might reduce compile time but likely hurts runtime performance.
-    - `-Dgraal.TuneInlinerExploration=<float>` (Default: 0, Range: -1 to 1): Adjusts the effort spent on exploring inlining possibilities. Values > 0 increase effort (potentially better peak performance, slower warmup), values < 0 decrease effort (faster warmup, potentially lower peak) [19]. Requires careful profiling to tune.
-    - `-Dgraal.TraceInlining=false` (Default: false): Enables detailed logging of inlining decisions [19]. Only useful for deep debugging.
-- **Finding Options:** Use `java -XX:+UnlockExperimentalVMOptions -XX:+PrintFlagsFinal -version | grep graal` (when running GraalVM) to list available Graal-related flags, but understanding them requires deep knowledge or documentation [19].
+- **Allgemeine Optionen:**
+    - `-XX:+UseJVMCIVMCompiler` (Default: true in GraalVM): Aktiviert den GraalVM-Compiler als Top-Tier-JIT. Das Deaktivieren (`-XX:-UseJVMCIVMCompiler`) wechselt zurück zum HotSpot-C2-Compiler – nützlich für Vergleiche.
+    - `-Dgraal.CompilerConfiguration=<community|enterprise|economy>` (Default: community bei CE): Wählt die Compiler-Konfiguration. `community` ist Standard, `enterprise` bietet aggressivere Optimierungen mit längeren Compile-Zeiten, `economy` kompiliert schneller mit weniger Optimierung.
+    - `-Dgraal.ShowConfiguration=<none|info|verbose>` (Default: none): Gibt beim Start Informationen zur gewählten Graal-Compiler-Konfiguration aus – hilfreich zur Kontrolle.
+    - `-Djdk.graal.MitigateSpeculativeExecutionAttacks=<None|AllTargets|GuardTargets|NonDeoptGuardTargets>` (Default variiert, oft `GuardTargets`): (Ab GraalVM JDK 24 geändert zu `-Djdk.graal.SpectrePHTBarriers=<None|AllTargets|GuardTargets|NonDeoptGuardTargets>`.) Steuert Schutzmaßnahmen gegen CPU-Schwachstellen wie Spectre. `None` bietet beste Performance, aber geringste Sicherheit. `AllTargets` ist am sichersten, aber mit hohem Performance-Verlust. `GuardTargets` ist meist ein guter Kompromiss. In vertrauenswürdigen Server-Umgebungen kann `None` nach sorgfältiger Risikoabwägung in Betracht gezogen werden.
+- **Performance-Tuning-Optionen:**
+    - `-Dgraal.UsePriorityInlining=true` (Default: true): Aktiviert einen erweiterten Inlining-Algorithmus, der Throughput priorisiert. Deaktivieren (`false`) kann Warmup beschleunigen, aber Peak-Performance senken.
+    - `-Dgraal.Vectorization=true` (Default: true): Aktiviert SIMD-/Vektorisierungs-Optimierungen für potenziell schnellere mathematische/Array-Operationen. Deaktivieren ist selten sinnvoll.
+    - `-Dgraal.OptDuplication=true` (Default: true): Aktiviert Pfad-Duplizierungs-Optimierungen, die verschiedene Codepfade separat optimieren. Deaktivieren kann Compile-Zeiten senken, verschlechtert aber meist die Laufzeit-Performance.
+    - `-Dgraal.TuneInlinerExploration=<float>` (Default: 0, Bereich: -1 bis 1): Steuert den Aufwand für Inlining-Exploration. Werte >0 erhöhen den Aufwand (bessere Peak-Performance, langsameres Warmup), Werte &lt;0 verringern ihn (schnelleres Warmup, evtl. geringere Peak-Performance). Erfordert sorgfältiges Profiling.
+    - `-Dgraal.TraceInlining=false` (Default: false): Aktiviert detaillierte Logs zu Inlining-Entscheidungen – nur für tiefgehendes Debugging sinnvoll.
+- **Optionen finden:** Nutze `java -XX:+UnlockExperimentalVMOptions -XX:+PrintFlagsFinal -version | grep graal` (bei GraalVM), um verfügbare Graal-Flags aufzulisten. Das Verständnis erfordert jedoch tiefgehende Kenntnisse oder Dokumentation.
 
 ---
 
-**General Advice for Compiler/Runtime Flags:**
+**Allgemeine Empfehlungen für Compiler-/Runtime-Flags:**
 
-- **Defaults are Usually Good:** Modern JVMs (both HotSpot and GraalVM) are well-tuned. Stick to defaults unless profiling (Spark) clearly indicates a bottleneck related to compilation or code cache.
-- **Focus on GC and Application:** For Minecraft, optimizing GC (using appropriate flags like Aikar's or GZGC/GenShen) and application behavior (server configs, plugin efficiency) typically yields the most significant performance gains.
-- **Test Incrementally:** If you experiment with these flags, change only one at a time and measure the impact with Spark.
+- **Defaults sind meist gut:** Moderne JVMs (HotSpot und GraalVM) sind sehr gut abgestimmt. Bleib bei den Defaults, solange Profiling (Spark) keinen klaren Engpass zeigt.
+- **Fokus auf GC und Anwendung:** Bei Minecraft bringen GC-Optimierung (Aikar’s Flags, GZGC/GenShen) und Anwendungsoptimierung (Server-Configs, effiziente Plugins) meist die größten Performance-Gewinne.
+- **Schrittweise testen:** Wenn du experimentierst, ändere immer nur eine Option und miss die Auswirkungen mit Spark.
 
-## Server Software Configuration (Paper, Purpur, Leaf, etc.)
+## Server-Software-Konfiguration (Paper, Purpur, Leaf, etc.)
 
-While JVM tuning is crucial, **server software configuration is equally important.** Settings within files like `paper-global.yml`, `paper-world-defaults.yml`, `purpur.yml`, `leaf-global.yml`, etc., control gameplay mechanics that heavily impact performance and **allocation rates**.
+Während JVM-Tuning entscheidend ist, ist **die Konfiguration der Server-Software genauso wichtig.** Einstellungen in Dateien wie `paper-global.yml`, `paper-world-defaults.yml`, `purpur.yml`, `leaf-global.yml` usw. steuern Gameplay-Mechaniken, die Performance und **Allokationsraten** stark beeinflussen.
 
-- **Importance:** JVM flags manage _how_ the server runs (memory, compilation), but server configs manage _what_ the server does (entity ticking, chunk loading, AI). Optimizing both is necessary.
-- **Key Areas:** View distance, simulation distance, mob spawning limits/rates, entity activation ranges (crucial for reducing AI/tick load and allocations), chunk loading/generation settings, hopper behavior, and asynchronous operations (offloading work from the main thread). Consult Paper [15] and Purpur [16] documentation for their settings.
-- **Action:** **Do not neglect these files.** Consult the documentation for your specific server software. **For detailed guidance on Leaf's specific settings (`leaf-global.yml`), refer back to the ["Optimize Your Leaf Server"](../how-to/optimize-leaf-server) guide.** Use Spark profiler results to identify which gameplay aspects (which often correlate with high allocation) need tuning in these configurations.
+- **Bedeutung:** JVM-Flags steuern _wie_ der Server läuft (Memory, Compilation), Server-Configs steuern _was_ der Server tut (Entity-Ticks, Chunk-Loading, AI). Beides zu optimieren ist notwendig.
+- **Schlüsselbereiche:** View Distance, Simulation Distance, Mob-Spawning-Limits/-Raten, Entity Activation Ranges (entscheidend zur Reduzierung von AI-/Tick-Last und Allokationen), Chunk-Loading/-Generation, Hopper-Verhalten und asynchrone Operationen. Konsultiere die Dokumentation von Paper und Purpur.
+- **Aktion:** **Vernachlässige diese Dateien nicht.** Sieh dir die Doku deiner Server-Software an. **Für detaillierte Hinweise zu Leaf-spezifischen Einstellungen (`leaf-global.yml`) siehe erneut den Guide ["Optimize Your Leaf Server"](../how-to/optimize-leaf-server).** Nutze Spark-Profilergebnisse, um zu erkennen, welche Gameplay-Aspekte (oft korreliert mit hoher Allokation) angepasst werden müssen.
 
-## Testing, Iteration, and Seeking Help
+## Testen, Iteration und Hilfe suchen
 
-- **Restart:** Apply changes by restarting the server.
-- **Monitor:** Use `/spark tps`, `/spark profiler`, and `/spark gcmonitor` to check performance, GC behavior, and allocation rates.
-- **Observe:** Watch for gameplay glitches or unexpected behavior.
-- **Adjust:** Revert changes if issues arise. Tweak settings based on profiling data. Optimization is iterative.
-- **Community:** Seek help in the relevant Discord servers (PaperMC, Purpur, Leaf) if you encounter issues.
+- **Restart:** Wende Änderungen durch einen Server-Neustart an.
+- **Monitoring:** Nutze `/spark tps`, `/spark profiler` und `/spark gcmonitor`, um Performance, GC-Verhalten und Allokationsraten zu überwachen.
+- **Beobachten:** Achte auf Gameplay-Bugs oder unerwartetes Verhalten.
+- **Anpassen:** Setze Änderungen zurück, wenn Probleme auftreten, und passe basierend auf Profiling-Daten an. Optimierung ist ein iterativer Prozess.
+- **Community:** Suche Hilfe in den entsprechenden Discord-Servern (PaperMC, Purpur, Leaf), wenn du auf Probleme stößt.
 
-## References
+## Referenzen
 
 1.  Mojang Studios (Minecraft 1.20.5 Release Notes): [https://www.minecraft.net/en-us/article/minecraft-java-edition-1-20-5](https://www.minecraft.net/en-us/article/minecraft-java-edition-1-20-5)
-2.  PaperMC Docs (Getting Started): [https://docs.papermc.io/paper/getting-started](https://docs.papermc.io/paper/getting-started)
+2.  PaperMC Dokumentation (Getting Started): [https://docs.papermc.io/paper/getting-started](https://docs.papermc.io/paper/getting-started)
 3.  Adoptium Eclipse Temurin: [https://adoptium.net/](https://adoptium.net/)
 4.  Amazon Corretto: [https://aws.amazon.com/corretto/](https://aws.amazon.com/corretto/)
 5.  Oracle OpenJDK Builds: [https://jdk.java.net/](https://jdk.java.net/)
 6.  GraalVM: [https://www.graalvm.org/](https://www.graalvm.org/)
-7.  Oracle Java HotSpot VM Options (Java 21): [https://chriswhocades.com/hotspot_options_openjdk21.html](https://chriswhocades.com/hotspot_options_openjdk21.html) (Unofficial but comprehensive list) / Official subset: [https://docs.oracle.com/en/java/javase/21/docs/specs/man/java.html](https://docs.oracle.com/en/java/javase/21/docs/specs/man/java.html)
+7.  Oracle Java HotSpot VM Options (Java 21): [https://chriswhocodes.com/hotspot_options_openjdk21.html](https://chriswhocodes.com/hotspot_options_openjdk21.html) (Unofficial but comprehensive list) / Official subset: [https://docs.oracle.com/en/java/javase/21/docs/specs/man/java.html](https://docs.oracle.com/en/java/javase/21/docs/specs/man/java.html)
 8.  Aikar's Minecraft Java Flags Guide: [https://aikar.co/2018/07/02/tuning-the-jvm-g1gc-garbage-collector-flags-for-minecraft/](https://aikar.co/2018/07/02/tuning-the-jvm-g1gc-garbage-collector-flags-for-minecraft/)
-9.  Oracle G1 Garbage Collector Documentation: [https://docs.oracle.com/en/java/javase/21/gctuning/garbage-first-g1-garbage-collector.html](https://docs.oracle.com/en/java/javase/21/gctuning/garbage-first-g1-garbage-collector.html)
+9.  Oracle G1 Garbage Collector Dokumentation: [https://docs.oracle.com/en/java/javase/21/gctuning/garbage-first-g1-garbage-collector.html](https://docs.oracle.com/en/java/javase/21/gctuning/garbage-first-g1-garbage-collector.html)
 10. Oracle Java 21 Release Notes (Generational ZGC): [https://www.oracle.com/java/technologies/javase/21-relnote-issues.html#JDK-8293822](https://www.oracle.com/java/technologies/javase/21-relnote-issues.html#JDK-8293822)
 11. Oracle Java Platform, Standard Edition HotSpot Virtual Machine Garbage Collection Tuning Guide (Setting Heap Size): [https://docs.oracle.com/en/java/javase/21/gctuning/factors-affecting-garbage-collection-performance.html#GUID-B0408057-SAF8-4C88-A484-E4565CEA6F75](https://docs.oracle.com/en/java/javase/21/gctuning/factors-affecting-garbage-collection-performance.html#GUID-B0408057-SAF8-4C88-A484-E4565CEA6F75)
 12. BellSoft Blog: Generational ZGC in JDK 21: What is it and how to use it: [https://bell-sw.com/blog/Generational-ZGC-in-JDK-21/](https://bell-sw.com/blog/Generational-ZGC-in-JDK-21/)
 13. OpenJDK Project ZGC (JEP 439: Generational ZGC): [https://openjdk.org/jeps/439](https://openjdk.org/jeps/439)
 14. OpenJDK Project Shenandoah: [https://wiki.openjdk.org/display/shenandoah/Main](https://wiki.openjdk.org/display/shenandoah/Main)
-15. PaperMC Documentation: [https://docs.papermc.io/paper/](https://docs.papermc.io/paper/)
-16. Purpur Documentation: [https://purpurmc.org/docs/](https://purpurmc.org/docs/)
+15. PaperMC Dokumentation: [https://docs.papermc.io/paper/](https://docs.papermc.io/paper/)
+16. Purpur Dokumentation: [https://purpurmc.org/docs/](https://purpurmc.org/docs/)
 17. Inside.java Explainer: Generational ZGC: [https://inside.java/2023/11/28/gen-zgc-explainer/](https://inside.java/2023/11/28/gen-zgc-explainer/)
 18. OpenJDK JEP 404: Generational Shenandoah (Experimental): [https://openjdk.org/jeps/404](https://openjdk.org/jeps/404)
-19. GraalVM Documentation - Java Runtime Options: [https://www.graalvm.org/jdk21/reference-manual/java/options/](https://www.graalvm.org/jdk21/reference-manual/java/options/)
+19. GraalVM Dokumentation - Java Runtime Options: [https://www.graalvm.org/jdk21/reference-manual/java/options/](https://www.graalvm.org/jdk21/reference-manual/java/options/)

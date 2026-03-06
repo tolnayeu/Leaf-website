@@ -1,67 +1,67 @@
 ---
-title: How to Setup Sentry with Leaf
+title: Leaf ile Sentry Kurulumu
 description: Guide for configuring Leaf to send error reports to your Sentry project for real-time error tracking and performance monitoring.
 ---
 
-# How to Setup Sentry with Leaf
+# Leaf ile Sentry Kurulumu
 
-[Sentry](https://sentry.io/) is a powerful service for real-time error tracking and performance monitoring. Integrating it with your Leaf server allows you to capture errors and exceptions automatically, making it much easier to diagnose and fix problems that occur on your server.
+[Sentry](https://sentry.io/), gerçek zamanlı hata izleme ve performans izleme için güçlü bir servistir. Leaf sunucunuzla entegre edilmesi, hataları ve istisnaları otomatik olarak yakalamanızı sağlar, bu da sunucunuzda ortaya çıkan sorunları teşhis etmeyi ve düzeltmeyi çok daha kolay hale getirir.
 
-This guide explains how to configure Leaf to send error reports to your Sentry project.
+Bu rehber, Leaf'in Sentry projenize hata raporları göndermesi için nasıl yapılandırılacağını açıklar.
 
-## Prerequisites
+## Ön Koşullar
 
-1.  **Sentry Account:** You need an account on [sentry.io](https://sentry.io/). They offer free tiers suitable for many servers.
-2.  **Sentry Project:** Create a new project within your Sentry organization.
-    - When asked for the platform, choose **Java**. If Java isn't immediately visible, you might select "Other" or search for it. The specific platform choice mainly affects initial setup instructions on Sentry's side, but Leaf handles the integration itself.
-3.  **DSN (Data Source Name):** Once your project is created, navigate to its settings. Find the "Client Keys (DSN)" section. Copy the DSN string – it looks like a URL (e.g., `https://xxxxxxxxxxxxxxxxxxxxxxxx@o######.ingest.sentry.io/#######`).
+1. **Sentry Hesabı:** [sentry.io](https://sentry.io/) üzerinde bir hesabınızın olması gerekir. Birçok sunucu için uygun ücretsiz katmanlar sunarlar.
+2. **Sentry Projesi:** Sentry organizasyonunuz içinde yeni bir proje oluşturun.
+    - Platform seçimi istendiğinde, **Java**'yı seçin. Eğer Java hemen görünmüyorsa, "Diğer" seçeneğini seçebilir veya aratabilirsiniz. Belirli platform seçimi, genellikle Sentry tarafındaki başlangıç kurulum talimatlarını etkiler, ancak Leaf entegrasyonu kendisi halleder.
+3. **DSN (Veri Kaynağı Adı):** Projeniz oluşturulduktan sonra, proje ayarlarına gidin. "Client Keys (DSN)" bölümünü bulun. DSN dizesini kopyalayın – bu bir URL gibi görünür (örneğin, `https://xxxxxxxxxxxxxxxxxxxxxxxx@o######.ingest.sentry.io/#######`).
 
-## Configuration Steps
+## Yapılandırma Adımları
 
-1.  **Locate Leaf Configuration:** Open your main Leaf server configuration file. This is typically `leaf-global.yml` located in your server's root directory or a `config` subfolder.
+1. **Leaf Yapılandırmasını Bulun:** Ana Leaf sunucu yapılandırma dosyasını açın. Bu genellikle sunucunuzun kök dizininde veya `config` alt klasöründe bulunan `leaf-global.yml` dosyasıdır.
 
-2.  **Find the Sentry Section:** Inside the configuration file, find the `sentry:` section. It will look similar to this by default:
+2. **Sentry Bölümünü Bulun:** Yapılandırma dosyası içinde `sentry:` bölümünü bulun. Varsayılan olarak bu bölüm aşağıdaki gibi görünür:
 
     ```yaml
     sentry:
-        # Sentry DSN for improved error logging, leave blank to disable,
-        # Obtain from https://sentry.io/
+        # Geliştirilmiş hata günlüğü için Sentry DSN, devre dışı bırakmak için boş bırakın,
+        # https://sentry.io/ adresinden alın
         dsn: ""
-        # Logs with a level higher than or equal to this level will be recorded.
+        # Bu seviye veya daha yüksek seviyedeki günlükler kaydedilecektir.
         log-level: WARN
-        # Only log with a Throwable will be recorded after enabling this.
+        # Bunu etkinleştirdikten sonra yalnızca Throwable içeren günlükler kaydedilecektir.
         only-log-thrown: true
     ```
 
-3.  **Configure the Settings:**
+3. **Ayarları Yapılandırın:**
     - **`dsn`:**
-        - Replace the empty single quotes (`''`) with the DSN you copied from your Sentry project settings. Make sure it's enclosed in single quotes.
-        - **Example:** `dsn: 'https://xxxxxxxxxxxxxxxxxxxxxxxx@o######.ingest.sentry.io/#######'`
-        - _If you leave this blank, Sentry integration will be disabled._
+        - Boş tek tırnakları (`''`) Sentry proje ayarlarından kopyaladığınız DSN ile değiştirin. Tek tırnak içinde olduğundan emin olun.
+        - **Örnek:** `dsn: 'https://xxxxxxxxxxxxxxxxxxxxxxxx@o######.ingest.sentry.io/#######'`
+        - _Bunu boş bırakırsanız, Sentry entegrasyonu devre dışı kalır._
 
     - **`log-level`:**
-        - This determines the minimum severity level of log messages that Leaf will send to Sentry. Common levels include `ERROR`, `WARN`, `INFO`, `DEBUG`.
-        - The default `WARN` means only messages logged as warnings or errors (which typically include exceptions) will be sent.
-        - You might set it to `ERROR` if you only want critical errors. Setting it lower (like `INFO`) can send a lot more data and might not be desirable unless you're actively debugging.
-        - **Recommendation:** Start with `WARN` (the default).
+        - Bu, Leaf'in Sentry'ye göndereceği günlük mesajlarının minimum önem seviyesini belirler. Yaygın seviyeler `ERROR`, `WARN`, `INFO`, `DEBUG` içerir.
+        - Varsayılan `WARN`, yalnızca uyarı veya hata olarak kaydedilen mesajların (genellikle istisnalar dahil) gönderileceği anlamına gelir.
+        - Yalnızca kritik hataları istiyorsanız `ERROR` olarak ayarlayabilirsiniz. Daha düşük bir seviye (örneğin, `INFO`) ayarlamak çok daha fazla veri gönderebilir ve aktif olarak hata ayıklama yapmadığınız sürece istenmeyebilir.
+        - **Öneri:** Varsayılan olan `WARN` ile başlayın.
 
     - **`only-log-thrown`:**
-        - If set to `true` (the default), Leaf will _only_ send log messages to Sentry if they explicitly include a Java `Throwable` (like an exception or error with a stack trace). This is highly recommended as it focuses Sentry on actual code errors.
-        - If set to `false`, _any_ log message meeting the `log-level` threshold will be sent, even if it's just informational text without an error. This can create a lot of noise in Sentry.
-        - **Recommendation:** Keep this as `true` (the default).
+        - `true` olarak ayarlanırsa (varsayılan), Leaf yalnızca açıkça bir Java `Throwable` (örneğin, bir istisna veya yığın izi içeren hata) içeren günlük mesajlarını Sentry'ye gönderir. Bu, Sentry'nin gerçek kod hatalarına odaklanması için şiddetle önerilir.
+        - `false` olarak ayarlanırsa, `log-level` eşiğini karşılayan _herhangi_ bir günlük mesajı, hata içermeyen yalnızca bilgilendirme metni olsa bile gönderilir. Bu, Sentry'de çok fazla gürültü yaratabilir.
+        - **Öneri:** Varsayılan olan `true` değerini koruyun.
 
-4.  **Save and Restart:**
-    - Save the changes to your configuration file.
-    - Restart your Leaf server completely for the new settings to take effect.
+4. **Kaydedin ve Yeniden Başlatın:**
+    - Yapılandırma dosyasındaki değişiklikleri kaydedin.
+    - Yeni ayarların etkili olması için Leaf sunucunuzu tamamen yeniden başlatın.
 
-## Troubleshooting
+## Sorun Giderme
 
-- **Errors Not Appearing:**
-    - Double-check the `dsn` is copied correctly and enclosed in single quotes in the YAML file.
-    - Ensure your `log-level` isn't set too high (e.g., if set to `ERROR`, warnings won't be sent).
-    - Verify `only-log-thrown` is appropriate for the errors you expect to see.
-    - Make sure your server was fully restarted after changing the config.
-    - Check if your server's firewall might be blocking outgoing connections to `ingest.sentry.io` on port 443 (HTTPS).
-- **Too Many Issues:**
-    - Increase the `log-level` (e.g., from `WARN` to `ERROR`).
-    - Ensure `only-log-thrown` is set to `true`.
+- **Hatalar Görünmüyor:**
+    - `dsn` değerinin doğru kopyalandığından ve YAML dosyasında tek tırnak içinde olduğundan emin olun.
+    - `log-level` değerinin çok yüksek olmadığından emin olun (örneğin, `ERROR` olarak ayarlanmışsa uyarılar gönderilmez).
+    - `only-log-thrown` ayarının beklediğiniz hatalar için uygun olduğunu doğrulayın.
+    - Yapılandırma değişikliğinden sonra sunucunun tamamen yeniden başlatıldığından emin olun.
+    - Sunucunuzun güvenlik duvarının `ingest.sentry.io` adresine 443 numaralı port (HTTPS) üzerinden giden bağlantıları engelleyip engellemediğini kontrol edin.
+- **Çok Fazla Sorun:**
+    - `log-level` değerini artırın (örneğin, `WARN` yerine `ERROR`).
+    - `only-log-thrown` ayarının `true` olduğundan emin olun.

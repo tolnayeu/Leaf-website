@@ -1,26 +1,26 @@
 ---
-title: How to Setup Sentry with Leaf
-description: Guide for configuring Leaf to send error reports to your Sentry project for real-time error tracking and performance monitoring.
+title: 如何在 Leaf 中配置 Sentry
+description: 配置 Leaf 将错误报告发送至您的 Sentry 项目以实现实时错误追踪和性能监控的指南。
 ---
 
-# How to Setup Sentry with Leaf
+# 如何在 Leaf 中配置 Sentry
 
-[Sentry](https://sentry.io/) is a powerful service for real-time error tracking and performance monitoring. Integrating it with your Leaf server allows you to capture errors and exceptions automatically, making it much easier to diagnose and fix problems that occur on your server.
+[Sentry](https://sentry.io/) 是一项强大的实时错误追踪和性能监控服务。将其与您的 Leaf 服务器集成后，可以自动捕获错误和异常，从而大大简化诊断和修复服务器问题的过程。
 
-This guide explains how to configure Leaf to send error reports to your Sentry project.
+本指南说明如何配置 Leaf 以将错误报告发送至您的 Sentry 项目。
 
-## Prerequisites
+## 前提条件
 
-1.  **Sentry Account:** You need an account on [sentry.io](https://sentry.io/). They offer free tiers suitable for many servers.
-2.  **Sentry Project:** Create a new project within your Sentry organization.
-    - When asked for the platform, choose **Java**. If Java isn't immediately visible, you might select "Other" or search for it. The specific platform choice mainly affects initial setup instructions on Sentry's side, but Leaf handles the integration itself.
-3.  **DSN (Data Source Name):** Once your project is created, navigate to its settings. Find the "Client Keys (DSN)" section. Copy the DSN string – it looks like a URL (e.g., `https://xxxxxxxxxxxxxxxxxxxxxxxx@o######.ingest.sentry.io/#######`).
+1.  **Sentry 账户：** 在 [sentry.io](https://sentry.io/) 上创建一个账户。他们提供适合大多数服务器的免费套餐。
+2.  **Sentry 项目：** 在您的 Sentry 组织中创建一个新项目。
+    - 当被询问平台时，选择 **Java**。如果 Java 不立即可见，您可以选择"其他"或搜索。具体平台选择主要影响 Sentry 端的初始设置说明，但 Leaf 自行处理集成。
+3.  **DSN（数据源名称）：** 项目创建后，进入其设置页面。找到"Client Keys (DSN)"部分，复制 DSN 字符串——它看起来像一个 URL（例如 `https://xxxxxxxxxxxxxxxxxxxxxxxx@o######.ingest.sentry.io/#######`）。
 
-## Configuration Steps
+## 配置步骤
 
-1.  **Locate Leaf Configuration:** Open your main Leaf server configuration file. This is typically `leaf-global.yml` located in your server's root directory or a `config` subfolder.
+1.  **找到 Leaf 配置文件：** 打开您的 Leaf 服务器主配置文件，通常是位于服务器根目录或 `config` 子文件夹中的 `leaf-global.yml`。
 
-2.  **Find the Sentry Section:** Inside the configuration file, find the `sentry:` section. It will look similar to this by default:
+2.  **找到 Sentry 配置节：** 在配置文件中找到 `sentry:` 部分，默认情况下如下所示：
 
     ```yaml
     sentry:
@@ -33,35 +33,35 @@ This guide explains how to configure Leaf to send error reports to your Sentry p
         only-log-thrown: true
     ```
 
-3.  **Configure the Settings:**
-    - **`dsn`:**
-        - Replace the empty single quotes (`''`) with the DSN you copied from your Sentry project settings. Make sure it's enclosed in single quotes.
-        - **Example:** `dsn: 'https://xxxxxxxxxxxxxxxxxxxxxxxx@o######.ingest.sentry.io/#######'`
-        - _If you leave this blank, Sentry integration will be disabled._
+3.  **配置各项设置：**
+    - **`dsn`：**
+        - 将空的单引号（`''`）替换为从您的 Sentry 项目设置中复制的 DSN。确保用单引号括起来。
+        - **示例：** `dsn: 'https://xxxxxxxxxxxxxxxxxxxxxxxx@o######.ingest.sentry.io/#######'`
+        - _如果留空，Sentry 集成将被禁用。_
 
-    - **`log-level`:**
-        - This determines the minimum severity level of log messages that Leaf will send to Sentry. Common levels include `ERROR`, `WARN`, `INFO`, `DEBUG`.
-        - The default `WARN` means only messages logged as warnings or errors (which typically include exceptions) will be sent.
-        - You might set it to `ERROR` if you only want critical errors. Setting it lower (like `INFO`) can send a lot more data and might not be desirable unless you're actively debugging.
-        - **Recommendation:** Start with `WARN` (the default).
+    - **`log-level`：**
+        - 此项决定 Leaf 发送到 Sentry 的日志消息的最低严重级别。常见级别包括 `ERROR`、`WARN`、`INFO`、`DEBUG`。
+        - 默认的 `WARN` 表示只有以警告或错误级别记录的消息（通常包含异常）才会被发送。
+        - 如果只需要关键错误，可以设置为 `ERROR`。设置为更低级别（如 `INFO`）会发送更多数据，除非您正在主动调试，否则可能并不理想。
+        - **建议：** 从默认的 `WARN` 开始。
 
-    - **`only-log-thrown`:**
-        - If set to `true` (the default), Leaf will _only_ send log messages to Sentry if they explicitly include a Java `Throwable` (like an exception or error with a stack trace). This is highly recommended as it focuses Sentry on actual code errors.
-        - If set to `false`, _any_ log message meeting the `log-level` threshold will be sent, even if it's just informational text without an error. This can create a lot of noise in Sentry.
-        - **Recommendation:** Keep this as `true` (the default).
+    - **`only-log-thrown`：**
+        - 设置为 `true`（默认值）时，Leaf 只会将明确包含 Java `Throwable`（例如带有堆栈跟踪的异常或错误）的日志消息发送到 Sentry。强烈建议保持此设置，因为它使 Sentry 专注于实际的代码错误。
+        - 设置为 `false` 时，任何满足 `log-level` 阈值的日志消息都会被发送，即使只是没有错误的普通信息文本，这可能会在 Sentry 中产生大量噪音。
+        - **建议：** 保持默认的 `true`。
 
-4.  **Save and Restart:**
-    - Save the changes to your configuration file.
-    - Restart your Leaf server completely for the new settings to take effect.
+4.  **保存并重启：**
+    - 保存对配置文件的更改。
+    - 完全重启您的 Leaf 服务器以使新设置生效。
 
-## Troubleshooting
+## 故障排查
 
-- **Errors Not Appearing:**
-    - Double-check the `dsn` is copied correctly and enclosed in single quotes in the YAML file.
-    - Ensure your `log-level` isn't set too high (e.g., if set to `ERROR`, warnings won't be sent).
-    - Verify `only-log-thrown` is appropriate for the errors you expect to see.
-    - Make sure your server was fully restarted after changing the config.
-    - Check if your server's firewall might be blocking outgoing connections to `ingest.sentry.io` on port 443 (HTTPS).
-- **Too Many Issues:**
-    - Increase the `log-level` (e.g., from `WARN` to `ERROR`).
-    - Ensure `only-log-thrown` is set to `true`.
+- **错误未出现：**
+    - 仔细检查 `dsn` 是否已正确复制并在 YAML 文件中用单引号括起来。
+    - 确保 `log-level` 设置不过高（例如，若设置为 `ERROR`，警告将不会被发送）。
+    - 确认 `only-log-thrown` 的设置适合您期望看到的错误类型。
+    - 确保更改配置后服务器已完全重启。
+    - 检查服务器防火墙是否阻止了到 `ingest.sentry.io` 443 端口（HTTPS）的出站连接。
+- **问题过多：**
+    - 提高 `log-level`（例如从 `WARN` 改为 `ERROR`）。
+    - 确保 `only-log-thrown` 设置为 `true`。

@@ -1,46 +1,44 @@
 ---
-title: Frequently Asked Questions
+title: Häufig gestellte Fragen
 description: Common questions and answers about the Leaf Minecraft server fork.
 ---
 
-# Frequently Asked Questions
+# Häufig gestellte Fragen
 
-## How much more performant is Leaf than `"<insert any paper fork>"`?
+## ❓ · Wie viel schneller ist Leaf als `"<irgendein anderer Paper-Fork>"`?
 
-You can refer to [Entity Performance](benchmark/entity-performance) and [Chunk gen/load Performance](benchmark/chunk-generation). We will provide more detailed and reliable performance benchmark in the future!
+Weitere Informationen findest du unter [Entity Performance](benchmark/entity-performance) und [Chunk gen/load Performance](benchmark/chunk-generation). In Zukunft werden wir detailliertere und verlässlichere Performance-Benchmarks bereitstellen!
 
-## Does Leaf support Spigot/Paper plugins?
+## ❓ · Unterstützt Leaf Spigot/Paper plugins?
 
-Yes, Leaf has exactly the same plugin compatibility compared to Paper. If the plugin doesn't work, replace Leaf with Purpur and test again. If the issue persists, report it on [Leaf GitHub](https://github.com/Winds-Studio/Leaf/issues/new/choose).
+Ja, Leaf hat genau die gleiche Plugin-Unterstützung wie Paper. Sollte ein Plugin mit Purpur aber nicht mit Leaf funktionieren, sollte das Problem auf unserer [GitHub Seite](https://github.com/Winds-Studio/Leaf/issues/new/choose) gemeldet werden.
 
-## Does Leaf include Purpur?
+## ❓ · Enthält Leaf die Purpur Datei?
 
-Yes, Leaf includes all the Purpur patches and features, but some Purpur settings are moved to configurations of Gale and Leaf.
+Ja, Leaf enthält alle Purpur patches. Allerdings sind manche Optionen von Purpur in den Konfigurationsdateien von Gale und Leaf zu finden.
 
-## How often does Leaf update upstream?
+## ❓ · Wie oft führt Leaf Upstream Updates durch?
 
-Generally 1 ~ 3 weeks, depends on how important an update on upstream.
+Normalerweise alle 1 bis 3 Wochen, je nachdem wie wichtig die Updates sind.
 
-## How can I optimize my server?
+## ❓ · Wie kann ich meinen Server optimieren?
 
-You can refer to [YouHaveTrouble's guide](https://github.com/YouHaveTrouble/minecraft-optimization) and [Paper-chan optimization guide](https://paper-chan.moe/paper-optimization/), or [optimization guide](https://nitwikit.8aka.org/java/optimize/) of NitWikit made by the community (For Chinese user).
+Die [Anleitung von YouHaveTrouble](https://github.com/YouHaveTrouble/minecraft-optimization) und die [Anleitung von Paper-chan](https://paper-chan.moe/paper-optimization/) bieten gute Informationen über die Optimierung.
 
-## Any known incompatibilities?
+## ❓ · Gibt es bekannte Inkompatibilitäten?
 
-- [RealisticVillagers](https://www.spigotmc.org/resources/realisticvillagers.105055) (Incompatible with the Leaf version lower than 1.21.1).
-- In Async Tracker, if the server has [Citizens](https://www.spigotmc.org/resources/citizens.13811) the Tracker's `compat-mode` should be toggled on or disable the async tracker!
+- [RealisticVillagers](https://www.spigotmc.org/resources/realisticvillagers.105055) (Inkompatibel ab Leaf 1.21.1).
+- Wenn der `async-entity-tracker` aktiv ist, funktioniert [Citizens](https://www.spigotmc.org/resources/citizens.13811) nur, wenn auch der `compat-mode` aktiv ist
+- Weitere Inkompatibilitäten sollten [hier](https://github.com/Winds-Studio/Leaf/issues/new/choose) gemeldet werden!
 
-Found an incompatible plugin? [Report it here](https://github.com/Winds-Studio/Leaf/issues/new/choose)!
+## ❓ · Was ist der Unterschied zwischen mojmap und reobf? Was soll ich nutzen?
 
-## What's the difference between mojmap and reobf? Which should I use?
+Es handelt sich um unterschiedliche Mappings. Mojmap verwendet die Mojang-Mappings, während reobf die Spigot-Mappings nutzt. Wenn zwei JAR-Dateien zur Verfügung stehen – eine mit dem Suffix mojmap und eine mit reobf – sollte in der Regel die mit mojmap verwendet werden.
 
-They use different mappings. Mojmap uses mojang mapping, and reobf uses spigot mapping. If two jar files provided, one ends with mojmap,
-and another is reobf, you should use the one ends with mojmap.
+## ❓ · Wie kann ich das Projekt unterstützen?
 
-## How can I support the project?
+Jeder kann über unser [Open Collective](https://opencollective.com/Winds-Studio) oder [Dreeam's AFDIAN](https://afdian.com/a/Dreeam) (unterstützt PayPal / Stripe) spenden.
 
-Anyone can donate via our [Open Collective](https://opencollective.com/Winds-Studio) or [Dreeam's AFDIAN](https://afdian.com/a/Dreeam) (Supports PayPal / Stripe).
-
-> **Note**
->
-> Do we need to add something to this _FAQ_? [Write it here](getting-started#contact)!
+<Callout title="Hinweis">
+  Fehlt etwas in diesem _FAQ_? [Schreib es hier](getting-started#📫-kontakt)!
+</Callout>

@@ -1,87 +1,34 @@
 ---
-title: Entity Performance Benchmark
+title: 实体性能
 description: Performance comparison data between Leaf and Paper server implementations for entity processing.
 ---
 
-# Entity Performance Benchmark
+# 实体性能
 
-> **Warning**
->
-> This page presents performance comparison data between Leaf and Paper server implementations for entity processing. These results represent a specific test scenario and may vary based on hardware, configuration, and other factors.
+<Callout type="warn">
+  此页面显示了 Leaf 和 Paper 关于实体处理的性能比较数据。然而，这些结果仅仅代表了一个特定的测试场景，其结果可能会因硬件，配置项设置或其他因素而异。
+</Callout>
 
-<BenchmarkGraph
-  unit="mspt"
-  groups={[
-    {
-      name: "Default Config",
-      bars: [
-        { label: "Paper", value: 3.7 },
-        { label: "Leaf",  value: 2.8 },
-      ],
-    },
-    {
-      name: "Increased Mob Caps",
-      bars: [
-        { label: "Paper",      value: 8.1 },
-        { label: "Leaf",       value: 5.8 },
-        { label: "Leaf+Async", value: 4.5 },
-      ],
-    },
-  ]}
-  improvements={[
-    {
-      title: "Default Configuration",
-      details: "Leaf (2.8 mspt) vs Paper (3.7 mspt)",
-      percentage: "24.3%",
-    },
-    {
-      title: "Leaf with Increased Mob Caps",
-      details: "Leaf (5.8 mspt) vs Paper (8.1 mspt)",
-      percentage: "28.4%",
-    },
-    {
-      title: "Leaf+Async with Increased Mob Caps",
-      details: "Leaf+Async (4.5 mspt) vs Paper (8.1 mspt)",
-      percentage: "44.4%",
-      highlight: true,
-    },
-  ]}
-  environment={[
-    { label: "Version",       value: "1.21.4" },
-    { label: "CPU",           value: "i7-10750H" },
-    { label: "JVM",           value: "GraalVM 21" },
-    { label: "Memory",        value: "6GB" },
-    { label: "Leaf Commit",   value: "9db6bfb" },
-    { label: "Paper Commit",  value: "a838a88" },
-    { label: "Seed",          value: "2618050634530417871" },
-    { label: "Coords",        value: "183.5 67.00 -201.5" },
-  ]}
-  codeBlocks={[
-    {
-      title: "JVM Flags",
-      content: "-Xms6144M -Xmx6144M --add-modules=jdk.incubator.vector -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20",
-    },
-  ]}
-/>
+<entity-performance-graph />
 
-## Test Configuration
+## 测试配置项说明
 
-### Default Settings Configuration
+### Default Configuration
 
-Both servers were tested with default settings in bukkit.yml, spigot.yml, and other configuration files. This baseline test represents performance under typical server conditions.
+两者都使用 bukkit.yml, spigot.yml 和其他配置文件中的默认配置项进行测试。此测试模拟了默认条件下的性能。
 
 ### Increased Mob Caps Configuration
 
-Modified settings in bukkit.yml:
+对 bukkit.yml 中的配置项进行了以下修改：
 
 - monsters: 70 → 700
 - animals: 10 → 100
 
-All other configuration files remained at default settings. This test simulates a high-entity-count scenario that frequently occurs on busy servers.
+所有其他配置文件仍保持默认配置项。此测试模拟了高压条件下经常发生的大量实体计数场景。
 
 ### Leaf + Async Configuration
 
-Enabled minimal async options in leaf-global.yml:
+启用了位于 leaf-global.yml 中的默认异步配置项：
 
 ```yaml
 async:

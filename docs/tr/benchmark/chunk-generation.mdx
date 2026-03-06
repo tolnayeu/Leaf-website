@@ -1,57 +1,18 @@
 ---
-title: Chunk Generation Benchmark
+title: Chunk Oluşturma Karşılaştırması
 description: Performance comparison data between Leaf and Paper server implementations for chunk generation tasks.
 ---
 
-# Chunk Generation Benchmark
+# Chunk Oluşturma Karşılaştırması
 
-> **Warning**
->
-> This page presents performance comparison data between Leaf and Paper server implementations for chunk generation tasks. These results represent a specific test scenario and may vary based on hardware, configuration, and specific world seeds.
+<Callout type="warn">
+  Bu sayfa, Leaf ve Paper sunucu uygulamaları arasında chunk oluşturma görevleri için performans karşılaştırma verilerini sunar. Bu sonuçlar, belirli bir test senaryosunu temsil eder ve donanım, yapılandırma ve belirli dünya tohumlarına bağlı olarak değişiklik gösterebilir.
+</Callout>
 
-<BenchmarkGraph
-  unit="s"
-  formatAsTime={true}
-  groups={[
-    {
-      name: "World Generation",
-      bars: [
-        { label: "Paper", value: 517 },
-        { label: "Leaf",  value: 473 },
-      ],
-    },
-  ]}
-  improvements={[
-    {
-      title: "Chunk Generation Time Reduction",
-      details: "Leaf (7:53) vs Paper (8:37)",
-      percentage: "8.5%",
-      highlight: true,
-    },
-  ]}
-  environment={[
-    { label: "Size",          value: "2048 block radius, circular, using Chunky" },
-    { label: "CPU",           value: "i7-10750H" },
-    { label: "JVM",           value: "GraalVM 21" },
-    { label: "Memory",        value: "8GB" },
-    { label: "Seed",          value: "4791817952625876078" },
-    { label: "Leaf Commit",   value: "9db6bfb" },
-    { label: "Paper Commit",  value: "a838a88" },
-  ]}
-  codeBlocks={[
-    {
-      title: "Moonrise Configuration",
-      content: "chunk-system:\n  gen-parallelism: 'true'\n  io-threads: 12\n  worker-threads: 12",
-    },
-    {
-      title: "JVM Flags",
-      content: "-Xms8192M -Xmx8192M --add-modules=jdk.incubator.vector -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20",
-    },
-  ]}
-/>
+<chunk-generation-graph />
 
-## Test Configuration Details
+## Test Yapılandırma Detayları
 
-### Performance Test Setup
+### Performans Testi Kurulumu
 
-The benchmark was conducted using the Chunky plugin to generate radius of 2048 (in block) chunks in a circular pattern. Both servers were run on the same hardware with identical JVM settings to ensure a fair comparison.
+Karşılaştırma, Chunky eklentisi kullanılarak dairesel bir düzende 2048 chunk oluşturmak için gerçekleştirildi. Her iki sunucu da adil bir karşılaştırma sağlamak amacıyla aynı donanım ve aynı JVM ayarlarıyla çalıştırıldı.

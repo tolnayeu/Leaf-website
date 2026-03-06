@@ -1,46 +1,45 @@
 ---
-title: Frequently Asked Questions
-description: Common questions and answers about the Leaf Minecraft server fork.
+title: Часто задаваемые вопросы
+description: Распространённые вопросы и ответы о форке сервера Minecraft — Leaf.
 ---
 
-# Frequently Asked Questions
+# Часто задаваемые вопросы
 
-## How much more performant is Leaf than `"<insert any paper fork>"`?
+## Насколько Leaf производительнее, чем `"<любой другой форк Paper>"`?
 
-You can refer to [Entity Performance](benchmark/entity-performance) and [Chunk gen/load Performance](benchmark/chunk-generation). We will provide more detailed and reliable performance benchmark in the future!
+Вы можете ознакомиться с [производительностью сущностей](benchmark/entity-performance) и [производительностью генерации/загрузки чанков](benchmark/chunk-generation). В будущем мы предоставим более подробные и надёжные тесты производительности!
 
-## Does Leaf support Spigot/Paper plugins?
+## Поддерживает ли Leaf плагины Spigot/Paper?
 
-Yes, Leaf has exactly the same plugin compatibility compared to Paper. If the plugin doesn't work, replace Leaf with Purpur and test again. If the issue persists, report it on [Leaf GitHub](https://github.com/Winds-Studio/Leaf/issues/new/choose).
+Да, Leaf обладает точно такой же совместимостью с плагинами, что и Paper. Если плагин не работает, замените Leaf на Purpur и проверьте снова. Если проблема сохраняется, сообщите о ней на [GitHub Leaf](https://github.com/Winds-Studio/Leaf/issues/new/choose).
 
-## Does Leaf include Purpur?
+## Включает ли Leaf Purpur?
 
-Yes, Leaf includes all the Purpur patches and features, but some Purpur settings are moved to configurations of Gale and Leaf.
+Да, Leaf включает все патчи и функции Purpur, однако некоторые настройки Purpur перенесены в конфигурации Gale и Leaf.
 
-## How often does Leaf update upstream?
+## Как часто Leaf обновляет upstream?
 
-Generally 1 ~ 3 weeks, depends on how important an update on upstream.
+Как правило, раз в 1–3 недели, в зависимости от важности обновления upstream.
 
-## How can I optimize my server?
+## Как я могу оптимизировать свой сервер?
 
-You can refer to [YouHaveTrouble's guide](https://github.com/YouHaveTrouble/minecraft-optimization) and [Paper-chan optimization guide](https://paper-chan.moe/paper-optimization/), or [optimization guide](https://nitwikit.8aka.org/java/optimize/) of NitWikit made by the community (For Chinese user).
+Вы можете ознакомиться с [руководством YouHaveTrouble](https://github.com/YouHaveTrouble/minecraft-optimization) и [руководством по оптимизации Paper-chan](https://paper-chan.moe/paper-optimization/), или с [руководством по оптимизации](https://nitwikit.8aka.org/java/optimize/) NitWikit, созданным сообществом (для китайских пользователей).
 
-## Any known incompatibilities?
+## Есть ли известные несовместимости?
 
-- [RealisticVillagers](https://www.spigotmc.org/resources/realisticvillagers.105055) (Incompatible with the Leaf version lower than 1.21.1).
-- In Async Tracker, if the server has [Citizens](https://www.spigotmc.org/resources/citizens.13811) the Tracker's `compat-mode` should be toggled on or disable the async tracker!
+- [RealisticVillagers](https://www.spigotmc.org/resources/realisticvillagers.105055) (несовместим с версией Leaf ниже 1.21.1).
+- При использовании Async Tracker: если на сервере установлен [Citizens](https://www.spigotmc.org/resources/citizens.13811), необходимо включить `compat-mode` трекера или отключить async tracker!
 
-Found an incompatible plugin? [Report it here](https://github.com/Winds-Studio/Leaf/issues/new/choose)!
+Обнаружили несовместимый плагин? [Сообщите об этом здесь](https://github.com/Winds-Studio/Leaf/issues/new/choose)!
 
-## What's the difference between mojmap and reobf? Which should I use?
+## В чём разница между mojmap и reobf? Какой использовать?
 
-They use different mappings. Mojmap uses mojang mapping, and reobf uses spigot mapping. If two jar files provided, one ends with mojmap,
-and another is reobf, you should use the one ends with mojmap.
+Они используют разные маппинги. Mojmap использует маппинг Mojang, а reobf — маппинг Spigot. Если предоставлены два jar-файла — один заканчивается на mojmap, другой на reobf — следует использовать тот, что заканчивается на mojmap.
 
-## How can I support the project?
+## Как я могу поддержать проект?
 
-Anyone can donate via our [Open Collective](https://opencollective.com/Winds-Studio) or [Dreeam's AFDIAN](https://afdian.com/a/Dreeam) (Supports PayPal / Stripe).
+Любой желающий может сделать пожертвование через наш [Open Collective](https://opencollective.com/Winds-Studio) или [AFDIAN Dreeam](https://afdian.com/a/Dreeam) (поддерживает PayPal / Stripe).
 
-> **Note**
->
-> Do we need to add something to this _FAQ_? [Write it here](getting-started#contact)!
+<Callout>
+  Нужно ли добавить что-то в этот _FAQ_? [Напишите здесь](getting-started#contact)!
+</Callout>

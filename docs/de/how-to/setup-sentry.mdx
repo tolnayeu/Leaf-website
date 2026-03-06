@@ -1,26 +1,26 @@
 ---
-title: How to Setup Sentry with Leaf
+title: Einrichten von Sentry
 description: Guide for configuring Leaf to send error reports to your Sentry project for real-time error tracking and performance monitoring.
 ---
 
-# How to Setup Sentry with Leaf
+# Einrichten von Sentry
 
-[Sentry](https://sentry.io/) is a powerful service for real-time error tracking and performance monitoring. Integrating it with your Leaf server allows you to capture errors and exceptions automatically, making it much easier to diagnose and fix problems that occur on your server.
+[Sentry](https://sentry.io/) ist ein hilfreicher Dienst für das Nachverfolgen von Fehlern und der Überwachung von Performance in Echtzeit. Durch die Integration in deinen Leaf-Server kannst du Fehler und Exceptions automatisch aufzeichnen, was es einfach macht, Probleme auf dem Server zu erkennen und zu beheben.
 
-This guide explains how to configure Leaf to send error reports to your Sentry project.
+Diese Anleitung erklärt, wie man Leaf so konfiguriert, dass es Fehlerberichte an dein Sentry-Projekt sendet.
 
-## Prerequisites
+## Voraussetzungen
 
-1.  **Sentry Account:** You need an account on [sentry.io](https://sentry.io/). They offer free tiers suitable for many servers.
-2.  **Sentry Project:** Create a new project within your Sentry organization.
-    - When asked for the platform, choose **Java**. If Java isn't immediately visible, you might select "Other" or search for it. The specific platform choice mainly affects initial setup instructions on Sentry's side, but Leaf handles the integration itself.
-3.  **DSN (Data Source Name):** Once your project is created, navigate to its settings. Find the "Client Keys (DSN)" section. Copy the DSN string – it looks like a URL (e.g., `https://xxxxxxxxxxxxxxxxxxxxxxxx@o######.ingest.sentry.io/#######`).
+1.  **Sentry Account:** Du benötigst einen Account bei [sentry.io](https://sentry.io/). Es gibt auch kostenlose Stufen, die sich für viele Server eignen.
+2.  **Sentry Projekt:** Erstelle ein neues Projekt innerhalb deiner Sentry Organisation.
+    - Falls eine Plattform angegeben werden muss, wähle **Java**. Wenn Java nicht direkt sichtbar ist, musst du eventuell danach in der Suchleiste suchen. Die Wahl der Plattform beeinflusst hauptsächlich die Ersteinrichtung auf der Seite von Sentry, während Leaf die eigentliche Integration bereitstellt.
+3.  **DSN (Data Source Name):** Nachdem das Projekt erstellt wurde, navigiere zu den Projekteinstellungen. Öffne die Sektion "Client Keys (DSN)". Kopiere den DSN String - er sieht aus wie eine URL (z.B. `https://xxxxxxxxxxxxxxxxxxxxxxxx@o######.ingest.sentry.io/#######`).
 
-## Configuration Steps
+## Konfiguration
 
-1.  **Locate Leaf Configuration:** Open your main Leaf server configuration file. This is typically `leaf-global.yml` located in your server's root directory or a `config` subfolder.
+1.  **Finde die Leaf Konfiguration:** Öffne die Konfigurationsdatei von deinem Leaf-Server. Normalerweise handelt es sich um die Datei `leaf-global.yml` im Hauptverzeichnis des Servers oder im `config` Unterordner.
 
-2.  **Find the Sentry Section:** Inside the configuration file, find the `sentry:` section. It will look similar to this by default:
+2.  **Finde den Sentry-Abschnitt:** In dieser Datei gibt es einen `sentry:` Abschnitt. Standardmäßig sieht er etwa so aus:
 
     ```yaml
     sentry:
@@ -33,35 +33,35 @@ This guide explains how to configure Leaf to send error reports to your Sentry p
         only-log-thrown: true
     ```
 
-3.  **Configure the Settings:**
+3.  **Konfiguriere die Einstellungen:**
     - **`dsn`:**
-        - Replace the empty single quotes (`''`) with the DSN you copied from your Sentry project settings. Make sure it's enclosed in single quotes.
-        - **Example:** `dsn: 'https://xxxxxxxxxxxxxxxxxxxxxxxx@o######.ingest.sentry.io/#######'`
-        - _If you leave this blank, Sentry integration will be disabled._
+        - Ersetze die leeren, einfachen Anführungsstriche (`''`) mit dem DSN, den du aus den Einstellungen des Sentry-Projekts kopiert hast. Stelle sicher, dass er von einfachen Anführungsstrichen umgeben ist.
+        - **Beispiel:** `dsn: 'https://xxxxxxxxxxxxxxxxxxxxxxxx@o######.ingest.sentry.io/#######'`
+        - _Wenn dieser Wert leer bleibt, wird die Sentry-Integration deaktiviert._
 
     - **`log-level`:**
-        - This determines the minimum severity level of log messages that Leaf will send to Sentry. Common levels include `ERROR`, `WARN`, `INFO`, `DEBUG`.
-        - The default `WARN` means only messages logged as warnings or errors (which typically include exceptions) will be sent.
-        - You might set it to `ERROR` if you only want critical errors. Setting it lower (like `INFO`) can send a lot more data and might not be desirable unless you're actively debugging.
-        - **Recommendation:** Start with `WARN` (the default).
+        - Dies bestimmt die minimale Stufe einer Lognachricht, die von Leaf an Sentry gesendet wird. Übliche Level sind `ERROR`, `WARN`, `INFO`, `DEBUG`.
+        - Der Standardwert `WARN` bedeutet, dass nur Nachrichten gesendet werden, die Warnungen oder Fehler (Üblicherweise auch Exceptions) sind.
+        - Wenn du nur kritische Fehler sehen willst, kannst du den Wert auf `ERROR` stellen. Niedrigere Werte (wie `INFO`) können deutlich mehr Daten senden, was beim Debuggen potenziell unerwünscht ist.
+        - **Empfehlung:** Starte mit `WARN` (der Standardwert).
 
     - **`only-log-thrown`:**
-        - If set to `true` (the default), Leaf will _only_ send log messages to Sentry if they explicitly include a Java `Throwable` (like an exception or error with a stack trace). This is highly recommended as it focuses Sentry on actual code errors.
-        - If set to `false`, _any_ log message meeting the `log-level` threshold will be sent, even if it's just informational text without an error. This can create a lot of noise in Sentry.
-        - **Recommendation:** Keep this as `true` (the default).
+        - Bei `true` (dem Standardwert), sendet Leaf _ausschließlich_ Nachrichten an Sentry, die explizit ein Java `Throwable` (Wie eine Exception oder ein Fehler mit Stacktrace) beinhalten. Dies wird empfohlen, da es Sentry auf die wichtigen Fehler im Code fokussiert.
+        - Bei `false`, werden _alle_ Nachrichten gesendet, die das `log-level` erfüllen, selbst wenn es sich nur um einen informativen Text ohne Fehler handelt. Dies kann viele unnötige Nachrichten in Sentry zur Folge haben.
+        - **Empfehlung:** Bleibe bei `true` (der Standardwert).
 
-4.  **Save and Restart:**
-    - Save the changes to your configuration file.
-    - Restart your Leaf server completely for the new settings to take effect.
+4.  **Speichern und neu starten:**
+    - Speichere die Änderungen in der Konfiguration.
+    - Starte deinen Leaf-Server komplett neu, damit die neuen Einstellungen übernommen werden.
 
-## Troubleshooting
+## Fehlerbehandlung
 
-- **Errors Not Appearing:**
-    - Double-check the `dsn` is copied correctly and enclosed in single quotes in the YAML file.
-    - Ensure your `log-level` isn't set too high (e.g., if set to `ERROR`, warnings won't be sent).
-    - Verify `only-log-thrown` is appropriate for the errors you expect to see.
-    - Make sure your server was fully restarted after changing the config.
-    - Check if your server's firewall might be blocking outgoing connections to `ingest.sentry.io` on port 443 (HTTPS).
-- **Too Many Issues:**
-    - Increase the `log-level` (e.g., from `WARN` to `ERROR`).
-    - Ensure `only-log-thrown` is set to `true`.
+- **Fehler erscheinen nicht:**
+    - Überprüfe, ob der `dsn` korrekt kopiert wurde und mit einfachen Anführungsstrichen in der YAML Datei umgeben ist.
+    - Stelle sicher, dass das `log-level` nicht zu hoch ist (z.B. zeigt `ERROR` keine Warnungen an).
+    - Überprüfe, dass `only-log-thrown` zu den erwarteten Fehlertypen passt.
+    - Stelle sicher, dass der Server vollständig neu gestartet wurde, nachdem die Konfiguration geändert wurde.
+    - Überprüfe, ob die Firewall deines Servers ausgehende Verbindungen nach `ingest.sentry.io` auf Port 443 (HTTPS) blockiert.
+- **Zu viele Fehler:**
+    - Erhöhe das `log-level` (z.B. von `WARN` zu `ERROR`).
+    - Stelle sicher, dass `only-log-thrown` auf `true` gesetzt ist.

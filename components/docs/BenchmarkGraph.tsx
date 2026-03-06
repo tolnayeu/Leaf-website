@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import NumberFlow from '@number-flow/react'
 import { motion } from 'framer-motion'
+import { TrendingDown, TrendingUp } from 'lucide-react'
 
 export interface BenchmarkBar {
   label: string
@@ -27,7 +28,7 @@ export interface BenchmarkGraphProps {
   environment?: EnvEntry[]
   codeBlocks?: { title: string; content: string }[]
   groups: BenchmarkGroup[]
-  improvements?: { title: string; details: string; percentage: string; highlight?: boolean }[]
+  improvements?: { title: string; details: string; percentage: string; highlight?: boolean; direction?: 'increase' | 'decrease' }[]
 }
 
 function formatTime(seconds: number): string {
@@ -298,8 +299,32 @@ export function BenchmarkGraph({
                 background: card.highlight ? 'var(--color-accent-subtle)' : 'transparent',
               }}
             >
-              <div style={{ fontSize: 'var(--text-2xl)', fontWeight: 700, fontFamily: 'var(--font-mono)', color: 'var(--color-accent)', letterSpacing: '-0.04em', lineHeight: 1 }}>
-                {card.percentage}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                <span style={{ fontSize: 'var(--text-2xl)', fontWeight: 700, fontFamily: 'var(--font-mono)', color: 'var(--color-accent)', letterSpacing: '-0.04em', lineHeight: 1 }}>
+                  {card.percentage}
+                </span>
+                {(() => {
+                  const dir = card.direction ?? 'decrease'
+                  const isDecrease = dir === 'decrease'
+                  const Icon = isDecrease ? TrendingDown : TrendingUp
+                  return (
+                    <span style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      fontSize: '10px',
+                      fontWeight: 600,
+                      letterSpacing: '0.04em',
+                      padding: '2px 7px 2px 5px',
+                      border: `1px solid ${isDecrease ? 'rgba(120,194,135,0.3)' : 'rgba(239,68,68,0.3)'}`,
+                      background: isDecrease ? 'rgba(120,194,135,0.08)' : 'rgba(239,68,68,0.08)',
+                      color: isDecrease ? 'var(--color-accent)' : '#ef4444',
+                    }}>
+                      <Icon size={11} strokeWidth={2.5} />
+                      {isDecrease ? 'Decrease' : 'Increase'}
+                    </span>
+                  )
+                })()}
               </div>
               <div style={{ fontSize: 'var(--text-xs)', fontWeight: 600, color: 'var(--color-fg-100)', marginTop: '6px' }}>
                 {card.title}

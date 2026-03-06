@@ -253,6 +253,41 @@ export default async function Layout({
           color: #a1a1a1;
         }
 
+        /* Lists */
+        #nd-page article ul,
+        #nd-page article ol {
+          margin: 12px 0;
+          padding-left: 24px;
+          color: #a1a1a1;
+        }
+        #nd-page article ul { list-style: disc; }
+        #nd-page article ol { list-style: decimal; }
+        #nd-page article li { margin: 4px 0; line-height: 1.6; }
+        #nd-page article li::marker { color: #78c287; }
+        #nd-page article ul ul,
+        #nd-page article ol ol,
+        #nd-page article ul ol,
+        #nd-page article ol ul { margin: 4px 0; }
+
+        /* Horizontal rule */
+        #nd-page article hr {
+          border: none;
+          border-top: 1px solid #2e2e2e;
+          margin: 32px 0;
+        }
+
+        /* Images */
+        #nd-page article img {
+          max-width: 100%;
+          height: auto;
+          border: 1px solid #2e2e2e;
+          margin: 20px 0;
+        }
+
+        /* Inline emphasis */
+        #nd-page article strong { color: #ededed; font-weight: 600; }
+        #nd-page article em { color: #c1c1c1; font-style: italic; }
+
         /* Callouts / admonitions */
         #nd-page article .nd-callout,
         #nd-page article [class*="callout"] {

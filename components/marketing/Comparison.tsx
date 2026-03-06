@@ -85,7 +85,7 @@ export async function Comparison({ content }: { content: HomeConfig['comparison'
       title: 'GitHub Stars',
       value: stars ? `${formatStars(stars)}+` : '2k+',
       badge: 'Open Source',
-      comparison: 'Winds-Studio/Leaf · community-driven development',
+      comparison: 'Winds-Studio/Leaf',
       colors: ['#a78bfa', '#7c5cbf', '#4a2d8a'],
       star: true,
     },

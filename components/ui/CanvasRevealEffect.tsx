@@ -1,7 +1,7 @@
 'use client'
 import { cn } from '@/lib/utils'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import React, { useMemo, useRef } from 'react'
+import React, { useMemo, useRef, memo } from 'react'
 import * as THREE from 'three'
 
 export const CanvasRevealEffect = ({
@@ -25,13 +25,19 @@ export const CanvasRevealEffect = ({
   /** Vertical origin of the reveal wave, 0 = top, 1 = bottom */
   originY?: number
 }) => {
+  const stableColors = useMemo(() => colors ?? [[0, 255, 255]], [colors])
+  const stableOpacities = useMemo(
+    () => opacities ?? [0.3, 0.3, 0.3, 0.5, 0.5, 0.5, 0.8, 0.8, 0.8, 1],
+    [opacities],
+  )
+
   return (
     <div className={cn('h-full relative bg-transparent w-full', containerClassName)}>
       <div className="h-full w-full">
         <DotMatrix
-          colors={colors ?? [[0, 255, 255]]}
+          colors={stableColors}
           dotSize={dotSize ?? 3}
-          opacities={opacities ?? [0.3, 0.3, 0.3, 0.5, 0.5, 0.5, 0.8, 0.8, 0.8, 1]}
+          opacities={stableOpacities}
           shader={`
               float animation_speed_factor = ${animationSpeed.toFixed(1)};
               vec2 origin = vec2(u_resolution.x * ${originX.toFixed(3)} / u_total_size, u_resolution.y * ${originY.toFixed(3)} / u_total_size);
@@ -148,13 +154,13 @@ const ShaderMaterial = ({
 }) => {
   const { size } = useThree()
   const ref = useRef<THREE.Mesh>(null)
-  let lastFrameTime = 0
+  const lastFrameTime = useRef(0)
 
   useFrame(({ clock }) => {
     if (!ref.current) return
     const timestamp = clock.getElapsedTime()
-    if (timestamp - lastFrameTime < 1 / maxFps) return
-    lastFrameTime = timestamp
+    if (timestamp - lastFrameTime.current < 1 / maxFps) return
+    lastFrameTime.current = timestamp
     const material: any = ref.current.material
     material.uniforms.u_time.value = timestamp
   })
@@ -192,6 +198,8 @@ const ShaderMaterial = ({
   }
 
   const material = useMemo(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const preparedUniforms = getUniforms()
     return new THREE.ShaderMaterial({
       vertexShader: `
       precision mediump float;
@@ -207,13 +215,13 @@ const ShaderMaterial = ({
       }
       `,
       fragmentShader: source,
-      uniforms: getUniforms(),
+      uniforms: preparedUniforms,
       glslVersion: THREE.GLSL3,
       blending: THREE.CustomBlending,
       blendSrc: THREE.SrcAlphaFactor,
       blendDst: THREE.OneFactor,
     })
-  }, [size.width, size.height, source])
+  }, [size.width, size.height, source, uniforms])
 
   return (
     <mesh ref={ref}>

@@ -211,6 +211,10 @@ export function BenchmarkGraph({
       })
     })
 
+  // #region agent log
+  fetch('http://127.0.0.1:7252/ingest/a3a63f7f-e49a-4fe6-9a6a-73bd37c3e9eb',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'093ff5'},body:JSON.stringify({sessionId:'093ff5',runId:'pre-fix',hypothesisId:'H1',location:'components/docs/BenchmarkGraph.tsx:214',message:'cards source and shape preview',data:{usesImprovements:Boolean(improvements),cardsCount:cards.length,firstCardKeys:cards[0]?Object.keys(cards[0]):[]},timestamp:Date.now()})}).catch(()=>{})
+  // #endregion
+
   return (
     <div ref={ref}>
       {/* Groups as bordered boxes */}
@@ -304,9 +308,15 @@ export function BenchmarkGraph({
                   {card.percentage}
                 </span>
                 {(() => {
-                  const dir = card.direction ?? 'decrease'
+                  // #region agent log
+                  fetch('http://127.0.0.1:7252/ingest/a3a63f7f-e49a-4fe6-9a6a-73bd37c3e9eb',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'093ff5'},body:JSON.stringify({sessionId:'093ff5',runId:'pre-fix',hypothesisId:'H2',location:'components/docs/BenchmarkGraph.tsx:309',message:'card direction key presence',data:{title:card.title,hasDirection:'direction' in card,directionValue:'direction' in card ? card.direction ?? null : null},timestamp:Date.now()})}).catch(()=>{})
+                  // #endregion
+                  const dir = ('direction' in card ? card.direction : undefined) ?? 'decrease'
                   const isDecrease = dir === 'decrease'
                   const Icon = isDecrease ? TrendingDown : TrendingUp
+                  // #region agent log
+                  fetch('http://127.0.0.1:7252/ingest/a3a63f7f-e49a-4fe6-9a6a-73bd37c3e9eb',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'093ff5'},body:JSON.stringify({sessionId:'093ff5',runId:'pre-fix',hypothesisId:'H3',location:'components/docs/BenchmarkGraph.tsx:314',message:'direction fallback resolution',data:{title:card.title,resolvedDirection:dir,isDecrease},timestamp:Date.now()})}).catch(()=>{})
+                  // #endregion
                   return (
                     <span style={{
                       display: 'inline-flex',
